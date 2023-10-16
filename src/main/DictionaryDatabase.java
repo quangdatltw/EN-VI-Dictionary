@@ -1,43 +1,68 @@
 package main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DictionaryDatabase {
-    private static final String DB_NAME = "envidata";
-    private static final String USER_NAME = "InfelPhira";
-    private static final String PASSWORD = "METHOD_ACCESS";
-    private static final String MYSQL_URL = "jdbc:mysql://localhost:3306" + "/" + DB_NAME;
-
-    // Trong đó ://localhost:3306/"DB_NAME" là tên và đường dẫn tới CSDL.
     private static Connection connection = null;
 
-    public DictionaryDatabase(){
-        try {
-            // Kết nối tới CSDL theo đường dẫn MYSQL_URL, tài khoản đăng nhập là InfelPhira, pass là METHOD_ACCESS
-            connection = DriverManager.getConnection(MYSQL_URL, USER_NAME, PASSWORD);
-            System.out.print("Kết nối thành công");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private DictionaryDatabase(){
+            // db parameters
+            String url = "jdbc:sqlite:src/resources/sql/dictionary2.0.db";
+            try {
+                // create a connection to the database
+                connection = DriverManager.getConnection(url);
+                System.out.println("SQLite database connected!");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
     }
 
-    private static void close(Connection connection) {
+
+    /**
+     * Ngắt kết nối tới CSDL
+     */
+    public static void close() {
         try {
             if (connection != null) {
                 connection.close();
+                System.out.println("Database disconnected!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void close() {
-        close(connection);
-        System.out.println("Database disconnected!");
+
+    private ResultSet view(){
+        try {
+            // Khởi tạo đối tượng statement với connection là đối tượng đã kết nối tới CSDL
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM dictionary";
+            // Thực thi truy vấn thông qua statement và đưa kết quả trả về ResultSet bao gồm một tập hợp các hàng
+            return statement.executeQuery(sql);
+        } catch (SQLException e) {
+            return null;
+        }
     }
+
+    public static LocalDictionary getdictionary(){
+        ResultSet resultSet = new DictionaryDatabase().view();
+        LocalDictionary library = new LocalDictionary();
+        try {
+            while(resultSet != null && resultSet.next()){
+                library.addWord(resultSet.getString(2), resultSet.getString(3).replace("\\n", "\n"));
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        DictionaryDatabase.close();
+        return library;
+    }
+
     public static void main(String[] ar){
-        new DictionaryDatabase();
+            LocalDictionary library = getdictionary();
+            System.out.println(library.getDefinition("ar"));
     }
 }
 
