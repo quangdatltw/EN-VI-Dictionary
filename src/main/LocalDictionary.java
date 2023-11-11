@@ -1,23 +1,42 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+/**
+ * The type Local dictionary.
+ */
 public class LocalDictionary {
 
-        private final HashMap<String, String> dictionary;
+    private static HashMap<String, String> dictionary = new HashMap<>();
+    public static ArrayList<String> wordlist = new ArrayList<>();
 
-        public LocalDictionary() {
-            dictionary = new HashMap<>();
+    /**
+     * Thêm từ vào trong thư viện
+     *
+     * @param word là từ cần thêm
+     */
+    public static void toWordList(String word) {
+            wordlist.add(word);
         }
-        /**
-         * Thêm từ vào trong thư viện
-         * @param word là từ cần thêm
-         * @param definition là nghĩa của từ
-         */
-        public void addWord(String word, String definition) {
+
+    /**
+     * Add word.
+     *
+     * @param word       the word
+     * @param definition the definition
+     */
+    public static void addWord(String word, String definition) {
             dictionary.put(word.toLowerCase(), definition);
         }
 
-        public String getDefinition(String word) {
+    /**
+     * Gets definition.
+     *
+     * @param word the word
+     * @return the definition
+     */
+    public static String getDefinition(String word) {
             return dictionary.get(word.toLowerCase());
         }
     }

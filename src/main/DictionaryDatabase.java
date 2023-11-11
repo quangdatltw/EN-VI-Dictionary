@@ -25,7 +25,7 @@ public class DictionaryDatabase {
         try {
             if (connection != null) {
                 connection.close();
-                System.out.println("Database disconnected!");
+                System.out.println("Database disconnected!\n");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,6 +37,7 @@ public class DictionaryDatabase {
             // Khởi tạo đối tượng statement với connection là đối tượng đã kết nối tới CSDL
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM dictionary";
+
             // Thực thi truy vấn thông qua statement và đưa kết quả trả về ResultSet bao gồm một tập hợp các hàng
             return statement.executeQuery(sql);
         } catch (SQLException e) {
@@ -44,12 +45,13 @@ public class DictionaryDatabase {
         }
     }
 
-    public static LocalDictionary getdictionary(){
+    public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
-        LocalDictionary library = new LocalDictionary();
         try {
             while(resultSet != null && resultSet.next()){
-                library.addWord(resultSet.getString(2), resultSet.getString(3).replace("\\n", "\n"));
+                String word = resultSet.getString(2);
+                LocalDictionary.toWordList(word);
+                LocalDictionary.addWord(word, resultSet.getString(3).replace("\\n", "\n"));
             }
 
         } catch (SQLException e) {
@@ -57,12 +59,6 @@ public class DictionaryDatabase {
             e.printStackTrace();
         }
         DictionaryDatabase.close();
-        return library;
-    }
-
-    public static void main(String[] ar){
-            LocalDictionary library = getdictionary();
-            System.out.println(library.getDefinition("ar"));
     }
 }
 
