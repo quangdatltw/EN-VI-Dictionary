@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class DictionaryManagement {
     public static void insertFromCommandline() {
         Scanner scn = new Scanner(System.in);
-        Integer numOfWord = -1;
+        int numOfWord = -1;
         while (numOfWord < 1) {
             System.out.print("Number of Words: ");
             try {
@@ -28,7 +28,6 @@ public class DictionaryManagement {
                 LocalDictionary.addWord(word, definition);
                 System.out.println("-------------------------------------------------");
             }
-
     }
 
     public static void insertFromFile(String filePath) {
@@ -48,6 +47,24 @@ public class DictionaryManagement {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Please make sure file path is correct");
+        }
+    }
+
+    public static void dictionaryLookup() {
+        Scanner scn = new Scanner(System.in);
+        String word = "";
+        while (!word.equals("0")) {
+            System.out.println("[0] Return");
+            System.out.println("Word: ");
+            try {
+                word = scn.nextLine();
+            } catch (NullPointerException n) {
+                n.printStackTrace();
+            }
+            System.out.print("Definition: ");
+            System.out.println(LocalDictionary.getDefinition(word));
+            System.out.println("-------------------------------------------------");
         }
     }
 }

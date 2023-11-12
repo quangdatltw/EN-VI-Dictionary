@@ -47,10 +47,16 @@ public class DictionaryDatabase {
 
     public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
+        LocalDictionary.getIndex().add((Integer) 0);
         try {
+            char check = 'a';
             while(resultSet != null && resultSet.next()){
                 String word = resultSet.getString(2);
                 LocalDictionary.toWordList(word);
+                if (check != word.charAt(0) && (int) word.charAt(0) >= 97 && (int) word.charAt(0) <= 122) {
+                    LocalDictionary.getIndex().add(resultSet.getInt(1) - 1);
+                    check = word.charAt(0);
+                }
                 LocalDictionary.addWord(word, resultSet.getString(3).replace("\\n", "\n"));
             }
 

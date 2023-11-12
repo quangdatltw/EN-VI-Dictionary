@@ -1,13 +1,11 @@
 package main;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class DictionaryCommandline {
     public static void showAllWords() {
-        for (String word : LocalDictionary.wordlist) {
-            System.out.println(LocalDictionary.getDefinition(word)
-                    + "\n --------------------------------------------------");
+        for (Map.Entry<String, String> dictionary : LocalDictionary.getDictionary().entrySet()) {
+            System.out.println(dictionary.getValue() + "\n --------------------------------------------------");
         }
     }
 
@@ -19,11 +17,14 @@ public class DictionaryCommandline {
                         [0] Exit
                         [1] Add
                         [2] Display
-                        [3] Update""");
+                        [3] Update
+                        [4] Lookup
+                        [5] Search""");
             try {
                 para = scn.nextInt();
             } catch (InputMismatchException i) {
                 i.printStackTrace();
+                para = 10;
             }
             scn.nextLine();
             switch (para) {
@@ -41,9 +42,53 @@ public class DictionaryCommandline {
                     String filepath = scn.nextLine();
                     DictionaryManagement.insertFromFile(filepath);
                     break;
+                case 4:
+                    DictionaryManagement.dictionaryLookup();
+                    break;
+                case 5:
+                    dictionarySearcher();
+                    break;
                 default:
                     System.out.println("Command doesn't exist");
             }
+        }
+    }
+
+    public static void dictionarySearcher() {
+        Scanner scn = new Scanner(System.in);
+        String find = null;
+        while (find == null || find.isEmpty()) {
+            System.out.print("Find: ");
+            try {
+                find = scn.nextLine();
+            } catch (NullPointerException n) {
+                n.printStackTrace();
+                System.out.println("There is no input");
+            }
+        }
+        Integer begin = null;
+        Integer end = LocalDictionary.getWordlist().size();
+        try {
+            begin = LocalDictionary.getIndex().get((int) find.charAt(0) - 97);
+            if ((int) begin == 122) {
+                end = LocalDictionary.getIndex().get((int) find.charAt(0) - 96) - 1;
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            System.out.println("There are no words start with:" + find);
+        }
+        List<String> wordlist = LocalDictionary.getWordlist();
+        wordlist = wordlist.subList(begin, end);
+        boolean noexist = true;
+        for (String word : wordlist) {
+            if (word.matches(find + "(.*)")) {
+                System.out.println(word);
+                noexist = false;
+            }
+        }
+        if (noexist) {
+            System.out.println("There are no words start with:" + find);
         }
     }
     public static void main(String[] args) {
