@@ -17,10 +17,6 @@ public class DictionaryDatabase {
             }
     }
 
-
-    /**
-     * Ngắt kết nối tới CSDL
-     */
     public static void close() {
         try {
             if (connection != null) {
@@ -47,7 +43,7 @@ public class DictionaryDatabase {
 
     public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
-        LocalDictionary.getIndex().add((Integer) 0);
+        LocalDictionary.getIndex().add(0);
         try {
             char check = 'a';
             while(resultSet != null && resultSet.next()){
@@ -61,7 +57,6 @@ public class DictionaryDatabase {
             }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         DictionaryDatabase.close();

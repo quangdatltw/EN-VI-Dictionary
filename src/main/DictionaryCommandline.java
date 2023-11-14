@@ -4,8 +4,9 @@ import java.util.*;
 
 public class DictionaryCommandline {
     public static void showAllWords() {
-        for (Map.Entry<String, String> dictionary : LocalDictionary.getDictionary().entrySet()) {
-            System.out.println(dictionary.getValue() + "\n --------------------------------------------------");
+        for (String i : LocalDictionary.getWordlist()) {
+            System.out.println(LocalDictionary.getDefinition(i)
+                    + "\n --------------------------------------------------");
         }
     }
 
@@ -38,9 +39,7 @@ public class DictionaryCommandline {
                     showAllWords();
                     break;
                 case 3:
-                    System.out.println("File path:");
-                    String filepath = scn.nextLine();
-                    DictionaryManagement.insertFromFile(filepath);
+                    DictionaryManagement.insertFromFile();
                     break;
                 case 4:
                     DictionaryManagement.dictionaryLookup();
@@ -66,11 +65,11 @@ public class DictionaryCommandline {
                 System.out.println("There is no input");
             }
         }
-        Integer begin = null;
-        Integer end = LocalDictionary.getWordlist().size();
+        int begin = 0;
+        int end = LocalDictionary.getWordlist().size();
         try {
             begin = LocalDictionary.getIndex().get((int) find.charAt(0) - 97);
-            if ((int) begin == 122) {
+            if (begin == 122) {
                 end = LocalDictionary.getIndex().get((int) find.charAt(0) - 96) - 1;
             }
 
