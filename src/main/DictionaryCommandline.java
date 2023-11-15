@@ -17,11 +17,12 @@ public class DictionaryCommandline {
             System.out.println("""
                         [0] Exit
                         [1] Add
-                        [2] Display
+                        [2] Remove
                         [3] Update
-                        [4] Lookup
-                        [5] Search
-                        [6] Insert from file""");
+                        [4] Display
+                        [5] Lookup
+                        [6] Search
+                        [7] Insert from file""");
             try {
                 para = scn.nextInt();
             } catch (InputMismatchException i) {
@@ -37,18 +38,22 @@ public class DictionaryCommandline {
                     DictionaryManagement.insertFromCommandline();
                     break;
                 case 2:
-                    showAllWords();
+                    DictionaryManagement.dictionaryRemove();
                     break;
                 case 3:
                     DictionaryManagement.dictionaryUpdate();
                     break;
                 case 4:
-                    DictionaryManagement.dictionaryLookup();
+                    showAllWords();
                     break;
                 case 5:
-                    dictionarySearcher();
+                    DictionaryManagement.dictionaryLookup();
+
                     break;
                 case 6:
+                    dictionarySearcher();
+                    break;
+                case 7:
                     DictionaryManagement.insertFromFile();
                     break;
                 default:
@@ -94,6 +99,7 @@ public class DictionaryCommandline {
             System.out.println("There are no words start with:" + find);
         }
     }
+
     public static void main(String[] args) {
             DictionaryDatabase.loadLocalDictionary();
             dictionaryBasic();
