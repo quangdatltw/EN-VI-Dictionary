@@ -53,7 +53,7 @@ public class DictionaryDatabase {
                     LocalDictionary.getIndex().add(resultSet.getInt(1) - 1);
                     check = word.charAt(0);
                 }
-                LocalDictionary.addWord(word, resultSet.getString(3).replace("\\n", "\n"));
+                LocalDictionary.putWord(word, resultSet.getString(3).replace("\\n", "\n"));
             }
 
         } catch (SQLException e) {

@@ -1,14 +1,11 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DictionaryManagement {
+    public static Scanner scn = new Scanner(System.in);
     public static void insertFromCommandline() {
-        Scanner scn = new Scanner(System.in);
         int numOfWord = -1;
         while (numOfWord < 1) {
             System.out.print("Number of words to add: ");
@@ -20,28 +17,28 @@ public class DictionaryManagement {
             scn.nextLine();
         }
             for (int i = 1; i <= numOfWord; i++) {
-                System.out.print("Word: ");
+                System.out.print("Word to insert: ");
                 String word = scn.nextLine();
                 if (!LocalDictionary.getDefinition(word).equals("word not found! \n")) {
                     System.out.print("Word already exist! \n Do you want to update this word? [Y/N]: ");
                     String answer = scn.nextLine();
                     if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
-
+                        InputHandle.inputUpdateDefinition(word);
+                        continue;
                     } else {
                         continue;
                     }
                 }
                 System.out.print("Definition: ");
-                String definition = word + "\n" + InputHandle.inputDefinition();
+                String definition = word + InputHandle.inputDefinition();
                 LocalDictionary.toWordList(word);
-                LocalDictionary.addWord(word, definition);
+                LocalDictionary.putWord(word, definition);
                 System.out.println("-------------------------------------------------");
             }
     }
 
 
     public static void insertFromFile() {
-        Scanner scn = new Scanner(System.in);
         String result = null;
         String filePath;
         while (result == null) {
@@ -56,18 +53,30 @@ public class DictionaryManagement {
     }
 
     public static void dictionaryLookup() {
-        Scanner scn = new Scanner(System.in);
         String word = "";
-        while (!word.equals("0")) {
-            System.out.println("[0] Return");
-            System.out.print("Word: ");
+        while (true) {
+            System.out.println("[0] Exit");
+            System.out.print("Word to lookup: ");
             try {
                 word = scn.nextLine();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
-            if ("word not found! \n".equals(LocalDictionary.getDefinition(word))) {
-                System.out.println("word not found! \n");
+            if (word.equals("0")) {
+                break;
+            }
+            if ("word not found! \n".equals(LocalDictionary.getDefinition(word)) ) {
+                System.out.println("word not found! \n" + "Do you want to add this word? [Y/N]:");
+                String answer = scn.nextLine();
+                if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
+                    System.out.println("Word: " + word);
+                    System.out.println("Definition: ");
+                    String definition = word + InputHandle.inputDefinition();
+                    LocalDictionary.toWordList(word);
+                    LocalDictionary.putWord(word, definition);
+                } else {
+                    continue;
+                }
             } else {
                 System.out.println("Definition: ");
                 System.out.println(LocalDictionary.getDefinition(word));
@@ -75,4 +84,39 @@ public class DictionaryManagement {
             System.out.println("-------------------------------------------------");
         }
     }
+
+    public static void dictionaryUpdate() {
+        String word = "";
+        while (true) {
+            System.out.println("[0] Exit");
+            System.out.print("Word to update: ");
+            try {
+                word = scn.nextLine();
+            } catch (NullPointerException n) {
+                n.printStackTrace();
+            }
+            if (word.equals("0")) {
+                break;
+            }
+            if ("word not found! \n".equals(LocalDictionary.getDefinition(word))) {
+                System.out.println("word not found! \n" + "Do you want to add this word? [Y/N]:");
+                String answer = scn.nextLine();
+                if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
+                    System.out.println("Word: " + word);
+                    System.out.println("Definition: ");
+                    String definition = word + InputHandle.inputDefinition();
+                    LocalDictionary.toWordList(word);
+                    LocalDictionary.putWord(word, definition);
+                } else {
+                    continue;
+                }
+            } else {
+                System.out.println("This is word definition: ");
+                System.out.println(LocalDictionary.getDefinition(word));
+                InputHandle.inputUpdateDefinition(word);
+            }
+            System.out.println("-------------------------------------------------");
+        }
+    }
+
 }

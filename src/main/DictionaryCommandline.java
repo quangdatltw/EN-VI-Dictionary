@@ -20,7 +20,8 @@ public class DictionaryCommandline {
                         [2] Display
                         [3] Update
                         [4] Lookup
-                        [5] Search""");
+                        [5] Search
+                        [6] Insert from file""");
             try {
                 para = scn.nextInt();
             } catch (InputMismatchException i) {
@@ -39,13 +40,16 @@ public class DictionaryCommandline {
                     showAllWords();
                     break;
                 case 3:
-                    DictionaryManagement.insertFromFile();
+                    DictionaryManagement.dictionaryUpdate();
                     break;
                 case 4:
                     DictionaryManagement.dictionaryLookup();
                     break;
                 case 5:
                     dictionarySearcher();
+                    break;
+                case 6:
+                    DictionaryManagement.insertFromFile();
                     break;
                 default:
                     System.out.println("Command doesn't exist");

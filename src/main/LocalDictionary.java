@@ -26,7 +26,7 @@ public class LocalDictionary {
         wordlist.add(word);
     }
 
-    public static void addWord(String word, String definition) {
+    public static void putWord(String word, String definition) {
         dictionary.put(word.toLowerCase(), definition);
     }
 
