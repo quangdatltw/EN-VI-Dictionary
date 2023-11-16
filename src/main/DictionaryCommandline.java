@@ -6,11 +6,11 @@ public class DictionaryCommandline {
     public static void showAllWords() {
         for (String i : LocalDictionary.getWordlist()) {
             System.out.println(LocalDictionary.getDefinition(i)
-                    + "\n --------------------------------------------------");
+                    + "\n----------------------------------------------------");
         }
     }
 
-    public static void dictionaryBasic() {
+    public static void dictionaryAdvanced() {
         int para = 10;
         while (para != 0) {
             Scanner scn = new Scanner(System.in);
@@ -22,7 +22,9 @@ public class DictionaryCommandline {
                         [4] Display
                         [5] Lookup
                         [6] Search
-                        [7] Insert from file""");
+                        [7] Game
+                        [8] Insert from file
+                        [9] Export to file""");
             try {
                 para = scn.nextInt();
             } catch (InputMismatchException i) {
@@ -54,10 +56,16 @@ public class DictionaryCommandline {
                     dictionarySearcher();
                     break;
                 case 7:
+
+                    break;
+                case 8:
                     DictionaryManagement.insertFromFile();
                     break;
+                case 9:
+                    DictionaryManagement.dictionaryExportToFile();
+                    break;
                 default:
-                    System.out.println("Command doesn't exist");
+                    System.out.println("Action not supported");
             }
         }
     }
@@ -100,8 +108,10 @@ public class DictionaryCommandline {
         }
     }
 
+    static {
+        DictionaryDatabase.loadLocalDictionary();
+        dictionaryAdvanced();
+    }
     public static void main(String[] args) {
-            DictionaryDatabase.loadLocalDictionary();
-            dictionaryBasic();
     }
 }

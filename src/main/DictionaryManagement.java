@@ -1,5 +1,7 @@
 package main;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -24,14 +26,11 @@ public class DictionaryManagement {
                     String answer = scn.nextLine();
                     if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
                         InputHandle.inputUpdateDefinition(word);
-                        continue;
-                    } else {
-                        continue;
                     }
+                    continue;
                 }
                 System.out.print("Definition: ");
                 String definition = word + InputHandle.inputDefinition();
-                LocalDictionary.toWordList(word);
                 LocalDictionary.putWord(word, definition);
                 System.out.println("-------------------------------------------------");
             }
@@ -57,7 +56,6 @@ public class DictionaryManagement {
                     System.out.println("Word: " + word);
                     System.out.println("Definition: ");
                     String definition = word + InputHandle.inputDefinition();
-                    LocalDictionary.toWordList(word);
                     LocalDictionary.putWord(word, definition);
                 } else {
                     continue;
@@ -113,7 +111,6 @@ public class DictionaryManagement {
                     System.out.println("Word: " + word);
                     System.out.println("Definition: ");
                     String definition = word + InputHandle.inputDefinition();
-                    LocalDictionary.toWordList(word);
                     LocalDictionary.putWord(word, definition);
                 } else {
                     continue;
@@ -139,5 +136,20 @@ public class DictionaryManagement {
         }
         System.out.println(result);
     }
+
+    public static void dictionaryExportToFile() {
+        try (FileWriter writer = new FileWriter("Dictionary_EX.txt")) {
+            String def;
+            for (String word : LocalDictionary.getWordlist()) {
+                def = LocalDictionary.getDefinition(word).replace("\n", "\\n");
+                writer.write(word + "\t" + def + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("Dictionary exported: EN-VI-Dictionary\\Dictionary_Ex.txt");
+    }
+
 
 }

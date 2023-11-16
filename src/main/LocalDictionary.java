@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class LocalDictionary {
@@ -19,11 +20,19 @@ public class LocalDictionary {
         return index;
     }
 
-    public static void toWordList(String word) {
-        wordlist.add(word);
-    }
-
     public static void putWord(String word, String definition) {
+        String theOneThatCall;
+        int idx = Collections.binarySearch(wordlist, word);
+        if (idx < 0) {
+            idx = - idx - 1;
+        }
+        theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
+        if (!theOneThatCall.substring(theOneThatCall.indexOf(".") + 1).equals("DictionaryDatabase")) {
+            for (int i =(int) word.charAt(0) - 96; i < 26; i++) {
+                index.set(i, index.get(i) + 1);
+            }
+        }
+        wordlist.add(idx, word);
         dictionary.put(word.toLowerCase(), definition);
     }
 

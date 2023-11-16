@@ -71,7 +71,7 @@ public class InputHandle {
     }
     public static String inputDefinition() {
 
-        String def = "";
+        StringBuilder def = new StringBuilder();
         String str;
         System.out.println("""
                         Rules: Remember ENTER if you have nothing to write in.
@@ -100,45 +100,43 @@ public class InputHandle {
                 if (str.equals("YES")) {
                     System.out.print("- ");
                     str = scn.nextLine();
-                    def = def + "\n" + w + " " + str + "\n";
+                    def.append("\n").append(w).append(" ").append(str).append("\n");
                     System.out.print("Ý nghĩa thành ngữ: ");
                     str = scn.nextLine();
-                    def = def + "    - " + str;
-                    continue;
-                } else {
-                    continue;
+                    def.append("    - ").append(str);
                 }
+                continue;
             }
             if (scn.nextLine().equals("YES")) {
                 System.out.print("- ");
-                def = def + "\n" + w + inputWordTypeMeaning();
+                def.append("\n").append(w).append(inputWordTypeMeaning());
             }
         }
-        return def;
+        return def.toString();
     }
 
     public static String inputWordTypeMeaning() {
-        String wtm = "";
+        StringBuilder wtm = new StringBuilder();
         String str = scn.nextLine();
         while (!str.isEmpty()) {
             System.out.print("VD: ");
             String ex = inputExample();
-            wtm = wtm + "\n" + "    - " + str + ex;
+            wtm.append("\n").append("    - ").append(str).append(ex);
             System.out.print("- ");
             str = scn.nextLine();
         }
-        return wtm;
+        return wtm.toString();
     }
 
     public static String inputExample() {
-        String ex = "";
+        StringBuilder ex = new StringBuilder();
         String str = scn.nextLine();
         while (!str.isEmpty()) {
-            ex = ex + "\n" + "        VD: " + str ;
+            ex.append("\n").append("        VD: ").append(str);
             System.out.print("VD: ");
             str = scn.nextLine();
         }
-        return ex;
+        return ex.toString();
     }
 
     public static String inputFile(String filePath) {
@@ -150,9 +148,7 @@ public class InputHandle {
 
                 if (parts.length == 2) {
                     String key = parts[0];
-                    String value = parts[1];
-
-                    LocalDictionary.toWordList(key);
+                    String value = parts[1].replace("\\n", "\n");
                     LocalDictionary.putWord(key, value);
                 }
             }
