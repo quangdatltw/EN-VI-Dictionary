@@ -20,7 +20,11 @@ public class DictionaryManagement {
         }
             for (int i = 1; i <= numOfWord; i++) {
                 System.out.print("Word to insert: ");
-                String word = scn.nextLine();
+                String word = scn.nextLine().toLowerCase();
+                if ((int) word.charAt(0) < 97 || (int) word.charAt(0) > 122) {
+                    System.out.println("\nWord should start with a letter from alphabet");
+                    continue;
+                }
                 if (!LocalDictionary.getDefinition(word).equals("word not found! \n")) {
                     System.out.print("Word already exist! \n Do you want to update this word? [Y/N]: ");
                     String answer = scn.nextLine();
@@ -42,12 +46,16 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to update: ");
             try {
-                word = scn.nextLine();
+                word = scn.nextLine().toLowerCase();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
             if (word.equals("0")) {
                 break;
+            }
+            if ((int) word.charAt(0) < 97 || (int) word.charAt(0) > 122) {
+                System.out.println("\nWord should start with a letter from alphabet");
+                continue;
             }
             if ("word not found! \n".equals(LocalDictionary.getDefinition(word))) {
                 System.out.println("word not found! \n" + "Do you want to add this word? [Y/N]:");
@@ -75,7 +83,7 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to remove: ");
             try {
-                word = scn.nextLine();
+                word = scn.nextLine().toLowerCase();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
@@ -97,7 +105,7 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to lookup: ");
             try {
-                word = scn.nextLine();
+                word = scn.nextLine().toLowerCase();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
@@ -109,14 +117,14 @@ public class DictionaryManagement {
                 String answer = scn.nextLine();
                 if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) {
                     System.out.println("Word: " + word);
-                    System.out.println("Definition: ");
+                    System.out.println("Definition:  ");
                     String definition = word + InputHandle.inputDefinition();
                     LocalDictionary.putWord(word, definition);
                 } else {
                     continue;
                 }
             } else {
-                System.out.println("Definition: ");
+                System.out.print("Definition: ");
                 System.out.println(LocalDictionary.getDefinition(word));
             }
             System.out.println("-------------------------------------------------");

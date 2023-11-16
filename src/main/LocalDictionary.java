@@ -21,6 +21,10 @@ public class LocalDictionary {
     }
 
     public static void putWord(String word, String definition) {
+        if (dictionary.get(word) != null) {
+            dictionary.put(word.toLowerCase(), definition);
+            return;
+        }
         String theOneThatCall;
         int idx = Collections.binarySearch(wordlist, word);
         if (idx < 0) {
@@ -28,7 +32,11 @@ public class LocalDictionary {
         }
         theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
         if (!theOneThatCall.substring(theOneThatCall.indexOf(".") + 1).equals("DictionaryDatabase")) {
-            for (int i =(int) word.charAt(0) - 96; i < 26; i++) {
+            int start = (int) word.charAt(0) - 96;
+            if (start <= 0) {
+                start = 0;
+            }
+            for (int i = start; i < 26; i++) {
                 index.set(i, index.get(i) + 1);
             }
         }

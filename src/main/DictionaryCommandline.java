@@ -3,12 +3,6 @@ package main;
 import java.util.*;
 
 public class DictionaryCommandline {
-    public static void showAllWords() {
-        for (String i : LocalDictionary.getWordlist()) {
-            System.out.println(LocalDictionary.getDefinition(i)
-                    + "\n----------------------------------------------------");
-        }
-    }
 
     public static void dictionaryAdvanced() {
         int para = 10;
@@ -50,7 +44,6 @@ public class DictionaryCommandline {
                     break;
                 case 5:
                     DictionaryManagement.dictionaryLookup();
-
                     break;
                 case 6:
                     dictionarySearcher();
@@ -70,13 +63,20 @@ public class DictionaryCommandline {
         }
     }
 
+    public static void showAllWords() {
+        for (String i : LocalDictionary.getWordlist()) {
+            System.out.println(LocalDictionary.getDefinition(i)
+                    + "\n----------------------------------------------------");
+        }
+    }
+
     public static void dictionarySearcher() {
         Scanner scn = new Scanner(System.in);
         String find = null;
         while (find == null || find.isEmpty()) {
             System.out.print("Find: ");
             try {
-                find = scn.nextLine();
+                find = scn.nextLine().toLowerCase();
             } catch (NullPointerException n) {
                 n.printStackTrace();
                 System.out.println("There is no input");
@@ -96,14 +96,14 @@ public class DictionaryCommandline {
         }
         List<String> wordlist = LocalDictionary.getWordlist();
         wordlist = wordlist.subList(begin, end);
-        boolean noexist = true;
+        boolean nonexistentword = true;
         for (String word : wordlist) {
             if (word.matches(find + "(.*)")) {
                 System.out.println(word);
-                noexist = false;
+                nonexistentword = false;
             }
         }
-        if (noexist) {
+        if (nonexistentword) {
             System.out.println("There are no words start with:" + find);
         }
     }

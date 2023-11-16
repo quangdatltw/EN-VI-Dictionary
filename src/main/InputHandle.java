@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputHandle {
+    @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
     private static final String[] wordTypesE = {"* Danh từ:", "* Động từ:", "* Tính từ:", "* Trạng từ:", "* Giới từ:", "* Phó từ:", "! Thành ngữ:","* Nội động từ:", "* Ngoại động từ:"};
 
@@ -74,6 +75,7 @@ public class InputHandle {
         StringBuilder def = new StringBuilder();
         String str;
         System.out.println("""
+                        
                         Rules: Remember ENTER if you have nothing to write in.
                         Type 'YES' (Only for word type) if there are meaning for that word type.
                         The structure will like this:
