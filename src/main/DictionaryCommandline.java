@@ -1,5 +1,9 @@
 package main;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 public class DictionaryCommandline {
@@ -49,7 +53,14 @@ public class DictionaryCommandline {
                     dictionarySearcher();
                     break;
                 case 7:
-
+                    try {
+                        TextToSpeechAPI.textToSpeech();
+                    } catch (IOException | LineUnavailableException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedAudioFileException | URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                    TranslateAPI.sentenceTranslator();
                     break;
                 case 8:
                     DictionaryManagement.insertFromFile();
@@ -76,7 +87,7 @@ public class DictionaryCommandline {
         while (find == null || find.isEmpty()) {
             System.out.print("Find: ");
             try {
-                find = scn.nextLine().toLowerCase();
+                find = scn.nextLine().toLowerCase().trim();
             } catch (NullPointerException n) {
                 n.printStackTrace();
                 System.out.println("There is no input");

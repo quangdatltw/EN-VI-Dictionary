@@ -70,6 +70,7 @@ public class InputHandle {
             }
         }
     }
+
     public static String inputDefinition() {
 
         StringBuilder def = new StringBuilder();
@@ -130,7 +131,7 @@ public class InputHandle {
         return wtm.toString();
     }
 
-    public static String inputExample() {
+    private static String inputExample() {
         StringBuilder ex = new StringBuilder();
         String str = scn.nextLine();
         while (!str.isEmpty()) {
@@ -162,4 +163,5 @@ public class InputHandle {
         }
         return "Load from file succeed";
     }
+
 }

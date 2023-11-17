@@ -8,7 +8,6 @@ public class LocalDictionary {
 
     private static HashMap<String, String> dictionary = new HashMap<>();
     private static ArrayList<String> wordlist = new ArrayList<>();
-
     private static ArrayList<Integer> index = new ArrayList<>();
 
 

@@ -20,7 +20,7 @@ public class DictionaryManagement {
         }
             for (int i = 1; i <= numOfWord; i++) {
                 System.out.print("Word to insert: ");
-                String word = scn.nextLine().toLowerCase();
+                String word = scn.nextLine().toLowerCase().trim();
                 if ((int) word.charAt(0) < 97 || (int) word.charAt(0) > 122) {
                     System.out.println("\nWord should start with a letter from alphabet");
                     continue;
@@ -46,7 +46,7 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to update: ");
             try {
-                word = scn.nextLine().toLowerCase();
+                word = scn.nextLine().toLowerCase().trim();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
@@ -83,7 +83,7 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to remove: ");
             try {
-                word = scn.nextLine().toLowerCase();
+                word = scn.nextLine().toLowerCase().trim();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
@@ -105,7 +105,7 @@ public class DictionaryManagement {
             System.out.println("[0] Exit");
             System.out.print("Word to lookup: ");
             try {
-                word = scn.nextLine().toLowerCase();
+                word = scn.nextLine().toLowerCase().trim();
             } catch (NullPointerException n) {
                 n.printStackTrace();
             }
@@ -136,7 +136,7 @@ public class DictionaryManagement {
         String filePath;
         while (result == null) {
             System.out.println("File path:");
-            filePath = scn.nextLine();
+            filePath = scn.nextLine().trim();
             if (filePath.equals("0")) {
                 break;
             }
