@@ -8,7 +8,7 @@ public class LocalDictionary {
 
     private static HashMap<String, String> dictionary = new HashMap<>();
     private static ArrayList<String> wordlist = new ArrayList<>();
-    private static ArrayList<Integer> index = new ArrayList<>();
+    private static ArrayList<Integer> index = new ArrayList<>(Collections.nCopies(26, 0));
 
 
     public static ArrayList<String> getWordlist() {
@@ -22,20 +22,29 @@ public class LocalDictionary {
     public static void putWord(String word, String definition) {
         if (checkWord(word)) {
             dictionary.put(word, definition);
+            return;
         }
         int idx = Collections.binarySearch(wordlist, word);
         if (idx < 0) {
             idx = - idx - 1;
         }
-
+        if (idx > wordlist.size()) {
+            idx = 0;
+        }
         String theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
-        if (!theOneThatCall.contains("DictionaryDatabase")) {
-            int start = (int) word.charAt(0) - 96;
-            for (int i = start; i < 26; i++) {
-                index.set(i, index.get(i) + 1);
-            }
+        if (theOneThatCall.contains("DictionaryDatabase")) {
+            wordlist.add(word);
+            dictionary.put(word, definition);
+            return;
         }
 
+        int start = (int) word.charAt(0) - 96;
+        if (start < 0) {
+            start = 0;
+        }
+        for (int i = start; i < 26; i++) {
+            index.set(i, index.get(i) + 1);
+        }
         wordlist.add(idx, word);
         dictionary.put(word, definition);
     }

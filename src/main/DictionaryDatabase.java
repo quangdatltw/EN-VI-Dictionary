@@ -30,7 +30,6 @@ public class DictionaryDatabase {
 
     private ResultSet view(){
         try {
-
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM dictionary";
             return statement.executeQuery(sql);
@@ -41,13 +40,12 @@ public class DictionaryDatabase {
 
     public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
-        LocalDictionary.getIndex().add(0);
         try {
             char check = 'a';
             while(resultSet != null && resultSet.next()){
                 String word = resultSet.getString(2);
-                if (check != word.charAt(0) && (int) word.charAt(0) >= 97 && (int) word.charAt(0) <= 122) {
-                    LocalDictionary.getIndex().add(resultSet.getInt(1) - 1);
+                if (check != word.charAt(0) && (int) word.charAt(0) >= 98 && (int) word.charAt(0) <= 122) {
+                    LocalDictionary.getIndex().set(word.charAt(0) - 97, resultSet.getInt(1) - 1);
                     check = word.charAt(0);
                 }
                 LocalDictionary.putWord(word, resultSet.getString(3).replace("\\n", "\n"));

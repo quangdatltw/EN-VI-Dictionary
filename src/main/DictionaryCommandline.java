@@ -91,22 +91,24 @@ public class DictionaryCommandline {
             if (begin == 122) {
                 end = LocalDictionary.getIndex().get((int) find.charAt(0) - 96) - 1;
             }
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-            System.out.println("There are no words start with:" + find);
-        }
+        } catch (IndexOutOfBoundsException ignored) {}
+
         wordlist = wordlist.subList(begin, end);
 
         boolean nonexistentword = true;
-        for (String word : wordlist) {
-            if (word.matches(find + "(.*)")) {
-                System.out.println(word);
-                nonexistentword = false;
+        try {
+            for (String word : wordlist) {
+
+                if (word.matches(find + "(.*)")) {
+                    System.out.println(word);
+                    nonexistentword = false;
+                }
             }
-        }
+        } catch (Exception ignored) {}
         if (nonexistentword) {
             System.out.println("There are no words start with:" + find);
         }
+        System.out.println("----------------------------------------------------");
     }
 
     static {

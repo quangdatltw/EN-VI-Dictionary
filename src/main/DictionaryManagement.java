@@ -93,10 +93,6 @@ public class DictionaryManagement {
             System.out.println("Input is empty");
             return 1;
         }
-        if ((int) word.charAt(0) < 97 || (int) word.charAt(0) > 122) {
-            System.out.println("\nWord should start with a letter from alphabet");
-            return 1;
-        }
 
         if (!LocalDictionary.checkWord(word) && mode == 1) {
             System.out.println("word not found! \n" + "Do you want to add this word? [Y/N]: ");
@@ -125,7 +121,7 @@ public class DictionaryManagement {
         String filePath;
         while (result == null) {
             System.out.println("File path:");
-            filePath = scn.nextLine().trim();
+            filePath = scn.nextLine();
             if (filePath.equals("0")) {
                 break;
             }
