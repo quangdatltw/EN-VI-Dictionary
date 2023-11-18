@@ -1,10 +1,8 @@
 package main;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class DictionaryCommandline {
 
@@ -53,17 +51,10 @@ public class DictionaryCommandline {
                     dictionarySearcher();
                     break;
                 case 7:
-                    try {
-                        TextToSpeechAPI.textToSpeech();
-                    } catch (IOException | LineUnavailableException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedAudioFileException | URISyntaxException e) {
-                        throw new RuntimeException(e);
-                    }
                     TranslateAPI.sentenceTranslator();
                     break;
                 case 8:
-                    DictionaryManagement.insertFromFile();
+                    DictionaryManagement.dictionaryinsertFromFile();
                     break;
                 case 9:
                     DictionaryManagement.dictionaryExportToFile();
@@ -83,30 +74,29 @@ public class DictionaryCommandline {
 
     public static void dictionarySearcher() {
         Scanner scn = new Scanner(System.in);
-        String find = null;
-        while (find == null || find.isEmpty()) {
+        String find = "";
+        while (find.isEmpty()) {
             System.out.print("Find: ");
-            try {
-                find = scn.nextLine().toLowerCase().trim();
-            } catch (NullPointerException n) {
-                n.printStackTrace();
-                System.out.println("There is no input");
+            find = scn.nextLine().toLowerCase().trim();
+            if (find.isEmpty()) {
+                System.out.println("There is no input.");
             }
         }
+        List<String> wordlist = LocalDictionary.getWordlist();
         int begin = 0;
-        int end = LocalDictionary.getWordlist().size();
+        int end = wordlist.size() - 1;
+
         try {
             begin = LocalDictionary.getIndex().get((int) find.charAt(0) - 97);
             if (begin == 122) {
                 end = LocalDictionary.getIndex().get((int) find.charAt(0) - 96) - 1;
             }
-
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             System.out.println("There are no words start with:" + find);
         }
-        List<String> wordlist = LocalDictionary.getWordlist();
         wordlist = wordlist.subList(begin, end);
+
         boolean nonexistentword = true;
         for (String word : wordlist) {
             if (word.matches(find + "(.*)")) {

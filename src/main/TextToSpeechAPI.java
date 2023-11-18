@@ -1,15 +1,13 @@
 package main;
 
 
-import javax.sound.sampled.*;
-import java.io.IOException;
+import javazoom.jl.player.Player;
+
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 
@@ -18,22 +16,24 @@ public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
-    public static void textToSpeech() throws IOException, LineUnavailableException, UnsupportedAudioFileException, URISyntaxException {
-        byte[] audioData = getApiUrl();
-        playAudio(audioData);
-        String replay;
+    public static void textToSpeech() {
+        String apiUrl = getApiUrl();
+        playAudio(apiUrl);
         while (true) {
             System.out.println("""
                     Replay? [Y/N]""");
-            replay = scn.nextLine();
-            if (replay.equals("N")) {
+            if (!scn.nextLine().equalsIgnoreCase("Y")) {
                 break;
             }
-            playAudio(audioData);
+            try {
+                playAudio(apiUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static byte[] getApiUrl() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    private static String getApiUrl() {
         String sentence = "";
         System.out.print("""
                         Text to speech.
@@ -45,36 +45,29 @@ public class TextToSpeechAPI {
         } catch (NullPointerException n) {
             n.printStackTrace();
         }
-        //String detectL = TranslateAPI.detectLanguage(sentence);
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://text-to-speech27.p.rapidapi.com/speech?text=hello%20world&lang=en-us"))
-                .header("X-RapidAPI-Key", "296277a360msh3e84e9e818459c4p1dfa46jsne15e968d0106")
-                .header("X-RapidAPI-Host", "text-to-speech27.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = null;
+        String detectL = TranslateAPI.detectLanguage(sentence);
+        String apiUrl = "";
         try {
-            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+             apiUrl = "https://translate.google.com/translate_tts?ie=UTF-8&tl="
+                     + detectL
+                     + "&client=tw-ob&q="
+                     + URLEncoder.encode(sentence, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error in getting voices");
         }
-        URL connection = response.uri().toURL();
-        InputStream inURL = connection.openStream();
-        AudioInputStream stream = AudioSystem.getAudioInputStream(connection);
-        Clip clip = AudioSystem.getClip();
-        clip.open(stream);
-        clip.start();
-        clip.drain();
-        clip.close();
-        return inURL.readAllBytes();
+        return apiUrl;
     }
 
-    private static void playAudio(byte[] audioData) throws LineUnavailableException {
-        AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100.0f, 16, 1, 2, 44100.0f, false);
-        Clip clip = AudioSystem.getClip();
-        clip.open(format, audioData, 0, audioData.length);
-        clip.start();
-        clip.drain();
-        clip.close();
+    private static void playAudio(String api) {
+        try {
+            URL url = new URL(api);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            InputStream audio = con.getInputStream();
+            new Player(audio).play();
+            con.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

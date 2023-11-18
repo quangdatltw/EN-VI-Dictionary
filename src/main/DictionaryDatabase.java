@@ -30,11 +30,9 @@ public class DictionaryDatabase {
 
     private ResultSet view(){
         try {
-            // Khởi tạo đối tượng statement với connection là đối tượng đã kết nối tới CSDL
+
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM dictionary";
-
-            // Thực thi truy vấn thông qua statement và đưa kết quả trả về ResultSet bao gồm một tập hợp các hàng
             return statement.executeQuery(sql);
         } catch (SQLException e) {
             return null;
@@ -54,10 +52,13 @@ public class DictionaryDatabase {
                 }
                 LocalDictionary.putWord(word, resultSet.getString(3).replace("\\n", "\n"));
             }
-
+            if (resultSet != null) {
+                resultSet.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         DictionaryDatabase.close();
     }
 }

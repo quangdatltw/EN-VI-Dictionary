@@ -11,6 +11,17 @@ public class InputHandle {
     private static Scanner scn = new Scanner(System.in);
     private static final String[] wordTypesE = {"* Danh từ:", "* Động từ:", "* Tính từ:", "* Trạng từ:", "* Giới từ:", "* Phó từ:", "! Thành ngữ:","* Nội động từ:", "* Ngoại động từ:"};
 
+    public static String inputString() {
+        System.out.println("[0] Exit");
+        System.out.print("Input: ");
+        try {
+            return scn.nextLine().toLowerCase().trim();
+        } catch (NullPointerException n) {
+            n.printStackTrace();
+            return "404";
+        }
+    }
+
     public static void inputUpdateDefinition(String word) {
         int para = 10;
         String str;
@@ -64,7 +75,7 @@ public class InputHandle {
                         System.out.println(wordType);
                         System.out.print("- ");
                         wordDef = wordDef + "\n" + wordType + inputWordTypeMeaning();
-                        LocalDictionary.putWord(word, wordDef);
+                        LocalDictionary.updateWord(word, wordDef);
                     }
                 }
             }

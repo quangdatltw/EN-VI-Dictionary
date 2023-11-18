@@ -20,27 +20,28 @@ public class LocalDictionary {
     }
 
     public static void putWord(String word, String definition) {
-        if (dictionary.get(word) != null) {
-            dictionary.put(word.toLowerCase(), definition);
-            return;
+        if (checkWord(word)) {
+            dictionary.put(word, definition);
         }
-        String theOneThatCall;
         int idx = Collections.binarySearch(wordlist, word);
         if (idx < 0) {
             idx = - idx - 1;
         }
-        theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
-        if (!theOneThatCall.substring(theOneThatCall.indexOf(".") + 1).equals("DictionaryDatabase")) {
+
+        String theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
+        if (!theOneThatCall.contains("DictionaryDatabase")) {
             int start = (int) word.charAt(0) - 96;
-            if (start <= 0) {
-                start = 0;
-            }
             for (int i = start; i < 26; i++) {
                 index.set(i, index.get(i) + 1);
             }
         }
+
         wordlist.add(idx, word);
-        dictionary.put(word.toLowerCase(), definition);
+        dictionary.put(word, definition);
+    }
+
+    public static void updateWord(String word, String definition) {
+        dictionary.put(word, definition);
     }
 
     public static void removeWord(String word) {
@@ -51,9 +52,13 @@ public class LocalDictionary {
         }
     }
 
+    public static boolean checkWord(String word) {
+        return dictionary.get(word) != null;
+    }
+
     public static String getDefinition(String word) {
-        if (dictionary.get(word.toLowerCase()) != null) {
-            return dictionary.get(word.toLowerCase());
+        if (dictionary.get(word) != null) {
+            return dictionary.get(word);
         }
         return "word not found! \n";
     }
