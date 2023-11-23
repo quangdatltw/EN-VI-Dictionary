@@ -3,7 +3,9 @@ package dictionary.db;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputHandle {
@@ -25,6 +27,7 @@ public class InputHandle {
     public static void inputUpdateDefinition(String word) {
         int para = 10;
         String str;
+        String wordDef = LocalDictionary.getDefinition(word);
         while (para != 0) {
             System.out.println("""
                     [0] Exit
@@ -47,7 +50,6 @@ public class InputHandle {
             }
             if (para < 10 && para > 0) {
                 String wordType = wordTypesE[para - 1];
-                String wordDef = LocalDictionary.getDefinition(word);
                 if (para == 7) {
                     System.out.print("Thành ngữ: ");
                     str = scn.nextLine();
@@ -55,7 +57,6 @@ public class InputHandle {
                     System.out.print("Ý nghĩa thành ngữ: ");
                     str = scn.nextLine();
                     wordDef = wordDef + "    - " + str;
-                    LocalDictionary.putWord(word, wordDef);
                 } else {
                     if (wordDef.contains(wordType)) {
                         String wordDef1 = wordDef.substring(0, wordDef.indexOf(wordType));
@@ -66,7 +67,6 @@ public class InputHandle {
                         System.out.print("Write meaning and example (Press ENTER if you have nothing to write in)\n" + "- ");
                         try {
                             wordDef = wordDef1 + wordDef3 + inputWordTypeMeaning() + "\n" + wordDef2;
-                            LocalDictionary.putWord(word, wordDef);
                         } catch (Exception e) {
                             e.printStackTrace();
                             System.out.println("Something is wrong");
@@ -75,11 +75,11 @@ public class InputHandle {
                         System.out.println(wordType);
                         System.out.print("- ");
                         wordDef = wordDef + "\n" + wordType + inputWordTypeMeaning();
-                        LocalDictionary.updateWord(word, wordDef);
                     }
                 }
             }
         }
+        LocalDictionary.updateWord(word, wordDef);
     }
 
     public static String inputDefinition() {
@@ -153,7 +153,32 @@ public class InputHandle {
         return ex.toString();
     }
 
-    public static String inputFile(String filePath) {
+    public static List<String> inputSearch(String prefix) {
+        List<String> wordlist = LocalDictionary.getWordlist();
+        List<String> result = new ArrayList<>();
+
+        int begin = 0;
+        int end = wordlist.size() - 1;
+
+        try {
+            begin = LocalDictionary.getIndex().get((int) prefix.charAt(0) - 97);
+            if ((int) prefix.charAt(0) - 97 < 25) {
+                end = LocalDictionary.getIndex().get((int) prefix.charAt(0) - 96) - 1;
+            }
+        } catch (IndexOutOfBoundsException ignored) {
+            end = LocalDictionary.getIndex().get(0) - 1;
+        }
+        wordlist = wordlist.subList(begin, end);
+
+        for (String word : wordlist) {
+            if (word.matches(prefix + "(.*)")) {
+                result.add(word);
+            }
+        }
+        return result;
+    }
+
+    public static boolean inputFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
 
@@ -167,12 +192,9 @@ public class InputHandle {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Please make sure file path is correct");
-            System.out.println("[0] Exit");
-            return null;
+            return false;
         }
-        return "Load from file succeed";
+        return true;
     }
 
 }

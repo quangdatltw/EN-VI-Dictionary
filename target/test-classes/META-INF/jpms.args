@@ -1,0 +1,4 @@
+--patch-module
+dictionary.gui=_
+--add-reads
+dictionary.gui=ALL-UNNAMED

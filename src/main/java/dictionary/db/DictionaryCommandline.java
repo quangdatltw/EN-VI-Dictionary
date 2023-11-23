@@ -1,13 +1,12 @@
 package dictionary.db;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class DictionaryCommandline {
 
     public static void dictionaryAdvanced() {
-        int para = 10;
+        int para = 12;
         while (para != 0) {
             Scanner scn = new Scanner(System.in);
             System.out.print("""
@@ -21,13 +20,15 @@ public class DictionaryCommandline {
                         [7] Game
                         [8] Insert from file
                         [9] Export to file
+                        [10] GG Translate
+                        [11] Text To Speech
                         
                         Your action:\s""");
             try {
                 para = scn.nextInt();
             } catch (InputMismatchException i) {
                 i.printStackTrace();
-                para = 10;
+                para = 12;
             }
             scn.nextLine();
             switch (para) {
@@ -50,16 +51,22 @@ public class DictionaryCommandline {
                     DictionaryManagement.dictionaryLookup();
                     break;
                 case 6:
-                    dictionarySearcher();
+                    DictionaryManagement.dictionarySearcher();
                     break;
                 case 7:
                     TranslateAPI.sentenceTranslator();
                     break;
                 case 8:
-                    DictionaryManagement.dictionaryinsertFromFile();
+                    DictionaryManagement.dictionaryInsertFromFile();
                     break;
                 case 9:
                     DictionaryManagement.dictionaryExportToFile();
+                    break;
+                case 10:
+                    TranslateAPI.sentenceTranslator();
+                    break;
+                case 11:
+                    TextToSpeechAPI.textToSpeech();
                     break;
                 default:
                     System.out.println("Action not supported");
@@ -74,43 +81,8 @@ public class DictionaryCommandline {
         }
     }
 
-    public static void dictionarySearcher() {
-        Scanner scn = new Scanner(System.in);
-        String find = "";
-        while (find.isEmpty()) {
-            System.out.print("Find: ");
-            find = scn.nextLine().toLowerCase().trim();
-            if (find.isEmpty()) {
-                System.out.println("There is no input.");
-            }
-        }
-        List<String> wordlist = LocalDictionary.getWordlist();
-        int begin = 0;
-        int end = wordlist.size() - 1;
-
-        try {
-            begin = LocalDictionary.getIndex().get((int) find.charAt(0) - 97);
-            if (begin == 122) {
-                end = LocalDictionary.getIndex().get((int) find.charAt(0) - 96) - 1;
-            }
-        } catch (IndexOutOfBoundsException ignored) {}
-
-        wordlist = wordlist.subList(begin, end);
-
-        boolean nonexistentword = true;
-        try {
-            for (String word : wordlist) {
-
-                if (word.matches(find + "(.*)")) {
-                    System.out.println(word);
-                    nonexistentword = false;
-                }
-            }
-        } catch (Exception ignored) {}
-        if (nonexistentword) {
-            System.out.println("There are no words start with:" + find);
-        }
-        System.out.println("----------------------------------------------------");
+    public static void main(String[] args) {
+        DictionaryDatabase.loadLocalDictionary();
+        dictionaryAdvanced();
     }
-
 }

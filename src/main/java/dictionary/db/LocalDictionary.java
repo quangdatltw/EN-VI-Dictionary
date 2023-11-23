@@ -31,12 +31,6 @@ public class LocalDictionary {
         if (idx > wordlist.size()) {
             idx = 0;
         }
-        String theOneThatCall = Thread.currentThread().getStackTrace()[2].getClassName();
-        if (theOneThatCall.contains("DictionaryDatabase")) {
-            wordlist.add(word);
-            dictionary.put(word, definition);
-            return;
-        }
 
         int start = (int) word.charAt(0) - 96;
         if (start < 0) {

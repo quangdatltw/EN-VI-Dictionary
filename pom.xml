@@ -22,12 +22,12 @@
         <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>20.0.2</version>
+      <version>21.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>20.0.2</version>
+      <version>21.0.1</version>
     </dependency>
 	<dependency>
       <groupId>com.dlsc.formsfx</groupId>
@@ -40,6 +40,18 @@
         </exclusion>
       </exclusions>
     </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.43.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21.0.1</version>
+        </dependency>
+
     </dependencies>
 <build>
     <plugins>

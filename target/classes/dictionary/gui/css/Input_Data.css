@@ -1,0 +1,55 @@
+.root{
+    -fx-background-color: #2a2a2d;
+    background-color: #2D2D30;
+}
+
+
+.button{
+    -fx-background-radius: 0;
+    -fx-border-width: 1;
+    -fx-border-color: #222222;
+    border-color: #222222;
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: #f8f8f8;
+}
+
+.button:focused{
+    -fx-background-color: #1A1A1A;
+}
+.button:hover{
+    -fx-border-color: linear-gradient(to right, #0059ff, #3d4efd, #5a40fa, #722df5, #8600ee);
+    -fx-background-color: #343436;
+    -fx-cursor: HAND;
+    cursor: HAND;
+}
+.button:pressed{
+    -fx-border-color: #222222;
+    -fx-cursor: HAND;
+    cursor: HAND;
+}
+
+.text-field{
+    -fx-background-radius: 0;
+    -fx-border-width: 1;
+    border-width: 1;
+    -fx-border-color: #222222;
+    border-color: #222222;
+    -fx-background-color: #1A1A1A;
+    background-color: #1A1A1A;
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #4b4b4b;
+    -fx-min-height: 1em;
+    -fx-pref-height: 2.5em;
+}
+.text-field:hover {
+    -fx-border-color: #222222;
+    border-color: #222222;
+    -fx-background-color: #303031;
+    background-color: #3E3E40;
+}
+.text-field:focused {
+    -fx-border-color: linear-gradient(to right, #0059ff, #3d4efd, #5a40fa, #722df5, #8600ee);
+    border-color: #4e4e4e;
+    -fx-background-color: #1A1A1A;
+    background-color: #1A1A1A;
+}

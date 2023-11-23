@@ -7,7 +7,7 @@ public class DictionaryDatabase {
 
     private DictionaryDatabase(){
             // db parameters
-            String url = "jdbc:sqlite:src/resources/sql/dictionary2.0.db";
+            String url = "jdbc:sqlite:src/main/resources/dictionary/db/dictionary2.0.db";
             try {
                 // create a connection to the database
                 connection = DriverManager.getConnection(url);
@@ -41,14 +41,8 @@ public class DictionaryDatabase {
     public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
         try {
-            char check = 'a';
-            while(resultSet != null && resultSet.next()){
-                String word = resultSet.getString(2);
-                if (check != word.charAt(0) && (int) word.charAt(0) >= 98 && (int) word.charAt(0) <= 122) {
-                    LocalDictionary.getIndex().set(word.charAt(0) - 97, resultSet.getInt(1) - 1);
-                    check = word.charAt(0);
-                }
-                LocalDictionary.putWord(word, resultSet.getString(3).replace("\\n", "\n"));
+            while(resultSet != null && resultSet.next()) {
+                LocalDictionary.putWord(resultSet.getString(2), resultSet.getString(3).replace("\\n", "\n"));
             }
             if (resultSet != null) {
                 resultSet.close();
@@ -56,8 +50,8 @@ public class DictionaryDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         DictionaryDatabase.close();
+        InputHandle.inputFile("src/main/resources/external_dictionary/Add_on.txt");
     }
 }
 
