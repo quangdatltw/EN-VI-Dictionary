@@ -59,34 +59,6 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="397.0" prefWidth="722.0">
                <children>
-                  <VBox layoutX="150.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
-                     <children>
-                        <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
-                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
-                           <children>
-                              <Button fx:id="switchLanguage" mnemonicParsing="false" onMouseClicked="#switchL" prefHeight="33.0" prefWidth="39.0">
-                                 <graphic>
-                                    <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../icon/Switch.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <stylesheets>
-                                    <URL value="@../css/Button.css" />
-                                    <URL value="@../css/Tab-GG.css" />
-                                 </stylesheets>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <Button fx:id="Translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
                   <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <children>
                         <Button fx:id="CopyFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
@@ -115,7 +87,7 @@
                               <URL value="@../css/Tab-GG.css" />
                            </stylesheets>
                         </Button>
-                        <Pane prefHeight="41.0" prefWidth="145.0" />
+                        <Pane prefHeight="44.0" prefWidth="145.0" />
                         <Button fx:id="copyToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
@@ -144,6 +116,34 @@
                         </Button>
                      </children>
                   </VBox>
+                  <VBox layoutX="150.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
+                           <children>
+                              <Button fx:id="switchLanguage" mnemonicParsing="false" onMouseClicked="#switchL" prefHeight="33.0" prefWidth="39.0">
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icon/Switch.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <stylesheets>
+                                    <URL value="@../css/Button.css" />
+                                    <URL value="@../css/Tab-GG.css" />
+                                 </stylesheets>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="Translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
          </content>
          <graphic>

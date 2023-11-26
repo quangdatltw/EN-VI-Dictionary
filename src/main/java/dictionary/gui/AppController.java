@@ -15,6 +15,8 @@ public class AppController {
     @FXML
     private void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
+        searchWord.textProperty().addListener((observable, oldValue, newValue)
+                -> searchWord.setText(newValue.toLowerCase()));
     }
     /** Controller for Tab - Find */
     @FXML
@@ -49,11 +51,9 @@ public class AppController {
 
     @FXML
     public void findChosenWord() {
-        String word = searchWord.getText();
-        try {
-            word = searchList.getSelectionModel().getSelectedItem();
-        } catch (Exception ignore) {
-            word = "";
+        String word = searchList.getSelectionModel().getSelectedItem();
+        if (word == null) {
+            word = searchWord.getText().toLowerCase();
         }
         WordHistory.addWord(word);
         wordDef.setText(InterfaceInputHandle.lookup(word));
@@ -61,23 +61,24 @@ public class AppController {
 
     @FXML
     public void searchWordKey(KeyEvent key) {
+        String word = searchWord.getText().toLowerCase();
         if (key.getCode() == KeyCode.TAB) {
             searchWord.setText(searchList.getItems().get(0));
         }
         if (key.getCode() == KeyCode.ENTER) {
-            wordDef.setText(InterfaceInputHandle.lookup(searchWord.getText()));
-            WordHistory.addWord(searchWord.getText());
+            wordDef.setText(InterfaceInputHandle.lookup(word));
+            WordHistory.addWord(word);
         }
     }
 
     @FXML
     public void speakWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
-        if (LocalDictionary.checkWordExistence(word)) {
+        if (word != null) {
             InterfaceInputHandle.speakSentence(word, "en");
         } else {
-            word = searchWord.getText();
-            if (!word.isEmpty() && LocalDictionary.checkWordExistence(word)) {
+            word = searchWord.getText().toLowerCase();
+            if (LocalDictionary.checkWordExistence(word)) {
                 InterfaceInputHandle.speakSentence(searchWord.getText(), "en");
             }
         }
@@ -118,7 +119,7 @@ public class AppController {
     }
 
     @FXML
-    public void switchL() {
+    public void swapL() {
         String temp = fromL;
         fromL = toL;
         toL = temp;

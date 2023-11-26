@@ -1,7 +1,3 @@
-dabbing
-dabber
-f-statistic
-fa
 fab
 f.m.s
 sdp
@@ -18,3 +14,7 @@ null
 defoliators
 dawdled
 deflorations
+i q
+I
+i
+t
