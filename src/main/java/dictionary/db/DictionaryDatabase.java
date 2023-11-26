@@ -5,19 +5,21 @@ import java.sql.*;
 public class DictionaryDatabase {
     private static Connection connection = null;
 
-    private DictionaryDatabase(){
-            // db parameters
-            String url = "jdbc:sqlite:src/main/resources/dictionary/db/dictionary2.0.db";
-            try {
-                // create a connection to the database
-                connection = DriverManager.getConnection(url);
-                System.out.println("SQLite database connected!");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+    public DictionaryDatabase(){
+        connect();
     }
 
-    public static void close() {
+    private static void connect() {
+        String url = "jdbc:sqlite:src/main/resources/dictionary/db/dictionary2.0.db";
+        try {
+            connection = DriverManager.getConnection(url);
+            System.out.println("SQLite database connected!");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void close() {
         try {
             if (connection != null) {
                 connection.close();
@@ -42,16 +44,71 @@ public class DictionaryDatabase {
         ResultSet resultSet = new DictionaryDatabase().view();
         try {
             while(resultSet != null && resultSet.next()) {
-                LocalDictionary.putWord(resultSet.getString(2), resultSet.getString(3).replace("\\n", "\n"));
+                LocalDictionary.addWord(resultSet.getString(1), resultSet.getString(2).replace("\\n", "\n"));
             }
             if (resultSet != null) {
                 resultSet.close();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         DictionaryDatabase.close();
-        InputHandle.inputFile("src/main/resources/external_dictionary/Add_on.txt");
+    }
+
+    public static void putWord(String word, String def) {
+        try {
+            connect();
+
+            String insertQuery = "INSERT INTO dictionary (target, definition) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+
+            preparedStatement.setString(1, word);
+            preparedStatement.setString(2, def);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            DictionaryDatabase.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeWord(String word) {
+        try {
+            connect();
+
+            String removeQuery = "DELETE FROM dictionary WHERE target = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(removeQuery);
+
+            preparedStatement.setString(1, word);
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            DictionaryDatabase.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateWord(String wordToUpdate, String def) {
+        try {
+            connect();
+
+            String updateQuery = "UPDATE dictionary SET definition = ? WHERE target = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, def);
+            preparedStatement.setString(2, wordToUpdate);
+
+            preparedStatement.executeUpdate();
+            DictionaryDatabase.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

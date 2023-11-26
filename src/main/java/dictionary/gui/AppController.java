@@ -2,17 +2,18 @@ package dictionary.gui;
 
 import dictionary.db.InterfaceInputHandle;
 import dictionary.db.LocalDictionary;
+import dictionary.db.WordHistory;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.List;
 
 public class AppController {
+    @FXML
+    public ComboBox<String> wordHistory;
     @FXML
     public ListView<String> searchList;
     @FXML
@@ -23,10 +24,20 @@ public class AppController {
     public TextArea wordDef;
     @FXML
     public Button speaker;
+    @FXML
+    private void initialize() {
+        wordHistory.setItems(FXCollections.observableArrayList(WordHistory.getHistory()));
+    }
+
+    @FXML
+    public void clickAnchorPane() {
+        searchList.getSelectionModel().clearSelection();
+
+    }
 
     @FXML
     public void searchPrefix() {
-        List<String> wordList = InterfaceInputHandle.dictionarySearcher(searchWord.getText().toLowerCase());
+        List<String> wordList = InterfaceInputHandle.search(searchWord.getText().toLowerCase());
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
@@ -36,13 +47,15 @@ public class AppController {
     }
 
     @FXML
-    public void choosenWord() {
+    public void findChosenWord() {
         String word = searchWord.getText();
         try {
             word = searchList.getSelectionModel().getSelectedItem();
         } catch (Exception ignore) {
+            word = "";
         }
-        wordDef.setText(InterfaceInputHandle.dictionaryLookup(word));
+        WordHistory.addWord(word);
+        wordDef.setText(InterfaceInputHandle.lookup(word));
     }
 
     @FXML
@@ -51,20 +64,25 @@ public class AppController {
             searchWord.setText(searchList.getItems().get(0));
         }
         if (key.getCode() == KeyCode.ENTER) {
-            wordDef.setText(InterfaceInputHandle.dictionaryLookup(searchWord.getText()));
+            wordDef.setText(InterfaceInputHandle.lookup(searchWord.getText()));
         }
     }
 
     @FXML
     public void speakWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
-        if (LocalDictionary.checkWord(word)) {
-            InterfaceInputHandle.speaker(word);
+        if (LocalDictionary.checkWordExistence(word)) {
+            InterfaceInputHandle.speakSentence(word, "en");
         } else {
             word = searchWord.getText();
-            if (word.isEmpty() && LocalDictionary.checkWord(word)) {
-                InterfaceInputHandle.speaker(searchWord.getText());
+            if (!word.isEmpty() && LocalDictionary.checkWordExistence(word)) {
+                InterfaceInputHandle.speakSentence(searchWord.getText(), "en");
             }
         }
+    }
+
+    @FXML
+    public void openWordHistory() {
+        wordHistory.setItems(FXCollections.observableArrayList(WordHistory.getHistory()));
     }
 }

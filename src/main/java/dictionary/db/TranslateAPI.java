@@ -1,23 +1,17 @@
 package dictionary.db;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class TranslateAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
-    public static void sentenceTranslator() {
+    public static void translate() {
         String sentence = "";
         String fromL = "en";
         String targetL = "vi";

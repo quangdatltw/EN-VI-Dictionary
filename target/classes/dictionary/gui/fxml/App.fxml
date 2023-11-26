@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -11,75 +13,84 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="560.0" prefWidth="720.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.AppController">
-   <children>
-      <TabPane focusTraversable="false" prefHeight="560.0" prefWidth="720.0" stylesheets="@../css/Tab-Pane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <tabs>
-            <Tab text="Find">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/Tab-Find.css">
-                     <children>
-                        <ListView fx:id="searchList" fixedCellSize="25.0" focusTraversable="false" layoutX="12.0" layoutY="79.0" onMouseClicked="#choosenWord" prefHeight="422.0" prefWidth="200.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="79.0" />
-                        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="27.0" onInputMethodTextChanged="#searchPrefix" onKeyPressed="#searchWordKey" onKeyTyped="#searchPrefix" prefHeight="43.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Tab-Find.css" AnchorPane.bottomAnchor="451.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="27.0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="suggestWord" focusTraversable="false" layoutX="11.0" layoutY="27.0" mouseTransparent="true" opacity="0.5" prefHeight="43.0" prefWidth="200.0" stylesheets="@../css/Tab-Find.css">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                        <TextArea fx:id="wordDef" editable="false" focusTraversable="false" layoutX="265.0" layoutY="79.0" prefHeight="422.0" prefWidth="443.0" wrapText="true" />
-                        <Button fx:id="speaker" focusTraversable="false" layoutX="218.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#speakWord" prefHeight="22.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../../icon/Speaker.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children></AnchorPane>
-               </content>
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../icon/Find.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-            <Tab text=" Google Translate">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="689.0" />
-               </content>
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../icon/GGT.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-            <Tab text="Remove">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="537.0" />
-               </content>
-               <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../icon/Add_remove.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-            <Tab text="Untitled Tab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-   </children>
-</AnchorPane>
+<TabPane focusTraversable="false" prefHeight="540.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.AppController">
+   <tabs>
+      <Tab text="Find">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#clickAnchorPane" prefHeight="546.0" prefWidth="802.0" stylesheets="@../css/dark_bg.css">
+               <children>
+                  <ListView fx:id="searchList" fixedCellSize="25.0" focusTraversable="false" layoutX="11.0" layoutY="97.0" onMouseClicked="#findChosenWord" prefHeight="484.0" prefWidth="200.0" stylesheets="@../css/List-View.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="97.0" />
+                  <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" onInputMethodTextChanged="#searchPrefix" onKeyPressed="#searchWordKey" onKeyTyped="#searchPrefix" prefHeight="41.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="suggestWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" mouseTransparent="true" opacity="0.5" prefHeight="53.0" prefWidth="200.0" stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextArea fx:id="wordDef" editable="false" focusTraversable="false" layoutX="268.0" layoutY="67.0" prefHeight="514.0" prefWidth="520.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
+                  <Button fx:id="speaker" focusTraversable="false" layoutX="217.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#speakWord" prefHeight="40.0" prefWidth="50.0" stylesheets="@../css/Button.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="15.0">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../icon/Speaker.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ComboBox fx:id="wordHistory" focusTraversable="false" layoutX="11.0" layoutY="60.0" onShowing="#openWordHistory" prefHeight="33.0" prefWidth="200.0" promptText="History" stylesheets="@../css/Combo-Box.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
+               </children>
+            </AnchorPane>
+         </content>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icon/Find2.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Tab>
+      <Tab text=" Google Translate">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="689.0" />
+         </content>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icon/Translate.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Tab>
+      <Tab text="Add/Remove/Update">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="537.0" />
+         </content>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icon/Database2.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Tab>
+      <Tab text="Game">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icon/Game.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Tab>
+   </tabs>
+   <stylesheets>
+      <URL value="@../css/dark_bg.css" />
+      <URL value="@../css/Tab-Pane.css" />
+   </stylesheets>
+</TabPane>

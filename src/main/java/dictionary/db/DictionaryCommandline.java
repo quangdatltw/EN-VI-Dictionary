@@ -36,37 +36,36 @@ public class DictionaryCommandline {
                     System.out.println("Goodbye world!");
                     break;
                 case 1:
-                    DictionaryManagement.insertFromCommandline();
+                    DictionaryInteract.insertFromCommandline();
                     break;
                 case 2:
-                    DictionaryManagement.dictionaryRemove();
+                    DictionaryInteract.remove();
                     break;
                 case 3:
-                    DictionaryManagement.dictionaryUpdate();
+                    DictionaryInteract.update();
                     break;
                 case 4:
                     showAllWords();
                     break;
                 case 5:
-                    DictionaryManagement.dictionaryLookup();
+                    DictionaryInteract.lookup();
                     break;
                 case 6:
-                    DictionaryManagement.dictionarySearcher();
+                    DictionaryInteract.search();
                     break;
                 case 7:
-                    TranslateAPI.sentenceTranslator();
                     break;
                 case 8:
-                    DictionaryManagement.dictionaryInsertFromFile();
+                    DictionaryInteract.insertDictionaryFromFile();
                     break;
                 case 9:
-                    DictionaryManagement.dictionaryExportToFile();
+                    DictionaryInteract.exportDictionaryToFile();
                     break;
                 case 10:
-                    TranslateAPI.sentenceTranslator();
+                    TranslateAPI.translate();
                     break;
                 case 11:
-                    TextToSpeechAPI.textToSpeech();
+                    TextToSpeechAPI.convert();
                     break;
                 default:
                     System.out.println("Action not supported");
@@ -84,5 +83,6 @@ public class DictionaryCommandline {
     public static void main(String[] args) {
         DictionaryDatabase.loadLocalDictionary();
         dictionaryAdvanced();
+        System.out.println(LocalDictionary.getIndex());
     }
 }

@@ -11,7 +11,28 @@ import java.util.Scanner;
 public class InputHandle {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
-    private static final String[] wordTypesE = {"* Danh từ:", "* Động từ:", "* Tính từ:", "* Trạng từ:", "* Giới từ:", "* Phó từ:", "! Thành ngữ:","* Nội động từ:", "* Ngoại động từ:"};
+    private static final String[] wordTypes  = {"* Danh từ:", "* Động từ:", "* Tính từ:", "* Trạng từ:", "* Giới từ:", "* Phó từ:", "! Thành ngữ:","* Nội động từ:", "* Ngoại động từ:"};
+
+    private static final String rules =   """
+                                    Rules: Remember ENTER if you have nothing to write in.
+                                    Type 'YES' (Only for word type) if there are meaning for that word type.
+                                    The structure will like this:
+                                    [1] Word type appear
+                                    [2] Type meaning
+                                    [3] Type examples of the meaning in the form: English sentence = Vietnamese meaning
+                                    Ex: fast
+                                    * Tính từ:
+                                    YES
+                                    - nhanh, mau
+                                    VD: a fast train = một đoàn tàu nhanh
+                                    VD: No
+                                    - bền, không phai
+                                    VD: a fast color = màu bền
+                                    VD: No
+                                    - No
+                                    
+                                    -> Done
+                                    """;
 
     public static String inputString() {
         System.out.println("[0] Exit");
@@ -26,7 +47,6 @@ public class InputHandle {
 
     public static void inputUpdateDefinition(String word) {
         int para = 10;
-        String str;
         String wordDef = LocalDictionary.getDefinition(word);
         while (para != 0) {
             System.out.println("""
@@ -49,14 +69,9 @@ public class InputHandle {
                 para = 10;
             }
             if (para < 10 && para > 0) {
-                String wordType = wordTypesE[para - 1];
+                String wordType = wordTypes[para - 1];
                 if (para == 7) {
-                    System.out.print("Thành ngữ: ");
-                    str = scn.nextLine();
-                    wordDef = wordDef + "\n" + wordType + " " + str + "\n";
-                    System.out.print("Ý nghĩa thành ngữ: ");
-                    str = scn.nextLine();
-                    wordDef = wordDef + "    - " + str;
+                    wordDef = inputIdiom(wordDef);
                 } else {
                     if (wordDef.contains(wordType)) {
                         String wordDef1 = wordDef.substring(0, wordDef.indexOf(wordType));
@@ -65,16 +80,12 @@ public class InputHandle {
                         wordDef2 = wordDef2.substring(wordDef2.indexOf("\n") + 1);
 
                         System.out.print("Write meaning and example (Press ENTER if you have nothing to write in)\n" + "- ");
-                        try {
-                            wordDef = wordDef1 + wordDef3 + inputWordTypeMeaning() + "\n" + wordDef2;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Something is wrong");
-                        }
+                        wordDef = wordDef1 + wordDef3 + inputMeaning() + "\n" + wordDef2;
+
                     } else {
                         System.out.println(wordType);
                         System.out.print("- ");
-                        wordDef = wordDef + "\n" + wordType + inputWordTypeMeaning();
+                        wordDef = wordDef + "\n" + wordType + inputMeaning();
                     }
                 }
             }
@@ -83,63 +94,33 @@ public class InputHandle {
     }
 
     public static String inputDefinition() {
-
-        StringBuilder def = new StringBuilder();
-        String str;
-        System.out.println("""
-                        
-                        Rules: Remember ENTER if you have nothing to write in.
-                        Type 'YES' (Only for word type) if there are meaning for that word type.
-                        The structure will like this:
-                        [1] Word type appear
-                        [2] Type meaning
-                        [3] Type examples of the meaning in the form: English sentence = Vietnamese meaning
-                        Ex: fast
-                        * Tính từ:
-                        YES
-                        - nhanh, mau
-                        VD: a fast train = một đoàn tàu nhanh
-                        VD: No
-                        - bền, không phai
-                        VD: a fast color = màu bền
-                        VD: No
-                        - No
-                        
-                        -> Done
-                        """);
-        for (String w : wordTypesE) {
+        String def = "";
+        System.out.println(rules);
+        for (String w : wordTypes) {
             System.out.println(w);
-            if (w.equals(wordTypesE[6])) {
-                str = scn.nextLine();
-                if (str.equals("YES")) {
-                    System.out.print("- ");
-                    str = scn.nextLine();
-                    def.append("\n").append(w).append(" ").append(str).append("\n");
-                    System.out.print("Ý nghĩa thành ngữ: ");
-                    str = scn.nextLine();
-                    def.append("    - ").append(str);
-                }
-                continue;
-            }
             if (scn.nextLine().equals("YES")) {
-                System.out.print("- ");
-                def.append("\n").append(w).append(inputWordTypeMeaning());
+                if (w.equals(wordTypes[6])) {
+                    def = inputIdiom(def);
+                } else {
+                    System.out.print("- ");
+                    def = def + "\n" + w + inputMeaning();
+                }
             }
         }
-        return def.toString();
+        return def;
     }
 
-    public static String inputWordTypeMeaning() {
-        StringBuilder wtm = new StringBuilder();
+    public static String inputMeaning() {
+        StringBuilder m = new StringBuilder();
         String str = scn.nextLine();
         while (!str.isEmpty()) {
             System.out.print("VD: ");
             String ex = inputExample();
-            wtm.append("\n").append("    - ").append(str).append(ex);
+            m.append("\n").append("    - ").append(str).append(ex);
             System.out.print("- ");
             str = scn.nextLine();
         }
-        return wtm.toString();
+        return m.toString();
     }
 
     private static String inputExample() {
@@ -151,6 +132,16 @@ public class InputHandle {
             str = scn.nextLine();
         }
         return ex.toString();
+    }
+
+    private static String inputIdiom(String def) {
+        System.out.print("Thành ngữ: ");
+        String str = scn.nextLine();
+        def = def + "\n" + wordTypes[6] + " " + str + "\n";
+        System.out.print("Ý nghĩa thành ngữ: ");
+        str = scn.nextLine();
+        def = def + "    - " + str;
+        return def;
     }
 
     public static List<String> inputSearch(String prefix) {
@@ -188,7 +179,7 @@ public class InputHandle {
                 if (parts.length == 2) {
                     String key = parts[0];
                     String value = parts[1].replace("\\n", "\n");
-                    LocalDictionary.putWord(key, value);
+                    LocalDictionary.addWord(key, value);
                 }
             }
         } catch (IOException e) {

@@ -17,7 +17,7 @@ public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
-    public static void textToSpeech() {
+    public static void convert() {
         String sentence = "";
         System.out.print("""
                         Text to speech.
@@ -29,7 +29,7 @@ public class TextToSpeechAPI {
         } catch (NullPointerException n) {
             n.printStackTrace();
         }
-        String apiUrl = getApiUrl(sentence);
+        String apiUrl = getApiUrl(sentence, TranslateAPI.detectLanguage(sentence));
         playAudio(apiUrl);
         while (true) {
             System.out.println("""
@@ -44,20 +44,11 @@ public class TextToSpeechAPI {
             }
         }
     }
-
-    public static void textToSpeech(String sentence) {
-        try {
-            playAudio(getApiUrl(sentence));
-        } catch (Exception ignore) {
-        }
-    }
-
-    public static String getApiUrl(String sentence) {
-        //String detectL = TranslateAPI.detectLanguage(sentence);
+    public static String getApiUrl(String sentence, String language) {
         String apiUrl = "";
         try {
              apiUrl = "https://translate.google.com/translate_tts?ie=UTF-8&tl="
-                     + "en"
+                     + language
                      + "&client=tw-ob&q="
                      + URLEncoder.encode(sentence, StandardCharsets.UTF_8);
         } catch (Exception e) {

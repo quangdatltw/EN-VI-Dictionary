@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPaneClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#rootPaneClick" prefHeight="232.0" prefWidth="636.0" stylesheets="@../css/Input_Data.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.InputDataController">
+<AnchorPane fx:id="clickRootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickRootPane" prefHeight="232.0" prefWidth="636.0" stylesheets="@../css/Input_Data.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.InputDataController">
    <children>
-      <Button fx:id="externalDB" layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#ExternalDB" prefHeight="35.0" prefWidth="153.0" text="External library">
+      <Button fx:id="externalDB" layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#importExternalDB" prefHeight="42.0" prefWidth="153.0" text="External library" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button fx:id="internalDB" layoutX="25.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#InternalDB" prefHeight="35.0" prefWidth="153.0" text="Dictionary's library" textAlignment="JUSTIFY">
+      <Button fx:id="internalDB" layoutX="25.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#importInternalDB" prefHeight="42.0" prefWidth="153.0" text="Dictionary's library" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <TextField fx:id="filePath" layoutX="197.0" layoutY="136.0" prefHeight="35.0" prefWidth="415.0" promptText="File path for external library...">
+      <TextField fx:id="filePath" layoutX="197.0" layoutY="136.0" prefHeight="53.0" prefWidth="415.0" promptText="File path for external library..." stylesheets="@../css/Text-Field.css">
          <font>
             <Font size="14.0" />
          </font></TextField>
