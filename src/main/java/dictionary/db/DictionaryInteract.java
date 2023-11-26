@@ -6,7 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DictionaryInteract {
+    /**
+     * The constant scanner.
+     */
     public static Scanner scn = new Scanner(System.in);
+
+    /**
+     * Get and check word wanted to ADD -> get input word's definition from InputHandle
+     */
     public static void insertFromCommandline() {
         String word = InputHandle.inputString();
         int check = checkWordAvailability(word, 2);
@@ -20,6 +27,9 @@ public class DictionaryInteract {
 
     }
 
+    /**
+     * Get and check word wanted to UPDATE -> word is UPDATED in InputHandle
+     */
     public static void update() {
         String word;
         while (true) {
@@ -38,6 +48,9 @@ public class DictionaryInteract {
         }
     }
 
+    /**
+     * Remove word from Database.
+     */
     public static void remove() {
         String word;
         while (true) {
@@ -54,6 +67,9 @@ public class DictionaryInteract {
         }
     }
 
+    /**
+     * Get and check word -> Print word's definition
+     */
     public static void lookup() {
         String word;
         while (true) {
@@ -71,6 +87,9 @@ public class DictionaryInteract {
         }
     }
 
+    /**
+     * Get and check Prefix -> Get word list from InputHandle
+     */
     public static void search() {
         String prefix;
         while (true) {
@@ -90,6 +109,9 @@ public class DictionaryInteract {
         }
     }
 
+    /**
+     * Check if word is available for using further
+     */
     private static int checkWordAvailability(String word, int mode) {
         if (word.equals("0")) {
             return 0;
@@ -121,6 +143,9 @@ public class DictionaryInteract {
         return -1;
     }
 
+    /**
+     * Get file path from cmd -> insert file handled in InputHandle
+     */
     public static void insertDictionaryFromFile() {
         String filePath;
         while (true) {
@@ -138,6 +163,9 @@ public class DictionaryInteract {
         }
     }
 
+    /**
+     * Export database to file.
+     */
     public static void exportDictionaryToFile() {
         try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/Dictionary_EX.txt")) {
             String def;

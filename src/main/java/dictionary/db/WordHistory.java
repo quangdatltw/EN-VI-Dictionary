@@ -11,12 +11,21 @@ import java.util.*;
 
 public class WordHistory {
     private static List<String> history = new ArrayList<>();
+
+    /**
+     * Get the word search history in the correct order.
+     *
+     * @return the history
+     */
     public static ObservableList<String> getHistory() {
         List<String> result = new ArrayList<>(history);
         Collections.reverse(result);
         return FXCollections.observableArrayList(result);
     }
 
+    /**
+     * Load word search history from file.
+     */
     public static void loadFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/external_dictionary/history.txt"))) {
             String line;
@@ -28,6 +37,11 @@ public class WordHistory {
         }
     }
 
+    /**
+     * Add word to word search history.
+     *
+     * @param word the word
+     */
     public static void addWord(String word) {
         if(word == null || word.isEmpty()) {
             return;
@@ -41,6 +55,9 @@ public class WordHistory {
         }
     }
 
+    /**
+     * Export word search history to file.
+     */
     public static void exportHistoryToFile() {
         try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/history.txt")) {
             for (String word : history) {

@@ -7,10 +7,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
+
 public class TranslateAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
+    /**
+     * Begin translate cmd.
+     */
     public static void translate() {
         String sentence = "";
         String fromL = "en";
@@ -41,6 +45,14 @@ public class TranslateAPI {
         }
     }
 
+    /**
+     * Gets translated sentence.
+     *
+     * @param sentence the sentence
+     * @param fromL    the froml
+     * @param targetL  the targetl
+     * @return the result
+     */
     public static String getResult(String sentence, String fromL, String targetL) {
         HttpResponse<String> response = null;
         HttpRequest request = HttpRequest.newBuilder()
@@ -64,6 +76,12 @@ public class TranslateAPI {
         return sentenceTL;
     }
 
+    /**
+     * Detect language of sentence.
+     *
+     * @param sentence the sentence
+     * @return the string
+     */
     public static String detectLanguage(String sentence) {
         HttpResponse<String> response = null;
         HttpRequest request = HttpRequest.newBuilder()

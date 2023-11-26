@@ -16,7 +16,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Input_Data.fxml")));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("EN-VI Dictionary");
+        primaryStage.setTitle("LIBRARY'S TYPE");
         Image icon = new Image("App_icon.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setScene(scene);
@@ -25,6 +25,11 @@ public class App extends Application {
         primaryStage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch();
     }

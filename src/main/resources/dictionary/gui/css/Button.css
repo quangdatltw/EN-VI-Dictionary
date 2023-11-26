@@ -5,7 +5,6 @@
     -fx-background-color: #1A1A1A;
     -fx-text-fill: #f8f8f8;
 }
-
 .button:hover{
     -fx-border-color: linear-gradient(to right, #0059ff, #3d4efd, #5a40fa, #722df5, #8600ee);
     -fx-background-color: #343436;

@@ -11,14 +11,30 @@ public class LocalDictionary {
     private static ArrayList<Integer> index = new ArrayList<>(Collections.nCopies(26, 0));
 
 
+    /**
+     * Gets wordlist.
+     *
+     * @return the wordlist
+     */
     public static ArrayList<String> getWordlist() {
         return wordlist;
     }
 
+    /**
+     * Gets index (Position of the start of each prefix char in wordlist)
+     *
+     * @return the index
+     */
     public static ArrayList<Integer> getIndex() {
         return index;
     }
 
+    /**
+     * Add word to Local Dictionary.
+     *
+     * @param word       the word
+     * @param definition the definition
+     */
     public static void addWord(String word, String definition) {
         if (checkWordExistence(word)) {
             dictionary.put(word, definition);
@@ -31,11 +47,22 @@ public class LocalDictionary {
         dictionary.put(word, definition);
     }
 
+    /**
+     * Update word in both Local and Database dictionary.
+     *
+     * @param word       the word
+     * @param definition the definition
+     */
     public static void updateWord(String word, String definition) {
         dictionary.put(word, definition);
         DictionaryDatabase.updateWord(word, definition);
     }
 
+    /**
+     * Remove word from both Local and Database dictionary.
+     *
+     * @param word the word
+     */
     public static void removeWord(String word) {
         wordlist.remove(word);
         dictionary.remove(word);
@@ -45,6 +72,12 @@ public class LocalDictionary {
         }
     }
 
+    /**
+     * Gets definition of word.
+     *
+     * @param word the word
+     * @return the definition
+     */
     public static String getDefinition(String word) {
         if (checkWordExistence(word)) {
             return dictionary.get(word);
@@ -52,11 +85,20 @@ public class LocalDictionary {
         return "word not found! \n";
     }
 
+    /**
+     * Check word existence.
+     *
+     * @param word the word
+     * @return the boolean
+     */
     public static boolean checkWordExistence(String word) {
         return dictionary.get(word) != null;
     }
 
-
+    /**
+     * Find word's position in word list.
+     *
+     */
     private static int findIndex(String word) {
         int idx = Collections.binarySearch(wordlist, word);
         if (idx < 0) {
@@ -68,6 +110,10 @@ public class LocalDictionary {
         return idx;
     }
 
+    /**
+     * Update Index.
+     *
+     */
     private static void updateIndex(String word) {
         int start = (int) word.charAt(0) - 96;
         if (start < 0) {

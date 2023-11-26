@@ -17,7 +17,7 @@ public class InterfaceInputHandle {
     public static boolean addWord(String word, String def) {
         if (!LocalDictionary.checkWordExistence(word)) {
             LocalDictionary.addWord(word, def);
-            DictionaryDatabase.putWord(word, def);
+            DictionaryDatabase.addWord(word, def);
             return true;
         } else {
             return false;

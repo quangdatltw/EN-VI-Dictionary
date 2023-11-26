@@ -17,6 +17,9 @@ public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
+    /**
+     * Begin convert to speech cmd.
+     */
     public static void convert() {
         String sentence = "";
         System.out.print("""
@@ -44,6 +47,14 @@ public class TextToSpeechAPI {
             }
         }
     }
+
+    /**
+     * Gets api url.
+     *
+     * @param sentence the sentence
+     * @param language the language
+     * @return the api url
+     */
     public static String getApiUrl(String sentence, String language) {
         String apiUrl = "";
         try {

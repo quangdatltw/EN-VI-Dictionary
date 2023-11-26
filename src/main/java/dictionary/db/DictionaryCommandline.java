@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class DictionaryCommandline {
 
+    /**
+     * Dictionary advanced - show list of available action
+     */
     public static void dictionaryAdvanced() {
         int para = 12;
         while (para != 0) {
@@ -73,6 +76,9 @@ public class DictionaryCommandline {
         }
     }
 
+    /**
+     * Show all words.
+     */
     public static void showAllWords() {
         for (String i : LocalDictionary.getWordlist()) {
             System.out.println(LocalDictionary.getDefinition(i)
@@ -80,9 +86,13 @@ public class DictionaryCommandline {
         }
     }
 
+    /**
+     * Start Commandline interface
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         DictionaryDatabase.loadLocalDictionary();
         dictionaryAdvanced();
-        System.out.println(LocalDictionary.getIndex());
     }
 }

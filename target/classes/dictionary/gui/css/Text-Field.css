@@ -14,8 +14,6 @@
 }
 .text-field:focused{
     -fx-border-color: linear-gradient(to right, #0059ff, #3d4efd, #5a40fa, #722df5, #8600ee);
-    border-color: #4e4e4e;
     -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
 }
 

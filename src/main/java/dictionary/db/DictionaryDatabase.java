@@ -5,6 +5,9 @@ import java.sql.*;
 public class DictionaryDatabase {
     private static Connection connection = null;
 
+    /**
+     * Instantiates a new Dictionary database.
+     */
     public DictionaryDatabase(){
         connect();
     }
@@ -40,6 +43,9 @@ public class DictionaryDatabase {
         }
     }
 
+    /**
+     * Load word from Database to local dictionary.
+     */
     public static void loadLocalDictionary(){
         ResultSet resultSet = new DictionaryDatabase().view();
         try {
@@ -56,7 +62,13 @@ public class DictionaryDatabase {
         DictionaryDatabase.close();
     }
 
-    public static void putWord(String word, String def) {
+    /**
+     * Add word to the Database.
+     *
+     * @param word the word
+     * @param def  the def
+     */
+    public static void addWord(String word, String def) {
         try {
             connect();
 
@@ -75,6 +87,11 @@ public class DictionaryDatabase {
         }
     }
 
+    /**
+     * Remove word from Database.
+     *
+     * @param word the word
+     */
     public static void removeWord(String word) {
         try {
             connect();
@@ -93,6 +110,12 @@ public class DictionaryDatabase {
         }
     }
 
+    /**
+     * Update word definition in Database.
+     *
+     * @param wordToUpdate the word to update
+     * @param def          the def
+     */
     public static void updateWord(String wordToUpdate, String def) {
         try {
             connect();

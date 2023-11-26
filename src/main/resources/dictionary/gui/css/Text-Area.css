@@ -9,20 +9,15 @@
 }
 .text-area:focused{
     -fx-border-color: linear-gradient(to right top, #2b185b, #551c6d, #7a1a75, #ac1781, #d71482);
-    border-color: #4e4e4e;
     -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
 }
-
 .text-area:hover{
     -fx-border-color: linear-gradient(to right top, #2b185b, #551c6d, #7a1a75, #ac1781, #d71482);
 }
 .text-area .content{
     -fx-background-radius: 0;
     -fx-border-width: 0;
-    border-width: 0;
     -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
 }
 .text-area .scroll-bar{
     -fx-border-color: transparent;
@@ -30,7 +25,6 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0 -0.5 0.5 0;
 }
-
 .text-area .scroll-bar .thumb{
     -fx-background-insets: 0 0 0 0;
     -fx-background-color: #262424;

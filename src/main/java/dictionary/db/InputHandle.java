@@ -8,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class InputHandle {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
@@ -34,6 +35,11 @@ public class InputHandle {
                                     -> Done
                                     """;
 
+    /**
+     * Get string input from commandline.
+     *
+     * @return the string
+     */
     public static String inputString() {
         System.out.println("[0] Exit");
         System.out.print("Input: ");
@@ -45,6 +51,11 @@ public class InputHandle {
         }
     }
 
+    /**
+     * Update word's definition.
+     *
+     * @param word the word
+     */
     public static void inputUpdateDefinition(String word) {
         int para = 10;
         String wordDef = LocalDictionary.getDefinition(word);
@@ -93,6 +104,11 @@ public class InputHandle {
         LocalDictionary.updateWord(word, wordDef);
     }
 
+    /**
+     * Get word's input definition
+     *
+     * @return the string
+     */
     public static String inputDefinition() {
         String def = "";
         System.out.println(rules);
@@ -110,6 +126,11 @@ public class InputHandle {
         return def;
     }
 
+    /**
+     * Get meaning of word's type
+     *
+     * @return the string
+     */
     public static String inputMeaning() {
         StringBuilder m = new StringBuilder();
         String str = scn.nextLine();
@@ -123,6 +144,11 @@ public class InputHandle {
         return m.toString();
     }
 
+    /**
+     * Get example of word's meaning
+     *
+     * @return the string
+     */
     private static String inputExample() {
         StringBuilder ex = new StringBuilder();
         String str = scn.nextLine();
@@ -133,7 +159,7 @@ public class InputHandle {
         }
         return ex.toString();
     }
-
+    
     private static String inputIdiom(String def) {
         System.out.print("Thành ngữ: ");
         String str = scn.nextLine();
@@ -144,6 +170,12 @@ public class InputHandle {
         return def;
     }
 
+    /**
+     * Get list of words starting with prefix.
+     *
+     * @param prefix the prefix
+     * @return the list
+     */
     public static List<String> inputSearch(String prefix) {
         List<String> wordlist = LocalDictionary.getWordlist();
         List<String> result = new ArrayList<>();
@@ -169,6 +201,12 @@ public class InputHandle {
         return result;
     }
 
+    /**
+     * Input file.
+     *
+     * @param filePath the file path
+     * @return the boolean
+     */
     public static boolean inputFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

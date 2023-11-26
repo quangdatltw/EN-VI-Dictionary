@@ -34,7 +34,7 @@
                      </font>
                   </TextField>
                   <TextArea fx:id="wordDef" editable="false" focusTraversable="false" layoutX="268.0" layoutY="60.0" prefHeight="421.0" prefWidth="440.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="60.0" />
-                  <Button fx:id="speaker" focusTraversable="false" layoutX="217.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#speakWord" prefHeight="40.0" prefWidth="50.0" stylesheets="@../css/Button.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="15.0">
+                  <Button focusTraversable="false" layoutX="217.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#speakWord" prefHeight="40.0" prefWidth="50.0" stylesheets="@../css/Button.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="15.0">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                            <image>
@@ -50,7 +50,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icon/Find2.png" />
+                  <Image url="@../../../icon/Find.png" />
                </image>
             </ImageView>
          </graphic>
@@ -61,7 +61,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <Button fx:id="CopyFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -74,7 +74,7 @@
                               <URL value="@../css/Tab-GG.css" />
                            </stylesheets>
                         </Button>
-                        <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -88,7 +88,7 @@
                            </stylesheets>
                         </Button>
                         <Pane prefHeight="44.0" prefWidth="145.0" />
-                        <Button fx:id="copyToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
+                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -101,7 +101,7 @@
                               <URL value="@../css/Tab-GG.css" />
                            </stylesheets>
                         </Button>
-                        <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
+                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -121,7 +121,7 @@
                         <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
                         <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
                            <children>
-                              <Button fx:id="switchLanguage" mnemonicParsing="false" onMouseClicked="#swapL" prefHeight="33.0" prefWidth="39.0">
+                              <Button mnemonicParsing="false" onMouseClicked="#swapL" prefHeight="33.0" prefWidth="39.0">
                                  <graphic>
                                     <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -139,7 +139,7 @@
                         <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <Button fx:id="Translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
+                  <Button layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -161,7 +161,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icon/Database2.png" />
+                  <Image url="@../../../icon/Database.png" />
                </image>
             </ImageView>
          </graphic>

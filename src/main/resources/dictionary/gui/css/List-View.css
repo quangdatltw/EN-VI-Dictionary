@@ -1,4 +1,3 @@
-
 /* ListView */
 .list-view{
     -fx-background-radius: 0;
@@ -63,7 +62,6 @@
 .list-cell:hover{
     -fx-background-color: linear-gradient(to right top, #2b185b, #551c6d, #7a1a75, #ac1781, #d71482);
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 .list-cell:pressed{
     -fx-background-color: linear-gradient(to right top, #2b185b, #551c6d, #801b7a, #ac1781, #d71482);

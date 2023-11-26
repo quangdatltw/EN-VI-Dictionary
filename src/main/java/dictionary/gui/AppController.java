@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.List;
 
+
 public class AppController {
     @FXML
     private void initialize() {
@@ -18,26 +19,33 @@ public class AppController {
         searchWord.textProperty().addListener((observable, oldValue, newValue)
                 -> searchWord.setText(newValue.toLowerCase()));
     }
-    /** Controller for Tab - Find */
-    @FXML
-    public ComboBox<String> wordHistory;
-    @FXML
-    public ListView<String> searchList;
-    @FXML
-    public TextField searchWord;
-    @FXML
-    public TextField suggestWord;
-    @FXML
-    public TextArea wordDef;
-    @FXML
-    public Button speaker;
 
+    /* Controller for Tab - Find */////////////////////////////////////////////////
+
+    @FXML
+    private ComboBox<String> wordHistory;
+    @FXML
+    private ListView<String> searchList;
+    @FXML
+    private TextField searchWord;
+    @FXML
+    private TextField suggestWord;
+    @FXML
+    private TextArea wordDef;
+
+    /**
+     * Clear selection in List-View Click anchor pane.
+     */
     @FXML
     public void clickAnchorPane() {
         searchList.getSelectionModel().clearSelection();
-
     }
 
+    /**
+     * Search prefix get from searchWord
+     * -> display searched word list.
+     * Set word suggestWord.
+     */
     @FXML
     public void searchPrefix() {
         List<String> wordList = InterfaceInputHandle.search(searchWord.getText().toLowerCase());
@@ -49,6 +57,11 @@ public class AppController {
         }
     }
 
+    /**
+     * Get chosen word in searchWord or searchList(prioritised)
+     * -> display definition
+     * Add word to WordHistory
+     */
     @FXML
     public void findChosenWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
@@ -59,6 +72,13 @@ public class AppController {
         wordDef.setText(InterfaceInputHandle.lookup(word));
     }
 
+    /**
+     * TAB: Set suggest word for searchWord.
+     * ENTER: Get word in searchWord and display definition
+     * Add word to WordHistory.
+     *
+     * @param key the key
+     */
     @FXML
     public void searchWordKey(KeyEvent key) {
         String word = searchWord.getText().toLowerCase();
@@ -71,6 +91,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Get chosen word in searchWord or searchList(prioritised)
+     * -> play sound
+     */
     @FXML
     public void speakWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
@@ -84,11 +108,18 @@ public class AppController {
         }
     }
 
+    /**
+     * Set word search history for wordHistory.
+     */
     @FXML
     public void openWordHistory() {
         wordHistory.setItems(FXCollections.observableArrayList(WordHistory.getHistory()));
     }
 
+    /**
+     * Gets word from wordHistory and display definition
+     * Add word to WordHistory
+     */
     @FXML
     public void getWordHistory() {
         String word = wordHistory.getSelectionModel().getSelectedItem();
@@ -99,14 +130,17 @@ public class AppController {
         WordHistory.addWord(word);
     }
 
-    /** Controller for Tab - Google Translate */
+    /* Controller for Tab - Google Translate *////////////////////////////////////////
     private static String fromL = "en";
     private static String toL = "vi";
     @FXML
-    public TextArea sentenceFromL;
+    private TextArea sentenceFromL;
     @FXML
-    public TextArea sentenceToL;
+    private TextArea sentenceToL;
 
+    /**
+     * Start translate sentence from "sentenceFromL" to "sentenceToL".
+     */
     @FXML
     public void startTranslate() {
         String sentence = sentenceFromL.getText();
@@ -118,6 +152,9 @@ public class AppController {
         sentenceToL.setText(sentence.replace(" * ", "\n"));
     }
 
+    /**
+     * Swap prompt text, text, language type of sentenceFromL and sentenceToL
+     */
     @FXML
     public void swapL() {
         String temp = fromL;
@@ -133,6 +170,9 @@ public class AppController {
         sentenceToL.setText(temp);
     }
 
+    /**
+     * Speak sentence in sentenceFromL.
+     */
     @FXML
     public void speakSentenceFromL() {
         String sentence = sentenceFromL.getText();
@@ -141,6 +181,10 @@ public class AppController {
         }
         InterfaceInputHandle.speakSentence(sentence, fromL);
     }
+
+    /**
+     * Speak sentence in sentenceToL.
+     */
     @FXML
     public void speakSentenceToL() {
         String sentence = sentenceToL.getText();
@@ -150,6 +194,9 @@ public class AppController {
         InterfaceInputHandle.speakSentence(sentence, toL);
     }
 
+    /**
+     * Copy sentence in sentenceFromL.
+     */
     @FXML
     public void copySentenceFromL() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -158,6 +205,9 @@ public class AppController {
         clipboard.setContent(content);
     }
 
+    /**
+     * Copy sentence in sentenceToL.
+     */
     @FXML
     public void copySentenceToL() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
