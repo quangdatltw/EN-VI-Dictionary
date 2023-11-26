@@ -1,5 +1,8 @@
 package dictionary.db;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,10 +11,10 @@ import java.util.*;
 
 public class WordHistory {
     private static List<String> history = new ArrayList<>();
-    public static List<String> getHistory() {
+    public static ObservableList<String> getHistory() {
         List<String> result = new ArrayList<>(history);
         Collections.reverse(result);
-        return result;
+        return FXCollections.observableArrayList(result);
     }
 
     public static void loadFromFile() {

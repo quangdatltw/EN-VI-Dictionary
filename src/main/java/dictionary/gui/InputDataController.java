@@ -70,6 +70,7 @@ public class InputDataController {
         secondaryStage.setMinHeight(350);
         secondaryStage.centerOnScreen();
         secondaryStage.show();
+        secondaryStage.setOnCloseRequest(event -> WordHistory.exportHistoryToFile());
         WordHistory.loadFromFile();
     }
 

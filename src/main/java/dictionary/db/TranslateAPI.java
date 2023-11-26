@@ -41,7 +41,7 @@ public class TranslateAPI {
         }
     }
 
-    private static String getResult(String sentence, String fromL, String targetL) {
+    public static String getResult(String sentence, String fromL, String targetL) {
         HttpResponse<String> response = null;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://google-translate113.p.rapidapi.com/api/v1/translator/text"))

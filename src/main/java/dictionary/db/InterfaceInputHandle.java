@@ -43,4 +43,8 @@ public class InterfaceInputHandle {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
+
+    public static String translate(String sentence, String fromL, String toL) {
+        return TranslateAPI.getResult(sentence, fromL, toL);
+    }
 }
