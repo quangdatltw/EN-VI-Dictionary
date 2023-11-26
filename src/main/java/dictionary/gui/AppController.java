@@ -4,6 +4,8 @@ import dictionary.db.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -100,19 +102,19 @@ public class AppController {
     private static String fromL = "en";
     private static String toL = "vi";
     @FXML
-    public TextArea fromSentence;
+    public TextArea sentenceFromL;
     @FXML
-    public TextArea toSentence;
+    public TextArea sentenceToL;
 
     @FXML
     public void startTranslate() {
-        String sentence = fromSentence.getText();
+        String sentence = sentenceFromL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
         sentence = sentence.replace("\n", " * ");
         sentence = InterfaceInputHandle.translate(sentence, fromL, toL);
-        toSentence.setText(sentence.replace(" * ", "\n"));
+        sentenceToL.setText(sentence.replace(" * ", "\n"));
     }
 
     @FXML
@@ -121,18 +123,18 @@ public class AppController {
         fromL = toL;
         toL = temp;
 
-        temp = fromSentence.getPromptText();
-        fromSentence.setPromptText(toSentence.getPromptText());
-        toSentence.setPromptText(temp);
+        temp = sentenceFromL.getPromptText();
+        sentenceFromL.setPromptText(sentenceToL.getPromptText());
+        sentenceToL.setPromptText(temp);
 
-        temp = fromSentence.getText();
-        fromSentence.setText(toSentence.getText());
-        toSentence.setText(temp);
+        temp = sentenceFromL.getText();
+        sentenceFromL.setText(sentenceToL.getText());
+        sentenceToL.setText(temp);
     }
 
     @FXML
     public void speakSentenceFromL() {
-        String sentence = fromSentence.getText();
+        String sentence = sentenceFromL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
@@ -140,11 +142,26 @@ public class AppController {
     }
     @FXML
     public void speakSentenceToL() {
-        String sentence = toSentence.getText();
+        String sentence = sentenceToL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
         InterfaceInputHandle.speakSentence(sentence, toL);
     }
 
+    @FXML
+    public void copySentenceFromL() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(sentenceFromL.getText());
+        clipboard.setContent(content);
+    }
+
+    @FXML
+    public void copySentenceToL() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(sentenceToL.getText());
+        clipboard.setContent(content);
+    }
 }

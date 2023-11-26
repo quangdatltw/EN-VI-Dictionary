@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -32,7 +33,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextArea fx:id="wordDef" editable="false" focusTraversable="false" layoutX="268.0" layoutY="67.0" prefHeight="514.0" prefWidth="520.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
+                  <TextArea fx:id="wordDef" editable="false" focusTraversable="false" layoutX="268.0" layoutY="60.0" prefHeight="421.0" prefWidth="440.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="60.0" />
                   <Button fx:id="speaker" focusTraversable="false" layoutX="217.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#speakWord" prefHeight="40.0" prefWidth="50.0" stylesheets="@../css/Button.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="15.0">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
@@ -58,53 +59,87 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="397.0" prefWidth="722.0">
                <children>
-                  <VBox layoutX="14.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="10.0">
+                  <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <TextArea fx:id="fromSentence" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
-                        <Pane prefHeight="47.0" prefWidth="558.0" />
-                        <TextArea fx:id="toSentence" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="CopyFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../icon/copy.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <stylesheets>
+                              <URL value="@../css/Button.css" />
+                              <URL value="@../css/Tab-GG.css" />
+                           </stylesheets>
+                        </Button>
+                        <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../icon/Speaker.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <stylesheets>
+                              <URL value="@../css/Button.css" />
+                              <URL value="@../css/Tab-GG.css" />
+                           </stylesheets>
+                        </Button>
+                        <Pane prefHeight="44.0" prefWidth="145.0" />
+                        <Button fx:id="copyToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../icon/copy.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <stylesheets>
+                              <URL value="@../css/Button.css" />
+                              <URL value="@../css/Tab-GG.css" />
+                           </stylesheets>
+                        </Button>
+                        <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../icon/Speaker.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <stylesheets>
+                              <URL value="@../css/Button.css" />
+                              <URL value="@../css/Tab-GG.css" />
+                           </stylesheets>
+                        </Button>
                      </children>
                   </VBox>
-                  <Button fx:id="toSpeaker" focusTraversable="false" layoutX="507.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="0.0" prefWidth="0.0">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../../../icon/Speaker.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <stylesheets>
-                        <URL value="@../css/Button.css" />
-                        <URL value="@../css/Tab-GG.css" />
-                     </stylesheets>
-                  </Button>
-                  <Button fx:id="fromSpeaker" focusTraversable="false" layoutX="507.0" layoutY="193.0" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="0.0" prefWidth="0.0">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../../../icon/Speaker.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <stylesheets>
-                        <URL value="@../css/Button.css" />
-                        <URL value="@../css/Tab-GG.css" />
-                     </stylesheets>
-                  </Button>
-                  <Button fx:id="switchLanguage" layoutX="14.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#switchL" prefHeight="33.0" prefWidth="39.0">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icon/Switch.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <stylesheets>
-                        <URL value="@../css/Button.css" />
-                        <URL value="@../css/Tab-GG.css" />
-                     </stylesheets>
-                  </Button>
-                  <Button fx:id="Translate" layoutX="600.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="84.0" stylesheets="@../css/Button.css" text="Translate">
+                  <VBox layoutX="150.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
+                           <children>
+                              <Button fx:id="switchLanguage" mnemonicParsing="false" onMouseClicked="#switchL" prefHeight="33.0" prefWidth="39.0">
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icon/Switch.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <stylesheets>
+                                    <URL value="@../css/Button.css" />
+                                    <URL value="@../css/Tab-GG.css" />
+                                 </stylesheets>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="Translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
