@@ -2,13 +2,13 @@ package dictionary.db;
 
 import java.sql.*;
 
-public class DatabaseRequestHandle {
+public class DatabaseRequestHandle implements Dictionary {
     private static Connection connection = null;
 
     /**
      * Instantiates a new Dictionary database.
      */
-    public DatabaseRequestHandle(){
+    public DatabaseRequestHandle() {
         connect();
     }
 
@@ -33,7 +33,7 @@ public class DatabaseRequestHandle {
         }
     }
 
-    private ResultSet view(){
+    private static ResultSet view() {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM dictionary";
@@ -46,11 +46,12 @@ public class DatabaseRequestHandle {
     /**
      * Load word from Database to local dictionary.
      */
-    public static void loadLocalDictionary(){
-        ResultSet resultSet = new DatabaseRequestHandle().view();
+    public static void loadLocalDictionary() {
+        connect();
+        ResultSet resultSet = view();
         try {
-            while(resultSet != null && resultSet.next()) {
-                LocalDictionary.loadword(resultSet.getString(1), resultSet.getString(2).replace("\\n", "\n"));
+            while (resultSet != null && resultSet.next()) {
+                LocalDictionaryRequestHandle.loadWord(resultSet.getString(1), resultSet.getString(2).replace("\\n", "\n"));
             }
             if (resultSet != null) {
                 resultSet.close();
@@ -59,7 +60,7 @@ public class DatabaseRequestHandle {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        DatabaseRequestHandle.close();
+        close();
     }
 
     /**
@@ -68,19 +69,19 @@ public class DatabaseRequestHandle {
      * @param word the word
      * @param def  the def
      */
-    public static void addWord(String word, String def) {
+    public void addWord(String word, String def) {
         try {
             connect();
 
             String insertQuery = "INSERT INTO dictionary (target, definition) VALUES (?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
 
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, word);
             preparedStatement.setString(2, def);
-
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            DatabaseRequestHandle.close();
+
+            close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,19 +93,18 @@ public class DatabaseRequestHandle {
      *
      * @param word the word
      */
-    public static void removeWord(String word) {
+    public void removeWord(String word) {
         try {
             connect();
 
             String removeQuery = "DELETE FROM dictionary WHERE target = ?";
+
             PreparedStatement preparedStatement = connection.prepareStatement(removeQuery);
-
             preparedStatement.setString(1, word);
-
             preparedStatement.executeUpdate();
-
             preparedStatement.close();
-            DatabaseRequestHandle.close();
+
+            close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -116,7 +116,7 @@ public class DatabaseRequestHandle {
      * @param wordToUpdate the word to update
      * @param def          the def
      */
-    public static void updateWord(String wordToUpdate, String def) {
+    public void updateWord(String wordToUpdate, String def) {
         try {
             connect();
 
@@ -125,9 +125,9 @@ public class DatabaseRequestHandle {
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
             preparedStatement.setString(1, def);
             preparedStatement.setString(2, wordToUpdate);
-
             preparedStatement.executeUpdate();
-            DatabaseRequestHandle.close();
+
+            close();
 
         } catch (SQLException e) {
             e.printStackTrace();

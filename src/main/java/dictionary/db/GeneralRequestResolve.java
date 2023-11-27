@@ -12,6 +12,7 @@ import java.util.List;
  * The type General request resolve.
  */
 public class GeneralRequestResolve {
+    private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
 
     /**
      * Get list of words starting with prefix.
@@ -60,7 +61,7 @@ public class GeneralRequestResolve {
                 if (parts.length == 2) {
                     String key = parts[0];
                     String value = parts[1].replace("\\n", "\n");
-                    LocalDictionary.loadword(key, value);
+                    LocalDictionaryRequestHandle.loadWord(key, value);
                 }
             }
         } catch (IOException e) {
@@ -78,7 +79,7 @@ public class GeneralRequestResolve {
         try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/Dictionary_EX.txt")) {
             String def;
             for (String word : LocalDictionary.getWordlist()) {
-                def = LocalDictionary.getDefinition(word).replace("\n", "\\n");
+                def = librarian.getDefinition(word).replace("\n", "\\n");
                 writer.write(word + "\t" + def + "\n");
             }
         } catch (IOException e) {

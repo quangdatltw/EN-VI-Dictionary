@@ -6,6 +6,8 @@ import javafx.scene.media.MediaPlayer;
 import java.util.List;
 
 public class InterfaceRequestDelegate {
+    private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
+
     /**
      * Lookup word in LocalDictionary.
      *
@@ -13,7 +15,7 @@ public class InterfaceRequestDelegate {
      * @return the string
      */
     public static String lookup(String word) {
-        return LocalDictionary.getDefinition(word);
+        return librarian.getDefinition(word);
     }
 
     /**
@@ -26,6 +28,10 @@ public class InterfaceRequestDelegate {
         return GeneralRequestResolve.getSearchedList(prefix);
     }
 
+
+    public static boolean checkWord(String word) {
+        return librarian.checkWordExistence(word);
+    }
     /**
      * Add word to LocalDictionary.
      *
@@ -34,8 +40,8 @@ public class InterfaceRequestDelegate {
      * @return the boolean
      */
     public static boolean addWord(String word, String def) {
-        if (!LocalDictionary.checkWordExistence(word)) {
-            LocalDictionary.addWord(word, def);
+        if (!librarian.checkWordExistence(word)) {
+            librarian.addWord(word, def);
             return true;
         } else {
             return false;
@@ -49,7 +55,7 @@ public class InterfaceRequestDelegate {
      * @param def  the def
      */
     public static void update(String word, String def) {
-        LocalDictionary.updateWord(word, def);
+        librarian.updateWord(word, def);
     }
 
     /**
@@ -58,7 +64,7 @@ public class InterfaceRequestDelegate {
      * @param word the word
      */
     public static void remove(String word) {
-        LocalDictionary.removeWord(word);
+        librarian.removeWord(word);
     }
 
     /**

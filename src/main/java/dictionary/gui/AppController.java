@@ -127,7 +127,7 @@ public class AppController {
             playSound(word, "en");
         } else {
             word = searchWord.getText().toLowerCase();
-            if (LocalDictionary.checkWordExistence(word)) {
+            if (InterfaceRequestDelegate.checkWord(word)) {
                 playSound(searchWord.getText(), "en");
             }
         }
@@ -151,7 +151,7 @@ public class AppController {
         searchWord.setText(word);
         if (word == null) return;
         searchPrefix();
-        wordDef.setText(LocalDictionary.getDefinition(word));
+        wordDef.setText(InterfaceRequestDelegate.lookup(word));
         WordHistory.addWord(word);
     }
 

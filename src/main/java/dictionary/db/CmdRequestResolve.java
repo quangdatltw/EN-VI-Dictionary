@@ -46,12 +46,11 @@ public class CmdRequestResolve {
     /**
      * Update word's definition.
      *
-     * @param word the word
+     * @param wordDef the word
      * @return the string
      */
-    public static String getInputUpdate(String word) {
+    public static String getInputUpdate(String wordDef) {
         int para = 10;
-        String wordDef = LocalDictionary.getDefinition(word);
         while (para != 0) {
             System.out.println("""
                     [0] Exit

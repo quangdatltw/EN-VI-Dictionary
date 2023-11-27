@@ -77,16 +77,6 @@ public class CmdInterface {
     }
 
     /**
-     * Show all words.
-     */
-    public static void showAllWords() {
-        for (String i : LocalDictionary.getWordlist()) {
-            System.out.println(LocalDictionary.getDefinition(i)
-                    + "\n----------------------------------------------------");
-        }
-    }
-
-    /**
      * Start Commandline interface
      *
      * @param args the input arguments

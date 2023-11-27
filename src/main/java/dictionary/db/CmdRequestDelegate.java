@@ -3,6 +3,17 @@ package dictionary.db;
 import java.util.List;
 
 public class CmdRequestDelegate {
+    private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
+
+    /**
+     * Show all words.
+     */
+    public static void showAllWords() {
+        for (String i : LocalDictionary.getWordlist()) {
+            System.out.println(librarian.getDefinition(i)
+                    + "\n----------------------------------------------------");
+        }
+    }
 
     /**
      * Get and check word wanted to ADD -> get input word's definition from InputHandle
@@ -15,7 +26,7 @@ public class CmdRequestDelegate {
         } else if (check == -1) {
             System.out.print("Definition: ");
             String def = word + CmdRequestResolve.getInputDefinition();
-            LocalDictionary.addWord(word, def);
+            librarian.addWord(word, def);
         }
         System.out.println("-------------------------------------------------");
 
@@ -34,10 +45,11 @@ public class CmdRequestDelegate {
             } else if (check == 1) {
                 continue;
             } else {
+                String wordDef = librarian.getDefinition(word);
                 System.out.println("This is word definition: ");
-                System.out.println(LocalDictionary.getDefinition(word));
-                String newDef = CmdRequestResolve.getInputUpdate(word);
-                LocalDictionary.updateWord(word, newDef);
+                System.out.println(wordDef);
+                wordDef = CmdRequestResolve.getInputUpdate(wordDef);
+                librarian.updateWord(word, wordDef);
             }
             System.out.println("-------------------------------------------------");
         }
@@ -53,10 +65,10 @@ public class CmdRequestDelegate {
             if (word.equals("0")) {
                 break;
             }
-            if (!LocalDictionary.checkWordExistence(word)) {
+            if (!librarian.checkWordExistence(word)) {
                 System.out.println("word not found! \n");
             } else {
-                LocalDictionary.removeWord(word);
+                librarian.removeWord(word);
                 System.out.println("Word removed! \n");
             }
         }
@@ -76,7 +88,7 @@ public class CmdRequestDelegate {
                 continue;
             } else {
                 System.out.print("Definition: ");
-                System.out.println(LocalDictionary.getDefinition(word));
+                System.out.println(librarian.getDefinition(word));
             }
             System.out.println("-------------------------------------------------");
         }
@@ -116,23 +128,23 @@ public class CmdRequestDelegate {
             return 1;
         }
 
-        if (!LocalDictionary.checkWordExistence(word) && mode == 1) {
+        if (!librarian.checkWordExistence(word) && mode == 1) {
             System.out.println("word not found! \n" + "Do you want to add this word? [Y/N]: ");
             if (CmdRequestResolve.scn.nextLine().equalsIgnoreCase("y")) {
                 System.out.println("Word: " + word);
                 System.out.println("Definition: ");
                 String definition = word + CmdRequestResolve.getInputDefinition();
-                LocalDictionary.addWord(word, definition);
+                librarian.addWord(word, definition);
             }
             return 1;
         }
 
-        if (LocalDictionary.checkWordExistence(word) && mode == 2) {
+        if (librarian.checkWordExistence(word) && mode == 2) {
             System.out.print("Word already exist! \n Do you want to update this word? [Y/N]: ");
             if (CmdRequestResolve.scn.nextLine().equalsIgnoreCase("y")) {
                 CmdRequestResolve.getInputUpdate(word);
                 String newDef = CmdRequestResolve.getInputUpdate(word);
-                LocalDictionary.updateWord(word, newDef);
+                librarian.updateWord(word, newDef);
             }
             return 1;
         }
