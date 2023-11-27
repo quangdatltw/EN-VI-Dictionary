@@ -7,7 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class WordHistory {
     private static List<String> history = new ArrayList<>();
@@ -58,7 +60,7 @@ public class WordHistory {
     /**
      * Export word search history to file.
      */
-    public static void exportHistoryToFile() {
+    public static void exportToFile() {
         try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/history.txt")) {
             for (String word : history) {
                 writer.write(word + "\n");
@@ -68,3 +70,4 @@ public class WordHistory {
         }
     }
 }
+

@@ -156,7 +156,14 @@
       </Tab>
       <Tab text="Add/Remove/Update">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="537.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="537.0">
+               <children>
+                  <TextField focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="235.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children></AnchorPane>
          </content>
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

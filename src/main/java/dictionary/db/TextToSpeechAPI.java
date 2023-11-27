@@ -1,6 +1,8 @@
 package dictionary.db;
 
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javazoom.jl.player.Player;
 
 import java.io.InputStream;
@@ -12,7 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 
-
+/**
+ * The type Text to speech api.
+ */
 public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
@@ -67,6 +71,17 @@ public class TextToSpeechAPI {
             System.err.println("Error in getting voices");
         }
         return apiUrl;
+    }
+
+    /**
+     * Gets mediaPlayer.
+     *
+     * @param api the api
+     * @return the media
+     */
+    public static MediaPlayer getMedia(String api) {
+        Media media = new Media(api);
+        return new MediaPlayer(media);
     }
 
     private static void playAudio(String api) {

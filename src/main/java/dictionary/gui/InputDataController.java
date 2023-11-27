@@ -1,7 +1,7 @@
 package dictionary.gui;
 
-import dictionary.db.DictionaryDatabase;
-import dictionary.db.InterfaceInputHandle;
+import dictionary.db.DatabaseRequestHandle;
+import dictionary.db.InterfaceRequestDelegate;
 import dictionary.db.WordHistory;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class InputDataController {
      */
     @FXML
     public void importInternalDB() {
-        runTask(DictionaryDatabase::loadLocalDictionary);
+        runTask(DatabaseRequestHandle::loadLocalDictionary);
     }
 
     /**
@@ -51,7 +51,7 @@ public class InputDataController {
      */
     @FXML
     public void importExternalDB() {
-        if (InterfaceInputHandle.insertDictionaryFromFile(filePath.getText())) {
+        if (InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
             runTask(WordHistory::loadFromFile);
         } else {
             errorText.setText("File path is incorrect");
@@ -91,7 +91,7 @@ public class InputDataController {
         secondaryStage.setMinHeight(350);
         secondaryStage.centerOnScreen();
         secondaryStage.show();
-        secondaryStage.setOnCloseRequest(event -> WordHistory.exportHistoryToFile());
+        secondaryStage.setOnCloseRequest(event -> WordHistory.exportToFile());
     }
 
 }

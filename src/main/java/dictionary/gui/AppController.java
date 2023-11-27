@@ -24,7 +24,7 @@ public class AppController {
     }
 
     private static void playSound(String string, String lang) {
-        mediaPlayer = InterfaceInputHandle.getMediaPlayer(string, lang);
+        mediaPlayer = InterfaceRequestDelegate.getMediaPlayer(string, lang);
         mediaPlayer.play();
     }
 
@@ -34,7 +34,7 @@ public class AppController {
         }
     }
 
-    private static void pause_ContinueSound() {
+    private static void pauseSong() {
         if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
         } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
@@ -72,7 +72,7 @@ public class AppController {
      */
     @FXML
     public void searchPrefix() {
-        List<String> wordList = InterfaceInputHandle.search(searchWord.getText().toLowerCase());
+        List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText().toLowerCase());
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
@@ -93,7 +93,7 @@ public class AppController {
             word = searchWord.getText().toLowerCase();
         }
         WordHistory.addWord(word);
-        wordDef.setText(InterfaceInputHandle.lookup(word));
+        wordDef.setText(InterfaceRequestDelegate.lookup(word));
     }
 
     /**
@@ -110,7 +110,7 @@ public class AppController {
             searchWord.setText(searchList.getItems().get(0));
         }
         if (key.getCode() == KeyCode.ENTER) {
-            wordDef.setText(InterfaceInputHandle.lookup(word));
+            wordDef.setText(InterfaceRequestDelegate.lookup(word));
             WordHistory.addWord(word);
         }
     }
@@ -173,7 +173,7 @@ public class AppController {
             return;
         }
         sentence = sentence.replace("\n", " * ");
-        sentence = InterfaceInputHandle.translate(sentence, fromL, toL);
+        sentence = InterfaceRequestDelegate.translate(sentence, fromL, toL);
         sentenceToL.setText(sentence.replace(" * ", "\n"));
     }
 
@@ -226,10 +226,7 @@ public class AppController {
      */
     @FXML
     public void copySentenceFromL() {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(sentenceFromL.getText());
-        clipboard.setContent(content);
+        copy(sentenceFromL.getText());
     }
 
     /**
@@ -237,9 +234,13 @@ public class AppController {
      */
     @FXML
     public void copySentenceToL() {
+        copy(sentenceToL.getText());
+    }
+
+    private void copy(String sentence) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
-        content.putString(sentenceToL.getText());
+        content.putString(sentence);
         clipboard.setContent(content);
     }
 

@@ -30,7 +30,7 @@ public class LocalDictionary {
     }
 
     /**
-     * Add word to Local Dictionary.
+     * Add word to Local Dictionary and Database.
      *
      * @param word       the word
      * @param definition the definition
@@ -40,6 +40,21 @@ public class LocalDictionary {
             dictionary.put(word, definition);
             return;
         }
+        updateIndex(word);
+        int idx = findIndex(word);
+
+        wordlist.add(idx, word);
+        dictionary.put(word, definition);
+        DatabaseRequestHandle.addWord(word, definition);
+    }
+
+    /**
+     * Load words from Database to LocalDictionary
+     *
+     * @param word       the word
+     * @param definition the definition
+     */
+    public static void loadword(String word, String definition) {
         updateIndex(word);
         int idx = findIndex(word);
 
@@ -55,7 +70,7 @@ public class LocalDictionary {
      */
     public static void updateWord(String word, String definition) {
         dictionary.put(word, definition);
-        DictionaryDatabase.updateWord(word, definition);
+        DatabaseRequestHandle.updateWord(word, definition);
     }
 
     /**
@@ -66,7 +81,7 @@ public class LocalDictionary {
     public static void removeWord(String word) {
         wordlist.remove(word);
         dictionary.remove(word);
-        DictionaryDatabase.removeWord(word);
+        DatabaseRequestHandle.removeWord(word);
         for (int i = (int) word.charAt(0) - 96; i < 26; i++) {
             index.set(i, index.get(i) - 1);
         }
