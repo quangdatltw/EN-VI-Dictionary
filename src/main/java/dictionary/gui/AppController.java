@@ -8,17 +8,41 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
 
 
 public class AppController {
+    /* All Tab method *///////////////////////////////////////////////////
+    private static MediaPlayer mediaPlayer;
     @FXML
     private void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
         searchWord.textProperty().addListener((observable, oldValue, newValue)
                 -> searchWord.setText(newValue.toLowerCase()));
     }
+
+    private static void playSound(String string, String lang) {
+        mediaPlayer = InterfaceInputHandle.getMediaPlayer(string, lang);
+        mediaPlayer.play();
+    }
+
+    private static void stopSound() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    }
+
+    private static void pause_ContinueSound() {
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+        } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+            mediaPlayer.play();
+        }
+    }
+
+
 
     /* Controller for Tab - Find */////////////////////////////////////////////////
 
@@ -97,13 +121,14 @@ public class AppController {
      */
     @FXML
     public void speakWord() {
+        stopSound();
         String word = searchList.getSelectionModel().getSelectedItem();
         if (word != null) {
-            InterfaceInputHandle.speakSentence(word, "en");
+            playSound(word, "en");
         } else {
             word = searchWord.getText().toLowerCase();
             if (LocalDictionary.checkWordExistence(word)) {
-                InterfaceInputHandle.speakSentence(searchWord.getText(), "en");
+                playSound(searchWord.getText(), "en");
             }
         }
     }
@@ -175,11 +200,12 @@ public class AppController {
      */
     @FXML
     public void speakSentenceFromL() {
+        stopSound();
         String sentence = sentenceFromL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        InterfaceInputHandle.speakSentence(sentence, fromL);
+        playSound(sentence, fromL);
     }
 
     /**
@@ -187,11 +213,12 @@ public class AppController {
      */
     @FXML
     public void speakSentenceToL() {
+        stopSound();
         String sentence = sentenceToL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        InterfaceInputHandle.speakSentence(sentence, toL);
+        playSound(sentence, toL);
     }
 
     /**
@@ -215,4 +242,9 @@ public class AppController {
         content.putString(sentenceToL.getText());
         clipboard.setContent(content);
     }
+
+
+    /* Controller for Tab - Add/Remove/Update *////////////////////////////////////////
+
+
 }
