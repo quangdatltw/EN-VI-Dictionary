@@ -1,6 +1,7 @@
 package dictionary.db;
 
 
+import dictionary.gui.AppController;
 import dictionary.gui.InputDataController;
 import javafx.scene.media.MediaPlayer;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class InterfaceRequestDelegate {
     private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
+    private static TextToSpeechAPI converter = new TextToSpeechAPI();
 
     /**
      * Lookup word in LocalDictionary.
@@ -88,9 +90,12 @@ public class InterfaceRequestDelegate {
      * @param sentence the sentence
      * @param language the language
      */
-    public static MediaPlayer getMediaPlayer(String sentence, String language) {
-        String apiUrl = TextToSpeechAPI.getApiUrl(sentence, language);
-        return TextToSpeechAPI.getMedia(apiUrl);
+    public static List<MediaPlayer> getMediaPlayerList(String sentence, String language) {
+        return TaskRunner.convertTTS(sentence, language);
+    }
+
+    public static MediaPlayer getMediaPlayer(String word, String language) {
+        return converter.getMediaPlayerForWord(word, language);
     }
 
     /**
@@ -99,10 +104,11 @@ public class InterfaceRequestDelegate {
      * @param sentence the sentence
      * @param fromL    the froml
      * @param toL      the tol
-     * @return the string
      */
-    public static String translate(String sentence, String fromL, String toL) {
-        TaskRunner.translate(sentence, fromL, toL);
+    public static void translate(String sentence, String fromL, String toL, Runnable set) {
+        TaskRunner.translate(sentence, fromL, toL, set);
+    }
+    public static String getTranslated() {
         return TranslateAPI.getResult();
     }
 }

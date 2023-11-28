@@ -84,7 +84,7 @@ public class TranslateAPI {
 
         sentenceTL = sentenceTL.substring(sentenceTL.indexOf("trans\":\"") + 8);
         sentenceTL = sentenceTL.substring(0,sentenceTL.indexOf("\"}"));
-        result = sentenceTL;
+        result = sentenceTL.replace("\\n", "\n");
     }
 
     /**

@@ -11,6 +11,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -20,11 +22,13 @@ import java.util.Scanner;
 public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
+    private List<String> urlList = new ArrayList<>();
+    private String language = "en";
 
     /**
      * Begin convert to speech cmd.
      */
-    public static void convert() {
+    public void cmdConvert() {
         String sentence = "";
         System.out.print("""
                         Text to speech.
@@ -52,6 +56,34 @@ public class TextToSpeechAPI {
         }
     }
 
+    private void playAudio(String api) {
+        try {
+            URI uri = new URI(api);
+            URL url = uri.toURL();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            InputStream audio = con.getInputStream();
+            new Player(audio).play();
+        } catch (Exception ignore) {
+        }
+    }
+
+    public void setLanguage(String fromL) {
+        language = fromL;
+    }
+
+    public void splitSentence(String sentence) {
+        while (sentence.length() > 200) {
+            for (int i = 190; i < sentence.length(); i++) {
+                if (sentence.charAt(i) == ' ') {
+                    String part = sentence.substring(0, i);
+                    sentence = sentence.substring(i);
+                    urlList.add(getApiUrl(part, language));
+                }
+            }
+        }
+        urlList.add(getApiUrl(sentence, language));
+    }
+
     /**
      * Gets api url.
      *
@@ -59,7 +91,7 @@ public class TextToSpeechAPI {
      * @param language the language
      * @return the api url
      */
-    public static String getApiUrl(String sentence, String language) {
+    private String getApiUrl(String sentence, String language) {
         String apiUrl = "";
         try {
              apiUrl = "https://translate.google.com/translate_tts?ie=UTF-8&tl="
@@ -71,28 +103,24 @@ public class TextToSpeechAPI {
             e.printStackTrace();
             System.err.println("Error in getting voices");
         }
+        this.urlList.add(apiUrl);
         return apiUrl;
     }
 
-    /**
-     * Gets mediaPlayer.
-     *
-     * @param api the api
-     * @return the media
-     */
-    public static MediaPlayer getMedia(String api) {
+    public MediaPlayer getMediaPlayerForWord(String word, String language) {
+        String api = getApiUrl(word, language);
         Media media = new Media(api);
         return new MediaPlayer(media);
     }
 
-    private static void playAudio(String api) {
-        try {
-            URI uri = new URI(api);
-            URL url = uri.toURL();
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            InputStream audio = con.getInputStream();
-            new Player(audio).play();
-        } catch (Exception ignore) {
+
+    public List<Media> getMediaList() {
+        List<Media> playList = new ArrayList<>();
+        for (String api: urlList) {
+            playList.add(new Media(api));
         }
+        return playList;
     }
+
+
 }

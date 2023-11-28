@@ -73,7 +73,8 @@ public class CmdInterface {
                     TranslateAPI.cmdTranslate();
                     break;
                 case 11:
-                    TextToSpeechAPI.convert();
+                    TextToSpeechAPI ttp = new TextToSpeechAPI();
+                    ttp.cmdConvert();
                     break;
                 default:
                     System.out.println("Action not supported");

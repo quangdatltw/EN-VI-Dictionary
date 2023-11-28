@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AppController {
     /* All Tab method *///////////////////////////////////////////////////
-    private static MediaPlayer mediaPlayer;
+
     @FXML
     private void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
@@ -23,6 +23,9 @@ public class AppController {
                 -> searchWord.setText(newValue.toLowerCase()));
     }
 
+    /* Controller for Tab - Find *////////////////////////////////////////////////////
+
+    private static MediaPlayer mediaPlayer;
     private static void playSound(String string, String lang) {
         mediaPlayer = InterfaceRequestDelegate.getMediaPlayer(string, lang);
         mediaPlayer.play();
@@ -42,9 +45,6 @@ public class AppController {
         }
     }
 
-
-
-    /* Controller for Tab - Find */////////////////////////////////////////////////
 
     @FXML
     private ComboBox<String> wordHistory;
@@ -156,6 +156,11 @@ public class AppController {
     }
 
     /* Controller for Tab - Google Translate *////////////////////////////////////////
+    private static List<MediaPlayer> mediaPlayerList;
+
+    private static void playMediaPlayerList() {
+
+    }
     private static String fromL = "en";
     private static String toL = "vi";
     @FXML
@@ -172,8 +177,11 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        sentence = InterfaceRequestDelegate.translate(sentence, fromL, toL);
-        sentenceToL.setText(sentence.replace("\\n", "\n"));
+        InterfaceRequestDelegate.translate(sentence, fromL, toL, this::setTranslated);
+        setTranslated();
+    }
+    public void setTranslated() {
+        sentenceToL.setText(InterfaceRequestDelegate.getTranslated());
     }
 
     /**
@@ -204,7 +212,8 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        playSound(sentence, fromL);
+        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList(sentence, fromL);
+        playMediaPlayerList();
     }
 
     /**
@@ -217,7 +226,8 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        playSound(sentence, toL);
+        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList(sentence, toL);
+        playMediaPlayerList();
     }
 
     /**

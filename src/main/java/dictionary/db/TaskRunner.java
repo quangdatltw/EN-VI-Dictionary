@@ -1,6 +1,11 @@
 package dictionary.db;
 
 import javafx.concurrent.Task;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskRunner {
 
@@ -20,21 +25,25 @@ public class TaskRunner {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                InterfaceRequestDelegate.insertDictionaryFromFile(filePath);
+                if (!GeneralRequestResolve.importDFile(filePath)) {
+                    throw new RuntimeException();
+                }
                 return null;
             }
         };
         new Thread(task).start();
-        task.setOnSucceeded(event -> nextTaskRunnable.run());
+
         try {
             task.get();
+            task.setOnSucceeded(event -> nextTaskRunnable.run());
             return true;
+
         } catch (Exception ignore) {
             return false;
         }
     }
 
-    public static void translate(String sentence, String fromL, String toL) {
+    public static void translate(String sentence, String fromL, String toL, Runnable runnable) {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
@@ -43,6 +52,40 @@ public class TaskRunner {
             }
         };
         new Thread(task).start();
+        task.setOnSucceeded(event -> runnable.run());
+    }
+
+    public static List<MediaPlayer> convertTTS(String sentence, String language) {
+        TextToSpeechAPI convert = new TextToSpeechAPI();
+        List<Media> mediaList;
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                convert.setLanguage(language);
+                convert.splitSentence(sentence);
+                return null;
+            }
+        };
+        new Thread(task).start();
+
+        mediaList = convert.getMediaList();
+        List<MediaPlayer> playList = new ArrayList<>();
+        for (Media media : mediaList) {
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            playList.add(mediaPlayer);
+        }
+        for (MediaPlayer md : playList) {
+            Task<Void> taskk = new Task<>() {
+                @Override
+                protected Void call() {
+                    md.play();
+                    return null;
+                }
+            };
+            new Thread(taskk).start();
+        }
+
+        return playList;
     }
 
 }
