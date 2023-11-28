@@ -1,10 +1,7 @@
 package dictionary.gui;
 
-import dictionary.db.DatabaseRequestHandle;
 import dictionary.db.InterfaceRequestDelegate;
-import dictionary.db.TaskRunner;
 import dictionary.db.WordHistory;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,7 +41,7 @@ public class InputDataController {
      */
     @FXML
     public void importInternalDB() {
-        TaskRunner.runTask(DatabaseRequestHandle::loadLocalDictionary, InputDataController::switchToApp);
+        InterfaceRequestDelegate.insertDictionaryFromDatabase();
     }
 
     /**
@@ -52,9 +49,7 @@ public class InputDataController {
      */
     @FXML
     public void importExternalDB() {
-        if (InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
-            TaskRunner.runTask(WordHistory::loadFromFile, InputDataController::switchToApp);
-        } else {
+        if (!InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
             errorText.setText("File path is incorrect");
         }
     }

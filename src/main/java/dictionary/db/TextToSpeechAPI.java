@@ -66,6 +66,7 @@ public class TextToSpeechAPI {
                      + language
                      + "&client=tw-ob&q="
                      + URLEncoder.encode(sentence, StandardCharsets.UTF_8);
+             System.out.println(URLEncoder.encode(sentence, StandardCharsets.UTF_8));
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Error in getting voices");

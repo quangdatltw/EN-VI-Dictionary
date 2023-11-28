@@ -1,6 +1,7 @@
 package dictionary.db;
 
 
+import dictionary.gui.InputDataController;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
@@ -74,7 +75,11 @@ public class InterfaceRequestDelegate {
      * @return the boolean
      */
     public static boolean insertDictionaryFromFile(String filePath) {
-        return GeneralRequestResolve.importDFile(filePath);
+        return TaskRunner.loadData_changeStage(filePath, InputDataController::switchToApp);
+    }
+
+    public static void insertDictionaryFromDatabase() {
+        TaskRunner.loadData_changeStage(DatabaseRequestHandle::loadLocalDictionary, InputDataController::switchToApp);
     }
 
     /**
@@ -97,7 +102,7 @@ public class InterfaceRequestDelegate {
      * @return the string
      */
     public static String translate(String sentence, String fromL, String toL) {
-        TranslateAPI.translate(sentence, fromL, toL);
+        TaskRunner.translate(sentence, fromL, toL);
         return TranslateAPI.getResult();
     }
 }
