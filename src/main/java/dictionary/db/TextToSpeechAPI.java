@@ -98,7 +98,6 @@ public class TextToSpeechAPI {
                      + language
                      + "&client=tw-ob&q="
                      + URLEncoder.encode(sentence, StandardCharsets.UTF_8);
-             System.out.println(URLEncoder.encode(sentence, StandardCharsets.UTF_8));
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Error in getting voices");
@@ -114,12 +113,12 @@ public class TextToSpeechAPI {
     }
 
 
-    public List<Media> getMediaList() {
-        List<Media> playList = new ArrayList<>();
-        for (String api: urlList) {
-            playList.add(new Media(api));
+    public List<MediaPlayer> getMediaPlayerList() {
+        List<MediaPlayer> mediaPlayers = new ArrayList<>();
+        for (String i : urlList) {
+            mediaPlayers.add(new MediaPlayer(new Media(i)));
         }
-        return playList;
+        return mediaPlayers;
     }
 
 

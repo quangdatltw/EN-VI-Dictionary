@@ -1,11 +1,6 @@
 package dictionary.db;
 
 import javafx.concurrent.Task;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskRunner {
 
@@ -55,9 +50,8 @@ public class TaskRunner {
         task.setOnSucceeded(event -> runnable.run());
     }
 
-    public static List<MediaPlayer> convertTTS(String sentence, String language) {
+    public static TextToSpeechAPI convertTTS(String sentence, String language, Runnable runnable) {
         TextToSpeechAPI convert = new TextToSpeechAPI();
-        List<Media> mediaList;
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
@@ -67,25 +61,8 @@ public class TaskRunner {
             }
         };
         new Thread(task).start();
-
-        mediaList = convert.getMediaList();
-        List<MediaPlayer> playList = new ArrayList<>();
-        for (Media media : mediaList) {
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            playList.add(mediaPlayer);
-        }
-        for (MediaPlayer md : playList) {
-            Task<Void> taskk = new Task<>() {
-                @Override
-                protected Void call() {
-                    md.play();
-                    return null;
-                }
-            };
-            new Thread(taskk).start();
-        }
-
-        return playList;
+        task.setOnSucceeded(event ->  runnable.run());
+        return convert;
     }
 
 }

@@ -81,10 +81,15 @@ public class TranslateAPI {
         if (response != null) {
             sentenceTL = response.body();
         }
-
         sentenceTL = sentenceTL.substring(sentenceTL.indexOf("trans\":\"") + 8);
+        if (sentenceTL.contains("\",")) {
+            sentenceTL = sentenceTL.substring(0, sentenceTL.indexOf("\","));
+            result = sentenceTL.replace("\\n", "\n");
+            return;
+        }
         sentenceTL = sentenceTL.substring(0,sentenceTL.indexOf("\"}"));
-        result = sentenceTL.replace("\\n", "\n");
+        result = sentenceTL;
+
     }
 
     /**

@@ -212,8 +212,7 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList(sentence, fromL);
-        playMediaPlayerList();
+        InterfaceRequestDelegate.createMediaPlayerList(sentence, fromL, this::setMediaPlayer);
     }
 
     /**
@@ -226,7 +225,10 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList(sentence, toL);
+        InterfaceRequestDelegate.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
+    }
+    public void setMediaPlayer() {
+        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
         playMediaPlayerList();
     }
 
