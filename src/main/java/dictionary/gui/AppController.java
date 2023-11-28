@@ -2,6 +2,7 @@ package dictionary.gui;
 
 import dictionary.db.*;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
@@ -10,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -72,11 +74,11 @@ public class AppController {
      */
     @FXML
     public void searchPrefix() {
-        List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText().toLowerCase());
+        List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText());
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
-            suggestWord.setText(wordList.get(0));
+            suggestWord.setText(wordList.get(0).toLowerCase());
             searchList.getItems().addAll(wordList);
         }
     }
@@ -90,8 +92,12 @@ public class AppController {
     public void findChosenWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
         if (word == null) {
-            word = searchWord.getText().toLowerCase();
+            word = searchWord.getText();
         }
+        if (word == null) {
+            word = "";
+        }
+        word = word.toLowerCase();
         WordHistory.addWord(word);
         wordDef.setText(InterfaceRequestDelegate.lookup(word));
     }
@@ -157,10 +163,35 @@ public class AppController {
 
     /* Controller for Tab - Google Translate *////////////////////////////////////////
     private static List<MediaPlayer> mediaPlayerList;
+    private static MediaPlayer playingMedia;
+    private static void stopMediaPlayerList() {
+        playingMedia.dispose();
+        mediaPlayerList.clear();
+        playingMedia = null;
+    }
 
     private static void playMediaPlayerList() {
+        List<Task<Void>> taskList = new ArrayList<>();
+        for (MediaPlayer mediaPlayer : mediaPlayerList) {
+            Task<Void> task = new Task<>() {
+                @Override
+                protected Void call() {
+                    mediaPlayer.play();
+                    while (mediaPlayer.getStatus() != MediaPlayer.Status.STOPPED) {
+                    }
+                    return null;
+                }
+            };
+            taskList.add(task);
+        }
+        for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
+            int finalI = i + 1;
+            mediaPlayerList.get(i).setOnEndOfMedia(() -> mediaPlayerList.get(finalI).play());
+        }
+        new Thread(taskList.get(0)).start();
 
     }
+
     private static String fromL = "en";
     private static String toL = "vi";
     @FXML

@@ -5,11 +5,12 @@ import dictionary.gui.InputDataController;
 import javafx.concurrent.Task;
 import javafx.scene.media.MediaPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InterfaceRequestDelegate {
     private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
-    private static TextToSpeechAPI converter = new TextToSpeechAPI();
+    public static TextToSpeechAPI converter = new TextToSpeechAPI();
 
     public static String lookup(String word) {
         return librarian.getDefinition(word);
@@ -49,21 +50,11 @@ public class InterfaceRequestDelegate {
     }
 
     public static void createMediaPlayerList(String sentence, String language, Runnable run) {
-        converter = TaskRunner.convertTTS(sentence, language, run);
+        TaskRunner.convertTTS(sentence, language, run, converter);
     }
     public static List<MediaPlayer> getMediaPlayerList() {
         List<MediaPlayer> mediaPlayers =  converter.getMediaPlayerList();
-
-        for (MediaPlayer md : mediaPlayers) {
-            Task<Void> task = new Task<>() {
-                @Override
-                protected Void call() {
-                    md.play();
-                    return null;
-                }
-            };
-            new Thread(task).start();
-        }
+        converter.reset();
         return mediaPlayers;
     }
 

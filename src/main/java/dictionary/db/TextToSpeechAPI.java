@@ -25,6 +25,10 @@ public class TextToSpeechAPI {
     private List<String> urlList = new ArrayList<>();
     private String language = "en";
 
+    public void reset() {
+        urlList.clear();
+    }
+
     /**
      * Begin convert to speech cmd.
      */
@@ -73,11 +77,12 @@ public class TextToSpeechAPI {
 
     public void splitSentence(String sentence) {
         while (sentence.length() > 200) {
-            for (int i = 190; i < sentence.length(); i++) {
+            for (int i = 180; i < sentence.length(); i++) {
                 if (sentence.charAt(i) == ' ') {
                     String part = sentence.substring(0, i);
                     sentence = sentence.substring(i);
                     urlList.add(getApiUrl(part, language));
+                    break;
                 }
             }
         }
@@ -102,7 +107,6 @@ public class TextToSpeechAPI {
             e.printStackTrace();
             System.err.println("Error in getting voices");
         }
-        this.urlList.add(apiUrl);
         return apiUrl;
     }
 
@@ -116,8 +120,10 @@ public class TextToSpeechAPI {
     public List<MediaPlayer> getMediaPlayerList() {
         List<MediaPlayer> mediaPlayers = new ArrayList<>();
         for (String i : urlList) {
+            System.out.println(i);
             mediaPlayers.add(new MediaPlayer(new Media(i)));
         }
+
         return mediaPlayers;
     }
 

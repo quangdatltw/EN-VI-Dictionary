@@ -21,9 +21,13 @@ public class GeneralRequestResolve {
      * @return the list
      */
     public static List<String> getSearchedList(String prefix) {
+
         List<String> wordlist = LocalDictionary.getWordlist();
         List<String> result = new ArrayList<>();
 
+        if (prefix.isEmpty()) {
+            return result;
+        }
         int begin = 0;
         int end = wordlist.size() - 1;
 
