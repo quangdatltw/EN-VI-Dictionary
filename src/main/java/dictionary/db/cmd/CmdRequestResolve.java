@@ -1,4 +1,4 @@
-package dictionary.db;
+package dictionary.db.cmd;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

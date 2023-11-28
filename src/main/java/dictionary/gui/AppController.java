@@ -172,9 +172,8 @@ public class AppController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        sentence = sentence.replace("\n", " * ");
         sentence = InterfaceRequestDelegate.translate(sentence, fromL, toL);
-        sentenceToL.setText(sentence.replace(" * ", "\n"));
+        sentenceToL.setText(sentence.replace("\\n", "\n"));
     }
 
     /**

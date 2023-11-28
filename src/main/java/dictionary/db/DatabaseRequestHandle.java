@@ -9,7 +9,6 @@ public class DatabaseRequestHandle implements Dictionary {
      * Instantiates a new Dictionary database.
      */
     public DatabaseRequestHandle() {
-        connect();
     }
 
     private static void connect() {

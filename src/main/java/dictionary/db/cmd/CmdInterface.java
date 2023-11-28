@@ -1,4 +1,9 @@
-package dictionary.db;
+package dictionary.db.cmd;
+
+
+import dictionary.db.DatabaseRequestHandle;
+import dictionary.db.TextToSpeechAPI;
+import dictionary.db.TranslateAPI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -48,7 +53,7 @@ public class CmdInterface {
                     CmdRequestDelegate.update();
                     break;
                 case 4:
-                    showAllWords();
+                    CmdRequestDelegate.showAllWords();
                     break;
                 case 5:
                     CmdRequestDelegate.lookup();
@@ -65,7 +70,7 @@ public class CmdInterface {
                     CmdRequestDelegate.exportDictionaryToFile();
                     break;
                 case 10:
-                    TranslateAPI.translate();
+                    TranslateAPI.cmdTranslate();
                     break;
                 case 11:
                     TextToSpeechAPI.convert();

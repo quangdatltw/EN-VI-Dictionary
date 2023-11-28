@@ -12,10 +12,12 @@ public class TranslateAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
 
+    private static String result = "";
+
     /**
      * Begin translate cmd.
      */
-    public static void translate() {
+    public static void cmdTranslate() {
         String sentence = "";
         String fromL = "en";
         String targetL = "vi";
@@ -41,19 +43,27 @@ public class TranslateAPI {
                 fromL = detectL;
             }
             System.out.println("Translate to Vietnamese:");
-            System.out.println(getResult(sentence, fromL, targetL));
+            translate(sentence, fromL, targetL);
+            System.out.println(result);
         }
     }
 
     /**
-     * Gets translated sentence.
+     * Gét translated sentence.
+     *
+     */
+    public static String getResult() {
+        return result;
+    }
+
+    /**
+     * Translate sentence.
      *
      * @param sentence the sentence
      * @param fromL    the froml
      * @param targetL  the targetl
-     * @return the result
      */
-    public static String getResult(String sentence, String fromL, String targetL) {
+    public static void translate(String sentence, String fromL, String targetL) {
         HttpResponse<String> response = null;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://google-translate113.p.rapidapi.com/api/v1/translator/text"))
@@ -71,9 +81,10 @@ public class TranslateAPI {
         if (response != null) {
             sentenceTL = response.body();
         }
+
         sentenceTL = sentenceTL.substring(sentenceTL.indexOf("trans\":\"") + 8);
-        sentenceTL = sentenceTL.substring(0,sentenceTL.indexOf("\""));
-        return sentenceTL;
+        sentenceTL = sentenceTL.substring(0,sentenceTL.indexOf("\"}"));
+        result = sentenceTL;
     }
 
     /**

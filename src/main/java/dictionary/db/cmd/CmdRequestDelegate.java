@@ -1,4 +1,8 @@
-package dictionary.db;
+package dictionary.db.cmd;
+
+import dictionary.db.GeneralRequestResolve;
+import dictionary.db.LocalDictionary;
+import dictionary.db.LocalDictionaryRequestHandle;
 
 import java.util.List;
 

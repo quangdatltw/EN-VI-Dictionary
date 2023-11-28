@@ -12,6 +12,8 @@ import java.util.Objects;
 
 
 public class App extends Application {
+
+    public static Stage stg;
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Input_Data.fxml")));
@@ -23,6 +25,11 @@ public class App extends Application {
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
         primaryStage.show();
+        stg = primaryStage;
+    }
+
+    public static Stage getStg() {
+        return stg;
     }
 
     /**

@@ -2,6 +2,7 @@ package dictionary.gui;
 
 import dictionary.db.DatabaseRequestHandle;
 import dictionary.db.InterfaceRequestDelegate;
+import dictionary.db.TaskRunner;
 import dictionary.db.WordHistory;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class InputDataController {
      */
     @FXML
     public void importInternalDB() {
-        runTask(DatabaseRequestHandle::loadLocalDictionary);
+        TaskRunner.runTask(DatabaseRequestHandle::loadLocalDictionary, InputDataController::switchToApp);
     }
 
     /**
@@ -52,33 +53,22 @@ public class InputDataController {
     @FXML
     public void importExternalDB() {
         if (InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
-            runTask(WordHistory::loadFromFile);
+            TaskRunner.runTask(WordHistory::loadFromFile, InputDataController::switchToApp);
         } else {
             errorText.setText("File path is incorrect");
         }
     }
 
-    private void runTask(Runnable taskRunnable) {
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() {
-                taskRunnable.run();
-                return null;
-            }
-        };
-        task.setOnSucceeded(event -> switchToApp());
-        new Thread(task).start();
-    }
 
     /**
      * Switch to main app.
      */
-    private void switchToApp() {
-        ((Stage) filePath.getScene().getWindow()).close();
+    public static void switchToApp() {
+        App.getStg().close();
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/App.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(InputDataController.class.getResource("fxml/App.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -97,6 +97,7 @@ public class InterfaceRequestDelegate {
      * @return the string
      */
     public static String translate(String sentence, String fromL, String toL) {
-        return TranslateAPI.getResult(sentence, fromL, toL);
+        TranslateAPI.translate(sentence, fromL, toL);
+        return TranslateAPI.getResult();
     }
 }
