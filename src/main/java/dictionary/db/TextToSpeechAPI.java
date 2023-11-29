@@ -120,7 +120,6 @@ public class TextToSpeechAPI {
     public List<MediaPlayer> getMediaPlayerList() {
         List<MediaPlayer> mediaPlayers = new ArrayList<>();
         for (String i : urlList) {
-            System.out.println(i);
             mediaPlayers.add(new MediaPlayer(new Media(i)));
         }
 

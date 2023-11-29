@@ -4,10 +4,9 @@ import dictionary.db.InterfaceRequestDelegate;
 import dictionary.db.WordHistory;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
@@ -15,10 +14,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class AppController {
     /* All Tab method *///////////////////////////////////////////////////
+    private static MediaPlayer playingMedia;
+
+    private static List<MediaPlayer> mediaPlayerList;
 
     @FXML
     private void initialize() {
@@ -31,27 +34,54 @@ public class AppController {
         });
     }
 
+    private void copy(String sentence) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(sentence);
+        clipboard.setContent(content);
+    }
+
+    private  void endPlayingMedia() {
+        if (playingMedia != null) {
+            playingMedia.stop();
+        }
+        playingMedia = null;
+        setPauseButtonImg("/icon/pause.png");
+    }
+
+    @FXML
+    private void pause_continueMedia() {
+        if (playingMedia == null) {
+            return;
+        }
+        if (playingMedia.getStatus() == MediaPlayer.Status.PLAYING) {
+            playingMedia.pause();
+            setPauseButtonImg("/icon/play.png");
+        } else if (playingMedia.getStatus() == MediaPlayer.Status.PAUSED) {
+            setPauseButtonImg("/icon/pause.png");
+            playingMedia.play();
+        }
+    }
+    private void setPauseButtonImg(String url) {
+        Image pauseIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
+        pause.setGraphic(new ImageView(pauseIcon));
+    }
+
 
     /* Controller for Tab - Find *////////////////////////////////////////////////////
+    /*
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
 
-    private static MediaPlayer mediaPlayer;
-    private static void playSound(String string) {
-        mediaPlayer = InterfaceRequestDelegate.getMediaPlayer(string, "en");
-        mediaPlayer.play();
-    }
-
-    private static void stopSound() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-        }
-    }
-
-    private static void pauseSong() {
-        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            mediaPlayer.pause();
-        } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
-            mediaPlayer.play();
-        }
+    private  void playWordSound(String string) {
+        playingMedia = InterfaceRequestDelegate.getMediaPlayer(string, "en");
+        playingMedia.play();
     }
 
 
@@ -135,16 +165,21 @@ public class AppController {
      */
     @FXML
     public void speakWord() {
-        stopSound();
+        endPlayingMedia();
         String word = searchList.getSelectionModel().getSelectedItem();
         if (word != null) {
-            playSound(word);
+            playWordSound(word);
         } else {
             word = searchWord.getText();
             if (InterfaceRequestDelegate.checkWord(word)) {
-                playSound(searchWord.getText());
+                playWordSound(searchWord.getText());
             }
         }
+    }
+
+    @FXML
+    public void copyDefinition() {
+        copy(wordDef.getText());
     }
 
     /**
@@ -169,22 +204,19 @@ public class AppController {
         WordHistory.addWord(word);
     }
 
-    /* Controller for Tab - Google Translate *////////////////////////////////////////
-    private static List<MediaPlayer> mediaPlayerList;
-    private static MediaPlayer playingMedia;
+    /* Controller for Tab - Google Translate */////////////////////////////////////////////////
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+     */
 
-    private static void setPlayingMedia(MediaPlayer mediaPlayer) {
-        playingMedia = mediaPlayer;
-    }
-    private static void endMediaPlayerList() {
-        playingMedia.stop();
-        playingMedia = null;
-    }
-
-    private static void playMediaPlayerList() {
-        if (playingMedia != null) {
-            endMediaPlayerList();
-        }
+    private  void playMediaPlayerList() {
+        endPlayingMedia();
         for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
             int finalI = i + 1;
             mediaPlayerList.get(i).setOnEndOfMedia(() -> mediaPlayerList.get(finalI).play());
@@ -197,6 +229,9 @@ public class AppController {
         mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
         playMediaPlayerList();
     }
+    private  void setPlayingMedia(MediaPlayer mediaPlayer) {
+        playingMedia = mediaPlayer;
+    }
 
     private static String fromL = "en";
     private static String toL = "vi";
@@ -204,6 +239,8 @@ public class AppController {
     private TextArea sentenceFromL;
     @FXML
     private TextArea sentenceToL;
+    @FXML
+    private Button pause;
 
     /**
      * Start translate sentence from "sentenceFromL" to "sentenceToL".
@@ -244,7 +281,7 @@ public class AppController {
      */
     @FXML
     public void speakSentenceFromL() {
-        stopSound();
+        endPlayingMedia();
         String sentence = sentenceFromL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
@@ -257,7 +294,7 @@ public class AppController {
      */
     @FXML
     public void speakSentenceToL() {
-        stopSound();
+        endPlayingMedia();
         String sentence = sentenceToL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
@@ -281,12 +318,7 @@ public class AppController {
         copy(sentenceToL.getText());
     }
 
-    private void copy(String sentence) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(sentence);
-        clipboard.setContent(content);
-    }
+
 
 
     /* Controller for Tab - Add/Remove/Update *////////////////////////////////////////
