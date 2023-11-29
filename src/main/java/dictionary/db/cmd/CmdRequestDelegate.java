@@ -167,7 +167,7 @@ public class CmdRequestDelegate {
             if (filePath.equals("0")) {
                 break;
             }
-            if (!GeneralRequestResolve.importDFile(filePath)) {
+            if (GeneralRequestResolve.importDFile(filePath)) {
                 System.out.println("Please make sure file path is correct");
                 System.out.println("[0] Exit");
             } else {

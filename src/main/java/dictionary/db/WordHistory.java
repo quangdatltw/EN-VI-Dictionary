@@ -45,7 +45,7 @@ public class WordHistory {
      * @param word the word
      */
     public static void addWord(String word) {
-        if(word == null || word.isEmpty()) {
+        if(word == null || word.isEmpty() || !(new LocalDictionaryRequestHandle().checkWordExistence(word))) {
             return;
         }
         history.remove(word);

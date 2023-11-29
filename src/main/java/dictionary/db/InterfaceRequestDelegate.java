@@ -55,7 +55,6 @@ public class InterfaceRequestDelegate {
         converter.reset();
         return mediaPlayers;
     }
-
     public static MediaPlayer getMediaPlayer(String word, String language) {
         return converter.getMediaPlayerForWord(word, language);
     }

@@ -22,10 +22,15 @@ public class AppController {
 
     @FXML
     private void initialize() {
+        searchWord.setText("");
         wordHistory.setItems(WordHistory.getHistory());
-        searchWord.textProperty().addListener((observable, oldValue, newValue)
-                -> searchWord.setText(newValue.toLowerCase()));
+        searchWord.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && !searchWord.getText().equals(newValue.toLowerCase())) {
+                searchWord.setText(newValue.toLowerCase());
+            }
+        });
     }
+
 
     /* Controller for Tab - Find *////////////////////////////////////////////////////
 
@@ -80,7 +85,7 @@ public class AppController {
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
-            suggestWord.setText(wordList.get(0).toLowerCase());
+            suggestWord.setText(wordList.get(0));
             searchList.getItems().addAll(wordList);
         }
     }
@@ -99,7 +104,6 @@ public class AppController {
         if (word == null) {
             word = "";
         }
-        word = word.toLowerCase();
         WordHistory.addWord(word);
         wordDef.setText(InterfaceRequestDelegate.lookup(word));
     }
@@ -113,9 +117,11 @@ public class AppController {
      */
     @FXML
     public void searchWordKey(KeyEvent key) {
-        String word = searchWord.getText().toLowerCase();
+        String word = searchWord.getText();
         if (key.getCode() == KeyCode.TAB) {
-            searchWord.setText(searchList.getItems().get(0));
+            if (!searchList.getItems().isEmpty()) {
+                searchWord.setText(searchList.getItems().get(0));
+            }
         }
         if (key.getCode() == KeyCode.ENTER) {
             wordDef.setText(InterfaceRequestDelegate.lookup(word));
@@ -134,7 +140,7 @@ public class AppController {
         if (word != null) {
             playSound(word);
         } else {
-            word = searchWord.getText().toLowerCase();
+            word = searchWord.getText();
             if (InterfaceRequestDelegate.checkWord(word)) {
                 playSound(searchWord.getText());
             }

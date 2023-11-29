@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,6 +21,10 @@ public class InputDataController {
     private Label errorText;
     @FXML
     private TextField filePath;
+    @FXML
+    private Button internalDB;
+    @FXML
+    private Button externalDB;
 
     /**
      * Initialize.
@@ -41,6 +46,7 @@ public class InputDataController {
      */
     @FXML
     public void importInternalDB() {
+        internalDB.setDisable(true);
         InterfaceRequestDelegate.insertDictionaryFromDatabase();
     }
 
@@ -51,7 +57,10 @@ public class InputDataController {
     public void importExternalDB() {
         if (!InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
             errorText.setText("File path is incorrect");
+        } else {
+            externalDB.setDisable(true);
         }
+
     }
 
 

@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="clickRootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickRootPane" prefHeight="232.0" prefWidth="636.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.InputDataController">
    <children>
-      <Button layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#importExternalDB" prefHeight="42.0" prefWidth="153.0" stylesheets="@../css/Button.css" text="External library" textAlignment="JUSTIFY">
+      <Button fx:id="externalDB" layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#importExternalDB" prefHeight="42.0" prefWidth="153.0" stylesheets="@../css/Button.css" text="External library" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>

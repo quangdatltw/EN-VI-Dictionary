@@ -69,9 +69,9 @@ public class GeneralRequestResolve {
                 }
             }
         } catch (IOException e) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

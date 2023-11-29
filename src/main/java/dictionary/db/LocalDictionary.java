@@ -8,7 +8,6 @@ public class LocalDictionary {
     protected static HashMap<String, String> dictionary = new HashMap<>();
     protected static ArrayList<String> wordlist = new ArrayList<>();
     protected static ArrayList<Integer> index = new ArrayList<>(Collections.nCopies(26, 0));
-
     protected static DatabaseRequestHandle database = new DatabaseRequestHandle();
 
     /**

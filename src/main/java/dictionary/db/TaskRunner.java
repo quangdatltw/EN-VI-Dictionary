@@ -20,7 +20,7 @@ public class TaskRunner {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                if (!GeneralRequestResolve.importDFile(filePath)) {
+                if (GeneralRequestResolve.importDFile(filePath)) {
                     throw new RuntimeException();
                 }
                 return null;
