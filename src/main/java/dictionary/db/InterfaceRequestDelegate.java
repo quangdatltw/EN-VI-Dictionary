@@ -2,10 +2,8 @@ package dictionary.db;
 
 
 import dictionary.gui.InputDataController;
-import javafx.concurrent.Task;
 import javafx.scene.media.MediaPlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InterfaceRequestDelegate {

@@ -1,17 +1,19 @@
 package dictionary.gui;
 
-import dictionary.db.*;
+import dictionary.db.InterfaceRequestDelegate;
+import dictionary.db.WordHistory;
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,8 +30,8 @@ public class AppController {
     /* Controller for Tab - Find *////////////////////////////////////////////////////
 
     private static MediaPlayer mediaPlayer;
-    private static void playSound(String string, String lang) {
-        mediaPlayer = InterfaceRequestDelegate.getMediaPlayer(string, lang);
+    private static void playSound(String string) {
+        mediaPlayer = InterfaceRequestDelegate.getMediaPlayer(string, "en");
         mediaPlayer.play();
     }
 
@@ -130,11 +132,11 @@ public class AppController {
         stopSound();
         String word = searchList.getSelectionModel().getSelectedItem();
         if (word != null) {
-            playSound(word, "en");
+            playSound(word);
         } else {
             word = searchWord.getText().toLowerCase();
             if (InterfaceRequestDelegate.checkWord(word)) {
-                playSound(searchWord.getText(), "en");
+                playSound(searchWord.getText());
             }
         }
     }
@@ -164,32 +166,30 @@ public class AppController {
     /* Controller for Tab - Google Translate *////////////////////////////////////////
     private static List<MediaPlayer> mediaPlayerList;
     private static MediaPlayer playingMedia;
-    private static void stopMediaPlayerList() {
-        playingMedia.dispose();
-        mediaPlayerList.clear();
+
+    private static void setPlayingMedia(MediaPlayer mediaPlayer) {
+        playingMedia = mediaPlayer;
+    }
+    private static void endMediaPlayerList() {
+        playingMedia.stop();
         playingMedia = null;
     }
 
     private static void playMediaPlayerList() {
-        List<Task<Void>> taskList = new ArrayList<>();
-        for (MediaPlayer mediaPlayer : mediaPlayerList) {
-            Task<Void> task = new Task<>() {
-                @Override
-                protected Void call() {
-                    mediaPlayer.play();
-                    while (mediaPlayer.getStatus() != MediaPlayer.Status.STOPPED) {
-                    }
-                    return null;
-                }
-            };
-            taskList.add(task);
+        if (playingMedia != null) {
+            endMediaPlayerList();
         }
         for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
             int finalI = i + 1;
             mediaPlayerList.get(i).setOnEndOfMedia(() -> mediaPlayerList.get(finalI).play());
+            mediaPlayerList.get(i).setOnPlaying(() -> setPlayingMedia(mediaPlayerList.get(finalI - 1)));
         }
-        new Thread(taskList.get(0)).start();
+        mediaPlayerList.get(0).play();
+    }
 
+    public void setMediaPlayer() {
+        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
+        playMediaPlayerList();
     }
 
     private static String fromL = "en";
@@ -257,10 +257,6 @@ public class AppController {
             return;
         }
         InterfaceRequestDelegate.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
-    }
-    public void setMediaPlayer() {
-        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
-        playMediaPlayerList();
     }
 
     /**
