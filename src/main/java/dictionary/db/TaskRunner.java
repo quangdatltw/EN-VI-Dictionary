@@ -50,13 +50,13 @@ public class TaskRunner {
         task.setOnSucceeded(event -> runnable.run());
     }
 
-    public static void convertTTS(String sentence, String language, Runnable runnable, TextToSpeechAPI convert) {
+    public static void convertTTS(String sentence, String language, Runnable runnable) {
 
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                convert.setLanguage(language);
-                convert.splitSentence(sentence);
+                TextToSpeechAPI.setLanguage(language);
+                TextToSpeechAPI.splitSentence(sentence);
                 return null;
             }
         };

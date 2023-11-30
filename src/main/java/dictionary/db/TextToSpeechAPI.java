@@ -22,12 +22,9 @@ import java.util.Scanner;
 public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
-    private List<String> urlList = new ArrayList<>();
-    private String language = "en";
+    private static List<String> urlList = new ArrayList<>();
+    private static String language = "en";
 
-    public void reset() {
-        urlList.clear();
-    }
 
     /**
      * Begin convert to speech cmd.
@@ -71,11 +68,12 @@ public class TextToSpeechAPI {
         }
     }
 
-    public void setLanguage(String fromL) {
+    public static void setLanguage(String fromL) {
         language = fromL;
     }
 
-    public void splitSentence(String sentence) {
+    public static void splitSentence(String sentence) {
+        urlList.clear();
         while (sentence.length() > 200) {
             for (int i = 180; i < sentence.length(); i++) {
                 if (sentence.charAt(i) == ' ') {
@@ -96,7 +94,7 @@ public class TextToSpeechAPI {
      * @param language the language
      * @return the api url
      */
-    private String getApiUrl(String sentence, String language) {
+    private static String getApiUrl(String sentence, String language) {
         String apiUrl = "";
         try {
              apiUrl = "https://translate.google.com/translate_tts?ie=UTF-8&tl="
@@ -110,14 +108,14 @@ public class TextToSpeechAPI {
         return apiUrl;
     }
 
-    public MediaPlayer getMediaPlayerForWord(String word, String language) {
+    public static MediaPlayer getMediaPlayerForWord(String word, String language) {
         String api = getApiUrl(word, language);
         Media media = new Media(api);
         return new MediaPlayer(media);
     }
 
 
-    public List<MediaPlayer> getMediaPlayerList() {
+    public static List<MediaPlayer> getMediaPlayerList() {
         List<MediaPlayer> mediaPlayers = new ArrayList<>();
         for (String i : urlList) {
             mediaPlayers.add(new MediaPlayer(new Media(i)));

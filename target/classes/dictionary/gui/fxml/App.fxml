@@ -82,7 +82,7 @@
                               <URL value="@../css/Tab-GG.css" />
                            </stylesheets>
                         </Button>
-                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                        <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -121,7 +121,7 @@
                               <URL value="@../css/Tab-GG.css" />
                            </stylesheets>
                         </Button>
-                        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
+                        <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                                  <image>
@@ -159,7 +159,7 @@
                         <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <Button layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="108.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
+                  <Button fx:id="translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="114.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

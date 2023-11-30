@@ -2,6 +2,7 @@ package dictionary.gui;
 
 import dictionary.db.InterfaceRequestDelegate;
 import dictionary.db.WordHistory;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Objects;
@@ -216,20 +218,29 @@ public class AppController {
      */
 
     private  void playMediaPlayerList() {
-        endPlayingMedia();
         for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
             int finalI = i + 1;
-            mediaPlayerList.get(i).setOnEndOfMedia(() -> mediaPlayerList.get(finalI).play());
-            mediaPlayerList.get(i).setOnPlaying(() -> setPlayingMedia(mediaPlayerList.get(finalI - 1)));
+            mediaPlayerList.get(i).setOnEndOfMedia(() -> {
+                mediaPlayerList.get(finalI).play();
+                setPlayingMedia(mediaPlayerList.get(finalI));
+            });
         }
+        setPlayingMedia(mediaPlayerList.get(0));
         mediaPlayerList.get(0).play();
     }
 
     public void setMediaPlayer() {
+        endPlayingMedia();
         mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
         playMediaPlayerList();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(e -> {
+            speakFromL.setDisable(false);
+            speakToL.setDisable(false);
+        });
+        pause.play();
     }
-    private  void setPlayingMedia(MediaPlayer mediaPlayer) {
+    private static void setPlayingMedia(MediaPlayer mediaPlayer) {
         playingMedia = mediaPlayer;
     }
 
@@ -241,6 +252,12 @@ public class AppController {
     private TextArea sentenceToL;
     @FXML
     private Button pause;
+    @FXML
+    private Button translate;
+    @FXML
+    private Button speakFromL;
+    @FXML
+    private Button speakToL;
 
     /**
      * Start translate sentence from "sentenceFromL" to "sentenceToL".
@@ -252,10 +269,11 @@ public class AppController {
             return;
         }
         InterfaceRequestDelegate.translate(sentence, fromL, toL, this::setTranslated);
-        setTranslated();
+        translate.setDisable(true);
     }
     public void setTranslated() {
         sentenceToL.setText(InterfaceRequestDelegate.getTranslated());
+        translate.setDisable(false);
     }
 
     /**
@@ -281,12 +299,12 @@ public class AppController {
      */
     @FXML
     public void speakSentenceFromL() {
-        endPlayingMedia();
         String sentence = sentenceFromL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
         InterfaceRequestDelegate.createMediaPlayerList(sentence, fromL, this::setMediaPlayer);
+        speakFromL.setDisable(true);
     }
 
     /**
@@ -294,12 +312,12 @@ public class AppController {
      */
     @FXML
     public void speakSentenceToL() {
-        endPlayingMedia();
         String sentence = sentenceToL.getText();
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
         InterfaceRequestDelegate.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
+        speakToL.setDisable(true);
     }
 
     /**

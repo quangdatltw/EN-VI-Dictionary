@@ -7,8 +7,8 @@ import javafx.scene.media.MediaPlayer;
 import java.util.List;
 
 public class InterfaceRequestDelegate {
+    private static String lastSentence = "";
     private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
-    public static TextToSpeechAPI converter = new TextToSpeechAPI();
 
     public static String lookup(String word) {
         return librarian.getDefinition(word);
@@ -48,15 +48,18 @@ public class InterfaceRequestDelegate {
     }
 
     public static void createMediaPlayerList(String sentence, String language, Runnable run) {
-        TaskRunner.convertTTS(sentence, language, run, converter);
+        if (lastSentence.equals(sentence)) {
+            run.run();
+        } else {
+            lastSentence = sentence;
+            TaskRunner.convertTTS(sentence, language, run);
+        }
     }
     public static List<MediaPlayer> getMediaPlayerList() {
-        List<MediaPlayer> mediaPlayers =  converter.getMediaPlayerList();
-        converter.reset();
-        return mediaPlayers;
+        return TextToSpeechAPI.getMediaPlayerList();
     }
     public static MediaPlayer getMediaPlayer(String word, String language) {
-        return converter.getMediaPlayerForWord(word, language);
+        return TextToSpeechAPI.getMediaPlayerForWord(word, language);
     }
 
     public static void translate(String sentence, String fromL, String toL, Runnable set) {
