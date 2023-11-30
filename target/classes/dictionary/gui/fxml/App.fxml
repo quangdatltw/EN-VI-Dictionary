@@ -21,8 +21,8 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#clickAnchorPane" prefHeight="546.0" prefWidth="802.0" stylesheets="@../css/dark_bg.css">
                <children>
-                  <ListView fx:id="searchList" fixedCellSize="25.0" focusTraversable="false" layoutX="11.0" layoutY="97.0" onMouseClicked="#findChosenWord" prefHeight="484.0" prefWidth="200.0" stylesheets="@../css/List-View.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="97.0" />
-                  <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" onInputMethodTextChanged="#setWordsWithPrefix" onKeyPressed="#searchWordKey" onKeyTyped="#setWordsWithPrefix" prefHeight="41.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
+                  <ListView fx:id="searchList" fixedCellSize="25.0" focusTraversable="false" layoutX="11.0" layoutY="97.0" onMouseClicked="#setWordDef" prefHeight="484.0" prefWidth="200.0" stylesheets="@../css/List-View.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="97.0" />
+                  <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" onInputMethodTextChanged="#setPrefixWordList" onKeyPressed="#searchWordPressedKey" onKeyTyped="#setPrefixWordList" prefHeight="41.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
                      <font>
                         <Font size="14.0" />
                      </font>

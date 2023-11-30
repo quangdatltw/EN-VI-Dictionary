@@ -1,20 +1,20 @@
-dawn
-daw
-dawdler
-dawdlers
-aurica was born in skuwat village in koudeinomikoto (april) of the 3753 ad year, daughter of a human father and a reyvateil mother. as a child, she was cheerful and happy. at the age of 11, her hometown was tragically destroyed during a battle between tenba and the teru tribe. her parents were killed and her home destroyed - she lost everything and was then alone in the world. aurica and her childhood friend, claire, are the only two survivors from skuwat.
-held 
-dawdled
-dawdles
-searchword.textproperty().addlistener((observable, oldvalue, newvalue)                -> searchword.settext(newvalue.tolowercase()));
-hello
-it looks like you are using the wrong syntax for th
-red saving lyner's life with he
-abdication
-crashed
-a
-dasd
-dawdle
-saddens
-abdicated
-abdicants
+avocet
+avogadros number
+avoid
+avoidance
+avouches
+avoiding
+avoidances
+avoids
+avouch
+avoided
+avoirdupois
+avometer
+avoset
+avowedly
+avowal
+avow
+avouching
+awaiting-repair time
+awakened
+awaited

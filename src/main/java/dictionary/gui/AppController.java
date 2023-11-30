@@ -29,7 +29,7 @@ public class AppController {
     private void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
         searchWord.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z'\\-(]*")) {
+            if (!(newValue == null) && !newValue.matches("[a-zA-Z'\\-(]*")) {
                 searchWord.setText(oldValue);
                 return;
             }
@@ -58,14 +58,14 @@ public class AppController {
         }
     }
 
-    private void copy(String sentence) {
+    private void copyText(String sentence) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
         content.putString(sentence);
         clipboard.setContent(content);
     }
 
-    private void endPlayingMedia() {
+    private void stopPlayingMedia() {
         if (playingMedia != null) {
             playingMedia.stop();
         }
@@ -101,9 +101,15 @@ public class AppController {
     @FXML
     private TextArea wordDef;
 
-    private  void playWordSound(String string) {
-        playingMedia = InterfaceRequestDelegate.getMediaPlayer(string, "en");
-        playingMedia.play();
+    private String findChosenWord() {
+        String word = searchList.getSelectionModel().getSelectedItem();
+        if (word == null) {
+            word = searchWord.getText();
+        }
+        if (word == null) {
+            word = "";
+        }
+        return word;
     }
 
     /**
@@ -121,7 +127,7 @@ public class AppController {
      * Set word suggestWord.
      */
     @FXML
-    public void setWordsWithPrefix() {
+    public void setPrefixWordList() {
         List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText());
         searchList.getItems().clear();
         suggestWord.clear();
@@ -137,14 +143,8 @@ public class AppController {
      * Add word to WordHistory
      */
     @FXML
-    public void findChosenWord() {
-        String word = searchList.getSelectionModel().getSelectedItem();
-        if (word == null) {
-            word = searchWord.getText();
-        }
-        if (word == null) {
-            word = "";
-        }
+    public void setWordDef() {
+        String word = findChosenWord();
         WordHistory.addWord(word);
         wordDef.setText(InterfaceRequestDelegate.lookup(word));
     }
@@ -157,7 +157,7 @@ public class AppController {
      * @param key the key
      */
     @FXML
-    public void searchWordKey(KeyEvent key) {
+    public void searchWordPressedKey(KeyEvent key) {
         String word = searchWord.getText();
         if (key.getCode() == KeyCode.TAB) {
             if (!searchList.getItems().isEmpty()) {
@@ -176,21 +176,15 @@ public class AppController {
      */
     @FXML
     public void speakWord() {
-        endPlayingMedia();
-        String word = searchList.getSelectionModel().getSelectedItem();
-        if (word != null) {
-            playWordSound(word);
-        } else {
-            word = searchWord.getText();
-            if (InterfaceRequestDelegate.checkWord(word)) {
-                playWordSound(searchWord.getText());
-            }
-        }
+        stopPlayingMedia();
+        String word = findChosenWord();
+        playingMedia = InterfaceRequestDelegate.getMediaPlayer(word, "en");
+        playingMedia.play();
     }
 
     @FXML
     public void copyDefinition() {
-        copy(wordDef.getText());
+        copyText(wordDef.getText());
     }
 
     /**
@@ -210,7 +204,7 @@ public class AppController {
         String word = wordHistory.getSelectionModel().getSelectedItem();
         searchWord.setText(word);
         if (word == null) return;
-        setWordsWithPrefix();
+        setPrefixWordList();
         wordDef.setText(InterfaceRequestDelegate.lookup(word));
         WordHistory.addWord(word);
     }
@@ -238,7 +232,7 @@ public class AppController {
         mediaPlayerList.get(0).play();
     }
     public void setMediaPlayer() {
-        endPlayingMedia();
+        stopPlayingMedia();
         mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
         playMediaPlayerList();
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -333,7 +327,7 @@ public class AppController {
      */
     @FXML
     public void copySentenceFromL() {
-        copy(sentenceFromL.getText());
+        copyText(sentenceFromL.getText());
     }
 
     /**
@@ -341,7 +335,7 @@ public class AppController {
      */
     @FXML
     public void copySentenceToL() {
-        copy(sentenceToL.getText());
+        copyText(sentenceToL.getText());
     }
 
 
