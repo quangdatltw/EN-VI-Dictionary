@@ -27,30 +27,23 @@ public class AppController {
 
     @FXML
     private void initialize() {
-        searchWord.setText("");
         wordHistory.setItems(WordHistory.getHistory());
         searchWord.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.isEmpty() && !searchWord.getText().equals(newValue.toLowerCase())) {
+            if (!newValue.matches("[a-zA-Z'\\-(]*")) {
+                searchWord.setText(oldValue);
+                return;
+            }
+            if (isNewValueUsable(newValue)) {
                 searchWord.setText(newValue.toLowerCase());
             }
         });
     }
 
-    private void copy(String sentence) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(sentence);
-        clipboard.setContent(content);
+    private boolean isNewValueUsable(String newValue) {
+        return !(newValue == null)
+                && !newValue.isEmpty()
+                && !searchWord.getText().equals(newValue.toLowerCase());
     }
-
-    private  void endPlayingMedia() {
-        if (playingMedia != null) {
-            playingMedia.stop();
-        }
-        playingMedia = null;
-        setPauseButtonImg("/icon/pause.png");
-    }
-
     @FXML
     private void pause_continueMedia() {
         if (playingMedia == null) {
@@ -64,6 +57,22 @@ public class AppController {
             playingMedia.play();
         }
     }
+
+    private void copy(String sentence) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(sentence);
+        clipboard.setContent(content);
+    }
+
+    private void endPlayingMedia() {
+        if (playingMedia != null) {
+            playingMedia.stop();
+        }
+        playingMedia = null;
+        setPauseButtonImg("/icon/pause.png");
+    }
+
     private void setPauseButtonImg(String url) {
         Image pauseIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
         pause.setGraphic(new ImageView(pauseIcon));
@@ -81,12 +90,6 @@ public class AppController {
      *
      */
 
-    private  void playWordSound(String string) {
-        playingMedia = InterfaceRequestDelegate.getMediaPlayer(string, "en");
-        playingMedia.play();
-    }
-
-
     @FXML
     private ComboBox<String> wordHistory;
     @FXML
@@ -98,11 +101,17 @@ public class AppController {
     @FXML
     private TextArea wordDef;
 
+    private  void playWordSound(String string) {
+        playingMedia = InterfaceRequestDelegate.getMediaPlayer(string, "en");
+        playingMedia.play();
+    }
+
     /**
      * Clear selection in List-View Click anchor pane.
      */
     @FXML
     public void clickAnchorPane() {
+        wordDef.deselect();
         searchList.getSelectionModel().clearSelection();
     }
 
@@ -112,7 +121,7 @@ public class AppController {
      * Set word suggestWord.
      */
     @FXML
-    public void searchPrefix() {
+    public void setWordsWithPrefix() {
         List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText());
         searchList.getItems().clear();
         suggestWord.clear();
@@ -201,7 +210,7 @@ public class AppController {
         String word = wordHistory.getSelectionModel().getSelectedItem();
         searchWord.setText(word);
         if (word == null) return;
-        searchPrefix();
+        setWordsWithPrefix();
         wordDef.setText(InterfaceRequestDelegate.lookup(word));
         WordHistory.addWord(word);
     }
@@ -228,7 +237,6 @@ public class AppController {
         setPlayingMedia(mediaPlayerList.get(0));
         mediaPlayerList.get(0).play();
     }
-
     public void setMediaPlayer() {
         endPlayingMedia();
         mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();

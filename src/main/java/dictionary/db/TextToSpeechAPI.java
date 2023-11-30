@@ -22,7 +22,7 @@ import java.util.Scanner;
 public class TextToSpeechAPI {
     @SuppressWarnings("FieldMayBeFinal")
     private static Scanner scn = new Scanner(System.in);
-    private static List<String> urlList = new ArrayList<>();
+    private static final List<String> urlList = new ArrayList<>();
     private static String language = "en";
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class InterfaceRequestDelegate {
     private static String lastSentence = "";
-    private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
+    private static final LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
 
     public static String lookup(String word) {
         return librarian.getDefinition(word);

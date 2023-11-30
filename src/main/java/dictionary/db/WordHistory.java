@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class WordHistory {
-    private static List<String> history = new ArrayList<>();
+    private static final List<String> history = new ArrayList<>();
 
     /**
      * Get the word search history in the correct order.
