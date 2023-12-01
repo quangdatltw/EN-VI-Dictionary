@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dictionary.gui.TabGGTController"
+            prefHeight="493.0" prefWidth="722.0"
+            minHeight="0.0" minWidth="0.0">
+    <children>
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../../../icon/copy.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <stylesheets>
+                        <URL value="@../css/Button.css" />
+                        <URL value="@../css/Tab-GG.css" />
+                    </stylesheets>
+                </Button>
+                <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../../../icon/Speaker.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <stylesheets>
+                        <URL value="@../css/Button.css" />
+                        <URL value="@../css/Tab-GG.css" />
+                    </stylesheets>
+                </Button>
+                <Button fx:id="pause" mnemonicParsing="false" onMouseClicked="#pause_continueMedia" prefHeight="40.0" prefWidth="52.0">
+                    <stylesheets>
+                        <URL value="@../css/Button.css" />
+                        <URL value="@../css/Tab-GG.css" />
+                    </stylesheets>
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../icon/pause.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../../../icon/copy.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <stylesheets>
+                        <URL value="@../css/Button.css" />
+                        <URL value="@../css/Tab-GG.css" />
+                    </stylesheets>
+                </Button>
+                <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../../../icon/Speaker.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <stylesheets>
+                        <URL value="@../css/Button.css" />
+                        <URL value="@../css/Tab-GG.css" />
+                    </stylesheets>
+                </Button>
+            </children>
+        </VBox>
+        <VBox layoutX="150.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+                <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
+                    <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#swapL" prefHeight="33.0" prefWidth="39.0">
+                            <graphic>
+                                <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../icon/Switch.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <stylesheets>
+                                <URL value="@../css/Button.css" />
+                                <URL value="@../css/Tab-GG.css" />
+                            </stylesheets>
+                        </Button>
+                    </children>
+                </HBox>
+                <TextArea fx:id="sentenceToL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="Vietnamese..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+        <Button fx:id="translate" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#startTranslate" prefHeight="45.0" prefWidth="114.0" stylesheets="@../css/Button.css" text="Translate" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

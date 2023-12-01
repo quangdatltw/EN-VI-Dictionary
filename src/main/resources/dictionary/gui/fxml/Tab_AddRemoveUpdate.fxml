@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dictionary.gui.TabARUController"
+            prefHeight="493.0" prefWidth="722.0"
+            minHeight="0.0" minWidth="0.0">
+    <children>
+        <TextField focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="235.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+    </children>
+</AnchorPane>
