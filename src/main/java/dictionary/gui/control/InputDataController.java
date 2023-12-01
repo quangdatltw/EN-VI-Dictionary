@@ -2,7 +2,7 @@ package dictionary.gui.control;
 
 import dictionary.db.WordHistory;
 import dictionary.gui.App;
-import dictionary.gui.request.InterfaceRequestDelegate;
+import dictionary.gui.request.InputDataRequestDelegator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -39,7 +39,7 @@ public class InputDataController {
     @FXML
     public void importInternalDB() {
         internalDB.setDisable(true);
-        InterfaceRequestDelegate.insertDictionaryFromDatabase();
+        InputDataRequestDelegator.insertDictionaryFromDatabase();
     }
 
     /**
@@ -47,7 +47,7 @@ public class InputDataController {
      */
     @FXML
     public void importExternalDB() {
-        if (!InterfaceRequestDelegate.insertDictionaryFromFile(filePath.getText())) {
+        if (!InputDataRequestDelegator.insertDictionaryFromFile(filePath.getText())) {
             errorText.setText("File path is incorrect");
         } else {
             externalDB.setDisable(true);

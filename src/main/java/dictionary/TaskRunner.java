@@ -4,8 +4,17 @@ import dictionary.api.TextToSpeechAPI;
 import dictionary.api.TranslateAPI;
 import javafx.concurrent.Task;
 
+/**
+ * The type Task runner.
+ */
 public class TaskRunner {
 
+    /**
+     * Load database library and switch Stage.
+     *
+     * @param taskRunnable     the task runnable
+     * @param nextTaskRunnable the next task runnable
+     */
     public static void loadData_changeStage(Runnable taskRunnable, Runnable nextTaskRunnable) {
         Task<Void> task = new Task<>() {
             @Override
@@ -18,6 +27,13 @@ public class TaskRunner {
         new Thread(task).start();
     }
 
+    /**
+     * Load external library and switch Stage.
+     *
+     * @param filePath         the file path
+     * @param nextTaskRunnable the next task runnable
+     * @return the boolean
+     */
     public static boolean loadData_changeStage(String filePath, Runnable nextTaskRunnable) {
         Task<Void> task = new Task<>() {
             @Override
@@ -40,6 +56,14 @@ public class TaskRunner {
         }
     }
 
+    /**
+     * Translate sentence.
+     *
+     * @param sentence the sentence
+     * @param fromL    the froml
+     * @param toL      the tol
+     * @param runnable the runnable
+     */
     public static void translate(String sentence, String fromL, String toL, Runnable runnable) {
         Task<Void> task = new Task<>() {
             @Override
@@ -52,6 +76,13 @@ public class TaskRunner {
         task.setOnSucceeded(event -> runnable.run());
     }
 
+    /**
+     * Convert Text to Speech.
+     *
+     * @param sentence the sentence
+     * @param language the language
+     * @param runnable the runnable
+     */
     public static void convertTTS(String sentence, String language, Runnable runnable) {
 
         Task<Void> task = new Task<>() {

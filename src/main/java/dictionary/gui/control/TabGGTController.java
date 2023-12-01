@@ -1,21 +1,19 @@
 package dictionary.gui.control;
 
-import dictionary.gui.request.InterfaceRequestDelegate;
+import dictionary.gui.request.TabGGTranslateRequestDelegator;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Objects;
 
-public class TabGGTController {
+public class TabGGTController extends AppController {
     private static MediaPlayer playingMedia;
     private static List<MediaPlayer> mediaPlayerList;
     private static String fromL = "en";
@@ -34,7 +32,7 @@ public class TabGGTController {
     private Button speakToL;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
     }
     @FXML
     private void pause_continueMedia() {
@@ -48,13 +46,6 @@ public class TabGGTController {
             setPauseButtonImg("/icon/pause.png");
             playingMedia.play();
         }
-    }
-
-    private void copyText(String sentence) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(sentence);
-        clipboard.setContent(content);
     }
 
     private void stopPlayingMedia() {
@@ -81,9 +72,13 @@ public class TabGGTController {
         setPlayingMedia(mediaPlayerList.get(0));
         mediaPlayerList.get(0).play();
     }
+
+    /**
+     * Sets media player.
+     */
     public void setMediaPlayer() {
         stopPlayingMedia();
-        mediaPlayerList = InterfaceRequestDelegate.getMediaPlayerList();
+        mediaPlayerList = TabGGTranslateRequestDelegator.getMediaPlayerList();
         playMediaPlayerList();
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(e -> {
@@ -97,7 +92,7 @@ public class TabGGTController {
     }
 
     /**
-     * Start translate sentence from "sentenceFromL" to "sentenceToL".
+     * Translate sentence.
      */
     @FXML
     public void startTranslate() {
@@ -105,11 +100,15 @@ public class TabGGTController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        InterfaceRequestDelegate.translate(sentence, fromL, toL, this::setTranslated);
+        TabGGTranslateRequestDelegator.createTranslation(sentence, fromL, toL, this::setTranslated);
         translate.setDisable(true);
     }
+
+    /**
+     * Sets translation.
+     */
     public void setTranslated() {
-        sentenceToL.setText(InterfaceRequestDelegate.getTranslated());
+        sentenceToL.setText(TabGGTranslateRequestDelegator.getTranslation());
         translate.setDisable(false);
     }
 
@@ -140,7 +139,7 @@ public class TabGGTController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        InterfaceRequestDelegate.createMediaPlayerList(sentence, fromL, this::setMediaPlayer);
+        TabGGTranslateRequestDelegator.createMediaPlayerList(sentence, fromL, this::setMediaPlayer);
         speakFromL.setDisable(true);
     }
 
@@ -153,7 +152,7 @@ public class TabGGTController {
         if (sentence == null || sentence.isEmpty()) {
             return;
         }
-        InterfaceRequestDelegate.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
+        TabGGTranslateRequestDelegator.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
         speakToL.setDisable(true);
     }
 

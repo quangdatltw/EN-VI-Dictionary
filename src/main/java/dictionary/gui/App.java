@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-
 public class App extends Application {
 
     private static Stage stg;
@@ -29,9 +28,15 @@ public class App extends Application {
         stg = primaryStage;
     }
 
+    /**
+     * Gets second stage.
+     *
+     * @return the second stage
+     * @throws IOException the io exception
+     */
     public static Stage getSecondStage() throws IOException {
         stg.close();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/Appfxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/App.fxml")));
         Stage secondaryStage = new Stage();
         secondaryStage.setTitle("EN-VI Dictionary");
         Scene app = new Scene(root);
@@ -44,7 +49,6 @@ public class App extends Application {
         stg = secondaryStage;
         return secondaryStage;
     }
-
 
 
     /**

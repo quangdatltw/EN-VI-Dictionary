@@ -1,22 +1,24 @@
 package dictionary.gui.control;
 
-import dictionary.gui.request.InterfaceRequestDelegate;
 import dictionary.db.WordHistory;
+import dictionary.gui.request.TabFindRequestDelegator;
+import dictionary.gui.request.TabGGTranslateRequestDelegator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
 
-public class TabFindController {
+/**
+ * The type Tab find controller.
+ */
+public class TabFindController extends AppController {
     private static MediaPlayer playingMedia;
     @FXML
     private ComboBox<String> wordHistory;
@@ -30,7 +32,7 @@ public class TabFindController {
     private TextArea wordDef;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
         searchWord.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!(newValue == null) && !newValue.matches("[a-zA-Z'\\-(]*")) {
@@ -49,21 +51,12 @@ public class TabFindController {
                 && !searchWord.getText().equals(newValue.toLowerCase());
     }
 
-    private void copyText(String sentence) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(sentence);
-        clipboard.setContent(content);
-    }
-
     private void stopPlayingMedia() {
         if (playingMedia != null) {
             playingMedia.stop();
         }
         playingMedia = null;
     }
-
-
 
     private String findChosenWord() {
         String word = searchList.getSelectionModel().getSelectedItem();
@@ -77,7 +70,7 @@ public class TabFindController {
     }
 
     /**
-     * Clear selection in List-View Click anchor pane.
+     * Clear selection in List-View when click anchor pane.
      */
     @FXML
     public void clickAnchorPane() {
@@ -92,7 +85,7 @@ public class TabFindController {
      */
     @FXML
     public void setPrefixWordList() {
-        List<String> wordList = InterfaceRequestDelegate.search(searchWord.getText());
+        List<String> wordList = TabFindRequestDelegator.search(searchWord.getText());
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
@@ -110,7 +103,7 @@ public class TabFindController {
     public void setWordDef() {
         String word = findChosenWord();
         WordHistory.addWord(word);
-        wordDef.setText(InterfaceRequestDelegate.lookup(word));
+        wordDef.setText(TabFindRequestDelegator.lookup(word));
     }
 
     /**
@@ -129,7 +122,7 @@ public class TabFindController {
             }
         }
         if (key.getCode() == KeyCode.ENTER) {
-            wordDef.setText(InterfaceRequestDelegate.lookup(word));
+            wordDef.setText(TabFindRequestDelegator.lookup(word));
             WordHistory.addWord(word);
         }
     }
@@ -142,12 +135,15 @@ public class TabFindController {
     public void speakWord() {
         stopPlayingMedia();
         String word = findChosenWord();
-        playingMedia = InterfaceRequestDelegate.getMediaPlayer(word, "en");
+        playingMedia = TabGGTranslateRequestDelegator.getMediaPlayer(word, "en");
         playingMedia.play();
     }
 
+    /**
+     * Copy definition.
+     */
     @FXML
-    public void copyDefinition() {
+    private void copyDefinition() {
         copyText(wordDef.getText());
     }
 
@@ -169,7 +165,7 @@ public class TabFindController {
         searchWord.setText(word);
         if (word == null) return;
         setPrefixWordList();
-        wordDef.setText(InterfaceRequestDelegate.lookup(word));
+        wordDef.setText(TabFindRequestDelegator.lookup(word));
         WordHistory.addWord(word);
     }
 

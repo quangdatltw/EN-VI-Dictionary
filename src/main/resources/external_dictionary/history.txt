@@ -1,5 +1,3 @@
-avoset
-avowedly
 avowal
 avow
 avouching
@@ -18,3 +16,5 @@ ddds (double density double sided) disk
 awakened
 avocado
 hee-haw
+f
+f-statistic
