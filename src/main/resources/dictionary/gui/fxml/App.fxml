@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import java.net.URL?>
-<TabPane focusTraversable="false" prefHeight="540.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.AppController">
+<TabPane focusTraversable="false" prefHeight="540.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.AppController">
    <tabs>
       <Tab fx:id="Tab_Find" text="Find">
          <graphic>
