@@ -28,7 +28,7 @@ public class GeneralRequestResolve {
         List<String> wordlist = LocalDictionary.getWordlist();
         List<String> result = new ArrayList<>();
 
-        if (prefix.isEmpty()) {
+        if (prefix == null || prefix.isEmpty()) {
             return result;
         }
         int begin = 0;

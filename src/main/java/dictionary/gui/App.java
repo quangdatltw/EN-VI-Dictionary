@@ -1,5 +1,6 @@
 package dictionary.gui;
 
+import dictionary.db.WordHistory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 public class App extends Application {
 
-    public static Stage stg;
+    private static Stage stg;
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Input_Data.fxml")));
@@ -28,9 +29,23 @@ public class App extends Application {
         stg = primaryStage;
     }
 
-    public static Stage getStg() {
-        return stg;
+    public static Stage getSecondStage() throws IOException {
+        stg.close();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/Appfxml")));
+        Stage secondaryStage = new Stage();
+        secondaryStage.setTitle("EN-VI Dictionary");
+        Scene app = new Scene(root);
+        secondaryStage.getIcons().add(new Image("App_icon.png"));
+        secondaryStage.setScene(app);
+        secondaryStage.setMinWidth(400);
+        secondaryStage.setMinHeight(350);
+        secondaryStage.centerOnScreen();
+        secondaryStage.setOnCloseRequest(event -> WordHistory.exportToFile());
+        stg = secondaryStage;
+        return secondaryStage;
     }
+
+
 
     /**
      * The entry point of application.

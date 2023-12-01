@@ -1,20 +1,11 @@
 package dictionary.gui.control;
 
-import dictionary.gui.request.InterfaceRequestDelegate;
 import dictionary.db.WordHistory;
 import dictionary.gui.App;
+import dictionary.gui.request.InterfaceRequestDelegate;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Objects;
+import javafx.scene.control.*;
 
 public class InputDataController {
 
@@ -64,29 +55,29 @@ public class InputDataController {
 
     }
 
-
     /**
      * Switch to main app.
      */
     public static void switchToApp() {
-        App.getStg().close();
-
-        Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/App.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
+            App.getSecondStage().show();
+        } catch (Exception ignore) {
+            callAlert();
         }
-        Stage secondaryStage = new Stage();
-        secondaryStage.setTitle("EN-VI Dictionary");
-        Scene app = new Scene(root);
-        secondaryStage.getIcons().add(new Image("App_icon.png"));
-        secondaryStage.setScene(app);
-        secondaryStage.setMinWidth(400);
-        secondaryStage.setMinHeight(350);
-        secondaryStage.centerOnScreen();
-        secondaryStage.show();
-        secondaryStage.setOnCloseRequest(event -> WordHistory.exportToFile());
+    }
+
+    private static void callAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText("Can not load interface.");
+        alert.getButtonTypes().setAll(ButtonType.OK);
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                Platform.exit();
+            }
+        });
     }
 
 }
