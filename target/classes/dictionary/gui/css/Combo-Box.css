@@ -11,7 +11,7 @@
 }
 .combo-box:hover{
     -fx-border-color: linear-gradient(to right top, #093270, #046194, #048d9a, #00bf72, #a8eb12);
-    -fx-background-color: #1A1A1A;
+    -fx-background-color: #252526;
     -fx-cursor: HAND;
 }
 .combo-box-base > .arrow-button {

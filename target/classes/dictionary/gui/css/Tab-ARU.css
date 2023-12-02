@@ -1,0 +1,15 @@
+.button:hover{
+    -fx-border-color: linear-gradient(to left top, #09907e, #00aa7b, #34c26b, #5db943, #a8eb12);
+    -fx-background-color: #343436;
+    -fx-cursor: HAND;
+}
+.button:pressed{
+    -fx-border-color: #222222;
+    -fx-cursor: HAND;
+}
+
+.combo-box:hover{
+    -fx-border-color: linear-gradient(to left top, #093270, #046194, #048d9a, #00bf72, #a8eb12);
+    -fx-background-color: #252526;
+    -fx-cursor: HAND;
+}

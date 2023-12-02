@@ -45,7 +45,7 @@ public class GeneralRequestResolve {
         wordlist = wordlist.subList(begin, end);
 
         for (String word : wordlist) {
-            if (word.matches(prefix + "(.*)")) {
+            if (word.startsWith(prefix)) {
                 result.add(word);
             }
         }

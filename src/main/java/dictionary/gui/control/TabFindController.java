@@ -35,7 +35,7 @@ public class TabFindController extends AppController {
     public void initialize() {
         wordHistory.setItems(WordHistory.getHistory());
         searchWord.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!(newValue == null) && !newValue.matches("[a-zA-Z'\\-(]*")) {
+            if (!(newValue == null) && !newValue.matches("[a-zA-Z'\\-( )]*")) {
                 searchWord.setText(oldValue);
                 return;
             }
@@ -163,7 +163,6 @@ public class TabFindController extends AppController {
     public void getWordHistory() {
         String word = wordHistory.getSelectionModel().getSelectedItem();
         searchWord.setText(word);
-        if (word == null) return;
         setPrefixWordList();
         wordDef.setText(TabFindRequestDelegator.lookup(word));
         WordHistory.addWord(word);
