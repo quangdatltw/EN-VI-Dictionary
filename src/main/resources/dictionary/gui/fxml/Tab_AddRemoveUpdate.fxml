@@ -12,24 +12,19 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="722.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARUController">
     <children>
-        <TextField fx:id="word" focusTraversable="false" layoutX="11.0" layoutY="14.0" prefHeight="48.0" prefWidth="220.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0">
+        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="14.0" prefHeight="48.0" prefWidth="283.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
       <TextArea fx:id="prototypeText" editable="false" layoutX="302.0" layoutY="64.0" prefHeight="417.0" prefWidth="406.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="302.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="64.0" />
-      <ComboBox layoutX="11.0" layoutY="64.0" onHidden="#getWordType" onShowing="#openWordTypeList" prefHeight="40.0" prefWidth="166.0" promptText="Choose Word Type">
+      <ComboBox fx:id="wordType" layoutX="14.0" layoutY="64.0" onHidden="#setWordType" prefHeight="40.0" prefWidth="162.0" promptText="Choose Word Type">
          <stylesheets>
             <URL value="@../css/Combo-Box.css" />
             <URL value="@../css/Tab-ARU.css" />
          </stylesheets>
       </ComboBox>
-      <Button layoutX="239.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#checkWord" prefHeight="41.0" prefWidth="63.0" stylesheets="@../css/Button.css" text="Check" AnchorPane.leftAnchor="239.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="402.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#addWord" prefHeight="41.0" prefWidth="78.0" text="ADD">
+      <Button fx:id="addWord" layoutX="402.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#addWord" prefHeight="41.0" prefWidth="78.0" text="ADD" AnchorPane.rightAnchor="242.0">
          <stylesheets>
             <URL value="@../css/Button.css" />
             <URL value="@../css/Tab-ARU.css" />
@@ -38,12 +33,12 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="630.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#removeWord" prefHeight="41.0" prefWidth="78.0" stylesheets="@../css/Button.css" text="REMOVE">
+      <Button fx:id="removeWord" layoutX="630.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#removeWord" prefHeight="41.0" prefWidth="78.0" stylesheets="@../css/Button.css" text="REMOVE" AnchorPane.rightAnchor="14.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="517.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#updateWord" prefHeight="41.0" prefWidth="78.0" text="UPDATE">
+      <Button fx:id="updateWord" layoutX="517.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#updateWord" prefHeight="41.0" prefWidth="78.0" text="UPDATE" AnchorPane.rightAnchor="127.0">
          <stylesheets>
             <URL value="@../css/Button.css" />
             <URL value="@../css/Tab-ARU.css" />
@@ -52,19 +47,19 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="11.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#addMeaning" prefHeight="33.0" prefWidth="118.0" stylesheets="@../css/Button.css" text="Add meaning">
+      <Button fx:id="meaning" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#addMeaning" prefHeight="33.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add meaning">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="11.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="118.0" stylesheets="@../css/Button.css" text="Add example">
+      <Button fx:id="example" layoutX="188.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add example">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <TextArea fx:id="meaningText" layoutX="11.0" layoutY="152.0" prefHeight="137.0" prefWidth="283.0" stylesheets="@../css/Text-Area.css" wrapText="true" />
-      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="334.0" prefHeight="146.0" prefWidth="283.0" stylesheets="@../css/Text-Area.css" wrapText="true" />
-      <Button layoutX="240.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#redo" stylesheets="@../css/Button.css">
+      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="334.0" prefHeight="146.0" prefWidth="283.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="334.0" />
+      <Button layoutX="246.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#redo" stylesheets="@../css/Button.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,7 +68,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="183.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#undo" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/Button.css">
+      <Button layoutX="188.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#undo" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/Button.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -82,5 +77,11 @@
             </ImageView>
          </graphic>
       </Button>
+      <ComboBox fx:id="wordMeanings" layoutX="14.0" layoutY="295.0" onShowing="#getWordMeaningList" prefHeight="33.0" prefWidth="162.0" promptText="Choose Meaning">
+         <stylesheets>
+            <URL value="@../css/Combo-Box.css" />
+            <URL value="@../css/Tab-ARU.css" />
+         </stylesheets>
+      </ComboBox>
     </children>
 </AnchorPane>

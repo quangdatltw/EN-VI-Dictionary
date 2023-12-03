@@ -1,27 +1,45 @@
 package dictionary.gui.request;
 
-import dictionary.db.LocalDictionaryRequestHandle;
+/**
+ * The type Tab aru request delegator.
+ */
+public class TabARURequestDelegator extends GeneralRequestDelegator {
 
-public class TabARURequestDelegator {
-    static final LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
-
+    /**
+     * Check word boolean.
+     *
+     * @param word the word
+     * @return the boolean
+     */
     public static boolean checkWord(String word) {
         return librarian.checkWordExistence(word);
     }
 
-    public static boolean addWord(String word, String def) {
-        if (!librarian.checkWordExistence(word)) {
-            librarian.addWord(word, def);
-            return true;
-        } else {
-            return false;
-        }
+    /**
+     * Add word.
+     *
+     * @param word the word
+     * @param def  the def
+     */
+    public static void addWord(String word, String def) {
+        librarian.addWord(word, def);
     }
 
+    /**
+     * Update.
+     *
+     * @param word the word
+     * @param def  the def
+     */
     public static void update(String word, String def) {
         librarian.updateWord(word, def);
     }
 
+    /**
+     * Remove.
+     *
+     * @param word the word
+     */
     public static void remove(String word) {
         librarian.removeWord(word);
     }

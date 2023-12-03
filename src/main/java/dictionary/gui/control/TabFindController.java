@@ -3,7 +3,6 @@ package dictionary.gui.control;
 import dictionary.db.WordHistory;
 import dictionary.gui.request.TabFindRequestDelegator;
 import dictionary.gui.request.TabGGTranslateRequestDelegator;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -152,7 +151,7 @@ public class TabFindController extends AppController {
      */
     @FXML
     public void openWordHistory() {
-        wordHistory.setItems(FXCollections.observableArrayList(WordHistory.getHistory()));
+        wordHistory.setItems(WordHistory.getHistory());
     }
 
     /**
