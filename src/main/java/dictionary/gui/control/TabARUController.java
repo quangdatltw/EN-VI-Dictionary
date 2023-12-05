@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TabARUController {
+    private static final TabARUWordDefChangeHistory changeHistory = new TabARUWordDefChangeHistory();
+    private static TabARUNode currentWordDef = new TabARUNode("");
+    private static String wordDef = "";
     @FXML
     public void initialize() {
         loadWordTypeList();
@@ -24,16 +27,10 @@ public class TabARUController {
             assert newValue != null;
             searchWord.setText(newValue.toLowerCase());
             checkWord();
+            newHistory();
         });
 
-        wordType.valueProperty().addListener((observable, oldValue, newValue) -> {
-            wordMeanings.setValue("");
-            meaningText.setText("");
-            exampleText.setText("");
-            example.setDisable(true);
-        });
-
-
+        wordType.valueProperty().addListener((observable, oldValue, newValue) -> newWordType());
 
     }
 
@@ -41,36 +38,55 @@ public class TabARUController {
         wordType.setItems(FXCollections.observableArrayList(wordTypesList));
     }
 
-    private void reset() {
+    private void reset()
+    {
         wordDef = "";
-        exampleText.setText("");
-        meaningText.setText("");
-        wordMeanings.setValue("");
-        wordType.setValue("");
+        wordType.setValue(null);
+        newWordType();
         addWord.setDisable(true);
         updateWord.setDisable(true);
         removeWord.setDisable(true);
         meaning.setDisable(true);
-        example.setDisable(true);
+        meaningText.setDisable(true);
         wordType.setDisable(true);
+        undoB.setDisable(true);
+        redoB.setDisable(true);
+    }
+
+    private void newHistory() {
+        changeHistory.clear();
+        changeHistory.append(wordDef);
+        currentWordDef = changeHistory.getTail();
+        undoB.setDisable(true);
+    }
+
+    private void newWordType() {
+        wordMeanings.setValue(null);
+        meaningText.clear();
+        exampleText.clear();
+        exampleText.setDisable(true);
+        example.setDisable(true);
         wordMeanings.setDisable(true);
     }
 
     private void concatDef(String add) {
         wordDef = wordDef + "\n" + add;
-        prototypeText.setText(wordDef);
+        updatePrototypeText();
     }
 
-    public void checkWord() {
-        String word = searchWord.getText().trim();
-        if (word.isEmpty()) {
-            return;
+    private void updatePrototypeText() {
+        double scrollPosition = prototypeText.getScrollTop();
+
+        prototypeText.setText(wordDef);
+
+        prototypeText.setScrollTop(scrollPosition);
+
+        changeHistory.insertAfter(currentWordDef, wordDef);
+        currentWordDef = changeHistory.getTail();
+        if (currentWordDef.prev != null) {
+            undoB.setDisable(false);
         }
-        if (TabARURequestDelegator.checkWord(word)) {
-            ifWordIsExistent(word);
-        } else {
-            ifWordIsNonexistent(word);
-        }
+        redoB.setDisable(true);
     }
 
     private static final List<String> wordTypesList = new ArrayList<>(
@@ -87,7 +103,6 @@ public class TabARUController {
             )
     );
 
-    private static String wordDef = "";
     @FXML
     private Button addWord;
     @FXML
@@ -110,28 +125,44 @@ public class TabARUController {
     private TextArea meaningText;
     @FXML
     private TextArea exampleText;
+    @FXML
+    private Button undoB;
+    @FXML
+    private Button redoB;
 
 
-
-    private void ifWordIsExistent(String word) {
+    public void checkWord() {
+        String word = searchWord.getText().trim();
+        if (word.isEmpty()) {
+            return;
+        }
+        if (TabARURequestDelegator.checkWord(word)) {
+            ifWordDoesExist(word);
+        } else {
+            ifWordDoesNotExist(word);
+        }
+    }
+    private void ifWordDoesExist(String word) {
         setWordDef(word);
 
         updateWord.setDisable(false);
         removeWord.setDisable(false);
         wordType.setDisable(false);
+        wordType.setPromptText("Choose Word Type");
     }
 
     private void setWordDef(String word) {
         wordDef = TabARURequestDelegator.lookup(word);
-        prototypeText.setText(wordDef);
+        updatePrototypeText();
     }
 
-    private void ifWordIsNonexistent(String word) {
+    private void ifWordDoesNotExist(String word) {
         wordDef = word;
-        prototypeText.setText(wordDef);
+        updatePrototypeText();
 
         addWord.setDisable(false);
         wordType.setDisable(false);
+        wordType.setPromptText("Choose Word Type");
     }
 
     @FXML
@@ -141,10 +172,16 @@ public class TabARUController {
             concatDef(type);
         }
         meaning.setDisable(false);
+        meaningText.setDisable(false);
+        getWordMeaningList();
         wordMeanings.setDisable(false);
+        wordMeanings.setPromptText("Choose Meaning");
     }
 
     private String cutWordType() {
+        if (!wordDef.contains(wordType.getValue())) {
+           return "";
+        }
         String str = wordDef.substring(wordDef.indexOf(wordType.getValue()));
 
         if (str.contains("\n*")) {
@@ -152,8 +189,9 @@ public class TabARUController {
             str = str.substring(0, str.lastIndexOf("\n"));
         }
 
-        if (str.contains(wordTypesList.get(6))) {
-            str = str.substring(0, str.indexOf(wordTypesList.get(6)));
+        if(str.contains("\n!")) {
+            str = str.substring(0, str.indexOf("\n!"));
+            str = str.substring(0, str.lastIndexOf("\n"));
         }
 
         return  str;
@@ -175,7 +213,10 @@ public class TabARUController {
     }
     @FXML
     public void setWordMeaning() {
-        example.setDisable(false);
+        if (wordMeanings.getValue() != null) {
+            example.setDisable(false);
+            exampleText.setDisable(false);
+        }
     }
 
     @FXML
@@ -184,8 +225,11 @@ public class TabARUController {
             return;
         }
         String set = cutWordType();
+        if (set.isEmpty()) {
+            return;
+        }
         wordDef = wordDef.replace(set, set + "\n    - " + meaningText.getText().replace("\n", ""));
-        prototypeText.setText(wordDef);
+        updatePrototypeText();
     }
 
     @FXML
@@ -194,18 +238,32 @@ public class TabARUController {
             return;
         }
         String mean = wordMeanings.getValue();
-        wordDef = wordDef.replace(mean, mean + "\n       VD: " + exampleText.getText());
-        prototypeText.setText(wordDef);
+        wordDef = wordDef.replace(mean, mean + "\n        VD: " + exampleText.getText());
+        updatePrototypeText();
     }
 
     @FXML
     public void undo() {
+        currentWordDef = currentWordDef.prev;
+        if (currentWordDef.prev == null) {
+            undoB.setDisable(true);
+        }
+        redoB.setDisable(false);
 
+        prototypeText.setText(currentWordDef.data);
+        wordDef = currentWordDef.data;
     }
 
     @FXML
     public void redo() {
+        currentWordDef = currentWordDef.next;
+        if (currentWordDef.next == null) {
+            redoB.setDisable(true);
+        }
+        undoB.setDisable(false);
 
+        prototypeText.setText(currentWordDef.data);
+        wordDef = currentWordDef.data;
     }
 
     @FXML
@@ -221,6 +279,9 @@ public class TabARUController {
     @FXML
     public void removeWord() {
         TabARURequestDelegator.remove(searchWord.getText().trim());
+        searchWord.clear();
+        prototypeText.clear();
+        reset();
     }
 
 }
