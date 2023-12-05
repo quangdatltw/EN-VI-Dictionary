@@ -3,7 +3,7 @@ package dictionary.gui.request;
 /**
  * The type Tab aru request delegator.
  */
-public class TabARURequestDelegator extends GeneralRequestDelegator {
+public class TabARURequestDelegator extends RequestDelegator {
 
     /**
      * Check word boolean.

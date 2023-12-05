@@ -19,7 +19,7 @@
             fx:controller="dictionary.gui.control.TabFindController">
     <children>
         <ListView fx:id="searchList" fixedCellSize="25.0" focusTraversable="false" layoutX="11.0" layoutY="97.0" onMouseClicked="#setWordDef" prefHeight="484.0" prefWidth="200.0" stylesheets="@../css/List-View.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="97.0" />
-        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" onInputMethodTextChanged="#setPrefixWordList" onKeyPressed="#searchWordPressedKey" onKeyTyped="#setPrefixWordList" prefHeight="41.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
+        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="21.0" onInputMethodTextChanged="#setWordInfo" onKeyPressed="#searchWordPressedKey" onKeyTyped="#setWordInfo" prefHeight="41.0" prefWidth="200.0" promptText="Search..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="15.0">
             <font>
                 <Font size="14.0" />
             </font>

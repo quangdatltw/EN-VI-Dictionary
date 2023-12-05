@@ -16,7 +16,7 @@ public class App extends Application {
     private static Stage stg;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Input_Data.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Library_Type.fxml")));
         Scene scene = new Scene(root);
         primaryStage.setTitle("LIBRARY'S TYPE");
         Image icon = new Image("App_icon.png");

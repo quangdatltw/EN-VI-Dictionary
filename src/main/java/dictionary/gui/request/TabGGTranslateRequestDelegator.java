@@ -8,43 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import java.util.List;
 
 public class TabGGTranslateRequestDelegator {
-    private static String lastSentence = "";
-
-    /**
-     * Gets media player.
-     *
-     * @param word     the word
-     * @param language the language
-     * @return the media player
-     */
-    public static MediaPlayer getMediaPlayer(String word, String language) {
-        return TextToSpeechAPI.getMediaPlayerForWord(word, language);
-    }
-
-    /**
-     * Create media player list.
-     *
-     * @param sentence the sentence
-     * @param language the language
-     * @param run      the run
-     */
-    public static void createMediaPlayerList(String sentence, String language, Runnable run) {
-        if (lastSentence.equals(sentence)) {
-            run.run();
-        } else {
-            lastSentence = sentence;
-            TaskRunner.convertTTS(sentence, language, run);
-        }
-    }
-
-    /**
-     * Gets media player list.
-     *
-     * @return the media player list
-     */
-    public static List<MediaPlayer> getMediaPlayerList() {
-        return TextToSpeechAPI.getMediaPlayerList();
-    }
+    private static String previousSentence = "";
 
     /**
      * Create translation.
@@ -65,5 +29,30 @@ public class TabGGTranslateRequestDelegator {
      */
     public static String getTranslation() {
         return TranslateAPI.getResult();
+    }
+
+    /**
+     * Create media player list.
+     *
+     * @param sentence the sentence
+     * @param language the language
+     * @param run      the run
+     */
+    public static void createMediaPlayerList(String sentence, String language, Runnable run) {
+        if (previousSentence.equals(sentence)) {
+            run.run();
+        } else {
+            previousSentence = sentence;
+            TaskRunner.convertTTS(sentence, language, run);
+        }
+    }
+
+    /**
+     * Gets media player list.
+     *
+     * @return the media player list
+     */
+    public static List<MediaPlayer> getMediaPlayerList() {
+        return TextToSpeechAPI.getMediaPlayerList();
     }
 }

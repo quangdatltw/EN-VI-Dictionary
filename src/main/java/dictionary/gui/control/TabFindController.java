@@ -2,7 +2,6 @@ package dictionary.gui.control;
 
 import dictionary.db.WordHistory;
 import dictionary.gui.request.TabFindRequestDelegator;
-import dictionary.gui.request.TabGGTranslateRequestDelegator;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -50,24 +49,6 @@ public class TabFindController extends AppController {
                 && !searchWord.getText().equals(newValue.toLowerCase());
     }
 
-    private void stopPlayingMedia() {
-        if (playingMedia != null) {
-            playingMedia.stop();
-        }
-        playingMedia = null;
-    }
-
-    private String findChosenWord() {
-        String word = searchList.getSelectionModel().getSelectedItem();
-        if (word == null) {
-            word = searchWord.getText();
-        }
-        if (word == null) {
-            word = "";
-        }
-        return word;
-    }
-
     /**
      * Clear selection in List-View when click anchor pane.
      */
@@ -83,13 +64,14 @@ public class TabFindController extends AppController {
      * Set word suggestWord.
      */
     @FXML
-    public void setPrefixWordList() {
+    public void setWordInfo() {
         List<String> wordList = TabFindRequestDelegator.search(searchWord.getText());
         searchList.getItems().clear();
         suggestWord.clear();
         if (!wordList.isEmpty()) {
             suggestWord.setText(wordList.get(0));
             searchList.getItems().addAll(wordList);
+            setWordDef();
         }
     }
 
@@ -103,6 +85,14 @@ public class TabFindController extends AppController {
         String word = findChosenWord();
         WordHistory.addWord(word);
         wordDef.setText(TabFindRequestDelegator.lookup(word));
+    }
+
+    private String findChosenWord() {
+        String word = searchList.getSelectionModel().getSelectedItem();
+        if (word == null) {
+            word = searchWord.getText();
+        }
+        return word;
     }
 
     /**
@@ -134,10 +124,16 @@ public class TabFindController extends AppController {
     public void speakWord() {
         stopPlayingMedia();
         String word = findChosenWord();
-        playingMedia = TabGGTranslateRequestDelegator.getMediaPlayer(word, "en");
+        playingMedia = TabFindRequestDelegator.getMediaPlayer(word, "en");
         playingMedia.play();
     }
 
+    private void stopPlayingMedia() {
+        if (playingMedia != null) {
+            playingMedia.stop();
+        }
+        playingMedia = null;
+    }
     /**
      * Copy definition.
      */
@@ -161,8 +157,11 @@ public class TabFindController extends AppController {
     @FXML
     public void getWordHistory() {
         String word = wordHistory.getSelectionModel().getSelectedItem();
+        if (word == null) {
+            return;
+        }
         searchWord.setText(word);
-        setPrefixWordList();
+        setWordInfo();
         wordDef.setText(TabFindRequestDelegator.lookup(word));
         WordHistory.addWord(word);
     }

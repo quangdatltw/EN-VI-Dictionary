@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TabARUController {
-    private static final TabARUWordDefChangeHistory changeHistory = new TabARUWordDefChangeHistory();
+    private static final TabARUWordDefChangeNode changeHistory = new TabARUWordDefChangeNode();
     private static TabARUNode currentWordDef = new TabARUNode("");
     private static String wordDef = "";
     @FXML
@@ -56,7 +56,7 @@ public class TabARUController {
     private void newHistory() {
         changeHistory.clear();
         changeHistory.append(wordDef);
-        currentWordDef = changeHistory.getTail();
+        currentWordDef = changeHistory.getNode();
         undoB.setDisable(true);
     }
 
@@ -82,7 +82,7 @@ public class TabARUController {
         prototypeText.setScrollTop(scrollPosition);
 
         changeHistory.insertAfter(currentWordDef, wordDef);
-        currentWordDef = changeHistory.getTail();
+        currentWordDef = changeHistory.getNode();
         if (currentWordDef.prev != null) {
             undoB.setDisable(false);
         }
@@ -148,7 +148,6 @@ public class TabARUController {
         updateWord.setDisable(false);
         removeWord.setDisable(false);
         wordType.setDisable(false);
-        wordType.setPromptText("Choose Word Type");
     }
 
     private void setWordDef(String word) {
@@ -162,7 +161,6 @@ public class TabARUController {
 
         addWord.setDisable(false);
         wordType.setDisable(false);
-        wordType.setPromptText("Choose Word Type");
     }
 
     @FXML
@@ -173,15 +171,10 @@ public class TabARUController {
         }
         meaning.setDisable(false);
         meaningText.setDisable(false);
-        getWordMeaningList();
         wordMeanings.setDisable(false);
-        wordMeanings.setPromptText("Choose Meaning");
     }
 
     private String cutWordType() {
-        if (!wordDef.contains(wordType.getValue())) {
-           return "";
-        }
         String str = wordDef.substring(wordDef.indexOf(wordType.getValue()));
 
         if (str.contains("\n*")) {
@@ -221,11 +214,8 @@ public class TabARUController {
 
     @FXML
     public void addMeaning() {
-        if (wordDef.contains("- " + meaningText.getText().trim().replace("\n", ""))) {
-            return;
-        }
         String set = cutWordType();
-        if (set.isEmpty()) {
+        if (meaningText.getText().isEmpty()) {
             return;
         }
         wordDef = wordDef.replace(set, set + "\n    - " + meaningText.getText().replace("\n", ""));
@@ -234,10 +224,10 @@ public class TabARUController {
 
     @FXML
     public void addExample() {
-        if (wordDef.contains("VD: " + exampleText.getText().trim().replace("\n", ""))) {
+        String mean = wordMeanings.getValue();
+        if (exampleText.getText().isEmpty()) {
             return;
         }
-        String mean = wordMeanings.getValue();
         wordDef = wordDef.replace(mean, mean + "\n        VD: " + exampleText.getText());
         updatePrototypeText();
     }

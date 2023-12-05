@@ -34,62 +34,6 @@ public class TabGGTController extends AppController {
     @FXML
     public void initialize() {
     }
-    @FXML
-    private void pause_continueMedia() {
-        if (playingMedia == null) {
-            return;
-        }
-        if (playingMedia.getStatus() == MediaPlayer.Status.PLAYING) {
-            playingMedia.pause();
-            setPauseButtonImg("/icon/play.png");
-        } else if (playingMedia.getStatus() == MediaPlayer.Status.PAUSED) {
-            setPauseButtonImg("/icon/pause.png");
-            playingMedia.play();
-        }
-    }
-
-    private void stopPlayingMedia() {
-        if (playingMedia != null) {
-            playingMedia.stop();
-        }
-        playingMedia = null;
-        setPauseButtonImg("/icon/pause.png");
-    }
-
-    private void setPauseButtonImg(String url) {
-        Image pauseIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
-        pause.setGraphic(new ImageView(pauseIcon));
-    }
-
-    private  void playMediaPlayerList() {
-        for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
-            int finalI = i + 1;
-            mediaPlayerList.get(i).setOnEndOfMedia(() -> {
-                mediaPlayerList.get(finalI).play();
-                setPlayingMedia(mediaPlayerList.get(finalI));
-            });
-        }
-        setPlayingMedia(mediaPlayerList.get(0));
-        mediaPlayerList.get(0).play();
-    }
-
-    /**
-     * Sets media player.
-     */
-    public void setMediaPlayer() {
-        stopPlayingMedia();
-        mediaPlayerList = TabGGTranslateRequestDelegator.getMediaPlayerList();
-        playMediaPlayerList();
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(e -> {
-            speakFromL.setDisable(false);
-            speakToL.setDisable(false);
-        });
-        pause.play();
-    }
-    private static void setPlayingMedia(MediaPlayer mediaPlayer) {
-        playingMedia = mediaPlayer;
-    }
 
     /**
      * Translate sentence.
@@ -107,7 +51,7 @@ public class TabGGTController extends AppController {
     /**
      * Sets translation.
      */
-    public void setTranslated() {
+    private void setTranslated() {
         sentenceToL.setText(TabGGTranslateRequestDelegator.getTranslation());
         translate.setDisable(false);
     }
@@ -154,6 +98,56 @@ public class TabGGTController extends AppController {
         }
         TabGGTranslateRequestDelegator.createMediaPlayerList(sentence, toL, this::setMediaPlayer);
         speakToL.setDisable(true);
+    }
+
+    private void setMediaPlayer() {
+        stopPlayingMedia();
+        mediaPlayerList = TabGGTranslateRequestDelegator.getMediaPlayerList();
+        playMediaPlayerList();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(e -> {
+            speakFromL.setDisable(false);
+            speakToL.setDisable(false);
+        });
+        pause.play();
+    }
+    private  void playMediaPlayerList() {
+        for (int i = 0; i < mediaPlayerList.size() - 1; i++) {
+            int finalI = i + 1;
+            mediaPlayerList.get(i).setOnEndOfMedia(() -> {
+                mediaPlayerList.get(finalI).play();
+                setPlayingMedia(mediaPlayerList.get(finalI));
+            });
+        }
+        setPlayingMedia(mediaPlayerList.get(0));
+        mediaPlayerList.get(0).play();
+    }
+    private void stopPlayingMedia() {
+        if (playingMedia != null) {
+            playingMedia.stop();
+        }
+        playingMedia = null;
+        setPauseButtonImg("/icon/pause.png");
+    }
+    private static void setPlayingMedia(MediaPlayer mediaPlayer) {
+        playingMedia = mediaPlayer;
+    }
+    @FXML
+    private void pause_continueMedia() {
+        if (playingMedia == null) {
+            return;
+        }
+        if (playingMedia.getStatus() == MediaPlayer.Status.PLAYING) {
+            playingMedia.pause();
+            setPauseButtonImg("/icon/play.png");
+        } else if (playingMedia.getStatus() == MediaPlayer.Status.PAUSED) {
+            setPauseButtonImg("/icon/pause.png");
+            playingMedia.play();
+        }
+    }
+    private void setPauseButtonImg(String url) {
+        Image pauseIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
+        pause.setGraphic(new ImageView(pauseIcon));
     }
 
     /**
