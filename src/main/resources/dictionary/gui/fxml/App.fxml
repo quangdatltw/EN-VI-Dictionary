@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<TabPane fx:id="TabPane" focusTraversable="false" prefHeight="540.0" prefWidth="960.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.AppController">
-   <tabs>
-      <Tab fx:id="Tab_Find" text="Find">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../icon/Find.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Tab>
-      <Tab fx:id="Tab_GoogleTranslate" text=" Google Translate">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../icon/Translate.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Tab>
-      <Tab fx:id="Tab_AddRemoveUpdate" text="Add/Remove/Update">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../icon/Database.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Tab>
-      <Tab fx:id="Tab_Game" text="Game">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../icon/Game.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Tab>
-   </tabs>
-   <stylesheets>
-      <URL value="@../css/dark_bg.css" />
-      <URL value="@../css/Tab-Pane.css" />
-   </stylesheets>
-</TabPane>
+<AnchorPane prefHeight="575.0" prefWidth="960.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.AppController">
+   <children>
+      <VBox prefHeight="575.0" prefWidth="960.0" stylesheets="@../css/dark_bg.css">
+         <children>
+            <HBox prefHeight="35.0" prefWidth="600.0" />
+            <TabPane fx:id="TabPane" focusTraversable="false" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/Tab-Pane.css" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab fx:id="Tab_Find" text="Find">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icon/Find.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="Tab_GoogleTranslate" text=" Google Translate">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icon/Translate.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="Tab_AddRemoveUpdate" text="Add/Remove/Update">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icon/Database.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="Tab_Game" text="Game">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icon/Game.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

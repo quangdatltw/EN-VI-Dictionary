@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class App extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("LIBRARY'S TYPE");
         Image icon = new Image("App_icon.png");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.getIcons().add(icon);
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
@@ -41,6 +43,7 @@ public class App extends Application {
         secondaryStage.setTitle("EN-VI Dictionary");
         Scene app = new Scene(root);
         secondaryStage.getIcons().add(new Image("App_icon.png"));
+        secondaryStage.initStyle(StageStyle.UNDECORATED);
         secondaryStage.setScene(app);
         secondaryStage.setMinWidth(400);
         secondaryStage.setMinHeight(350);

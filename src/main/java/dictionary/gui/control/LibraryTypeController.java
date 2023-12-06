@@ -6,9 +6,15 @@ import dictionary.gui.request.LibraryTypeRequestDelegator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class LibraryTypeController {
 
+    @FXML
+    private ImageView image;
     @FXML
     private Label errorText;
     @FXML
@@ -17,12 +23,26 @@ public class LibraryTypeController {
     private Button internalDB;
     @FXML
     private Button externalDB;
+    @FXML
+    private void close() {
+        Stage stage = (Stage) ( filePath.getScene().getWindow());
+        stage.close();
+    }
+    @FXML
+    private void minimize() {
+        Stage stage = (Stage) ( filePath.getScene().getWindow());
+        stage.setIconified(true);
+    }
+
+
 
     /**
      * Initialize.
      */
     public void initialize() {
         WordHistory.loadFromFile();
+        DropShadow shadow = new DropShadow(5, Color.valueOf("#509dea"));
+        image.setEffect(shadow);
     }
 
     /**

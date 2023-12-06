@@ -1,5 +1,5 @@
 .tab-pane {
-    -fx-padding: 0 -1 -1 -1;
+    -fx-padding: 0 -1 -1 0;
 }
 .tab .tab-label {
     -fx-background-color: transparent;
