@@ -4,11 +4,15 @@ import dictionary.gui.Animation;
 import dictionary.gui.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -24,6 +28,8 @@ public class AppController {
     private Tab Tab_Game;
     @FXML
     private TabPane TabPane;
+    @FXML
+    private Button maximizeB;
 
     /**
      * Initialize, load Tabs fxml.
@@ -36,6 +42,29 @@ public class AppController {
             loadTab(Tab_Game, "fxml/Tab_Game.fxml");
         } catch (IOException i) {
             i.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void close() {
+        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        stage.close();
+    }
+    @FXML
+    private void minimize() {
+        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void maximize() {
+        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+            setButtonImg("/icon/maximize1.png", maximizeB);
+        } else {
+            stage.setMaximized(true);
+            setButtonImg("/icon/maximize2.png", maximizeB);
         }
     }
 
@@ -60,6 +89,11 @@ public class AppController {
         ClipboardContent content = new ClipboardContent();
         content.putString(sentence);
         clipboard.setContent(content);
+    }
+
+    protected void setButtonImg(String url, Button button) {
+        Image Icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
+        button.setGraphic(new ImageView(Icon));
     }
 
 }

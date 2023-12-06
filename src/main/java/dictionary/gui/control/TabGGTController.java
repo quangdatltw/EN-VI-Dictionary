@@ -5,13 +5,10 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.List;
-import java.util.Objects;
 
 public class TabGGTController extends AppController {
     private static MediaPlayer playingMedia;
@@ -127,7 +124,7 @@ public class TabGGTController extends AppController {
             playingMedia.stop();
         }
         playingMedia = null;
-        setPauseButtonImg("/icon/pause.png");
+        setButtonImg("/icon/pause.png", pause);
     }
     private static void setPlayingMedia(MediaPlayer mediaPlayer) {
         playingMedia = mediaPlayer;
@@ -139,16 +136,13 @@ public class TabGGTController extends AppController {
         }
         if (playingMedia.getStatus() == MediaPlayer.Status.PLAYING) {
             playingMedia.pause();
-            setPauseButtonImg("/icon/play.png");
+            setButtonImg("/icon/play.png", pause);
         } else if (playingMedia.getStatus() == MediaPlayer.Status.PAUSED) {
-            setPauseButtonImg("/icon/pause.png");
+            setButtonImg("/icon/pause.png", pause);
             playingMedia.play();
         }
     }
-    private void setPauseButtonImg(String url) {
-        Image pauseIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
-        pause.setGraphic(new ImageView(pauseIcon));
-    }
+
 
     /**
      * Copy sentence in sentenceFromL.

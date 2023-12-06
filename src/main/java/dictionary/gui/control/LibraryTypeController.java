@@ -23,17 +23,6 @@ public class LibraryTypeController {
     private Button internalDB;
     @FXML
     private Button externalDB;
-    @FXML
-    private void close() {
-        Stage stage = (Stage) ( filePath.getScene().getWindow());
-        stage.close();
-    }
-    @FXML
-    private void minimize() {
-        Stage stage = (Stage) ( filePath.getScene().getWindow());
-        stage.setIconified(true);
-    }
-
 
 
     /**
@@ -43,6 +32,17 @@ public class LibraryTypeController {
         WordHistory.loadFromFile();
         DropShadow shadow = new DropShadow(5, Color.valueOf("#509dea"));
         image.setEffect(shadow);
+    }
+
+    @FXML
+    private void close() {
+        Stage stage = (Stage) ( filePath.getScene().getWindow());
+        stage.close();
+    }
+    @FXML
+    private void minimize() {
+        Stage stage = (Stage) ( filePath.getScene().getWindow());
+        stage.setIconified(true);
     }
 
     /**
