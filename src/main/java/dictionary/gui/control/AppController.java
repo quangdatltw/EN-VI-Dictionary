@@ -1,10 +1,11 @@
 package dictionary.gui.control;
 
+import dictionary.gui.Animation;
 import dictionary.gui.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,8 @@ public class AppController {
     private Tab Tab_AddRemoveUpdate;
     @FXML
     private Tab Tab_Game;
+    @FXML
+    private TabPane TabPane;
 
     /**
      * Initialize, load Tabs fxml.
@@ -39,6 +42,10 @@ public class AppController {
     private void loadTab(Tab tab, String fxml) throws IOException {
         AnchorPane tabAnchor = FXMLLoader.load(Objects.requireNonNull(App.class.getResource(fxml)));
         tab.setContent(tabAnchor);
+        if (!fxml.equals("fxml/Tab_Find.fxml")) {
+            tab.getContent().setTranslateX(TabPane.getWidth());
+        }
+        Animation.tabAnimation(TabPane);
     }
 
     // General method for Tabs //////////////////////////////////////////////////////////

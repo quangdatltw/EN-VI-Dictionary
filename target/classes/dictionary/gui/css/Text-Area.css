@@ -8,11 +8,11 @@
     -fx-background-color: #1A1A1A;
 }
 .text-area:focused{
-    -fx-border-color: linear-gradient(to right top, #2b185b, #551c6d, #7a1a75, #ac1781, #d71482);
+    -fx-border-color: linear-gradient(to right bottom, #7eb10b, #ae8a00, #c65d0d, #c52d3e, #a80d64);
     -fx-background-color: #1A1A1A;
 }
 .text-area:hover{
-    -fx-border-color: linear-gradient(to right top, #2b185b, #551c6d, #7a1a75, #ac1781, #d71482);
+    -fx-border-color: linear-gradient(to right bottom, #a8eb12, #e6b700, #ff7c15, #ff3d54, #d71482);
 }
 .text-area .content{
     -fx-background-radius: 0;

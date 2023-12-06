@@ -6,12 +6,12 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-alignment: CENTER;
-    -fx-text-fill: #f8f8f8;
+    -fx-text-fill: #d3d3d3;
     -fx-fit-to-width: yes;
 }
 .tab {
     -fx-pref-height: 4em;
-    -fx-background-color: #3a3a3b;
+    -fx-background-color: #353536;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #6d6e70;
     -fx-background-insets: 0.0;
@@ -25,11 +25,7 @@
     -fx-background-insets: 0;
     -fx-border-width: 0 0 0 5;
     -fx-border-color: linear-gradient(to right top, #d3b818, #ec911b, #f8653b, #f2385e, #d71482);
-    -fx-background-color: #2a2a2d;
-}
-.tab:focused
-{
-    -fx-focus-color: transparent;
+    -fx-background-color: #242426;
 }
 
 .tab-pane *.tab-header-background
