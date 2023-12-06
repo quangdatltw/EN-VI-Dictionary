@@ -1,0 +1,10 @@
+.button{
+    -fx-border-color: transparent;
+    -fx-background-color: linear-gradient(to bottom right, #242426, #434344, #646465, #878788, #acacac);
+}
+.button:hover{
+    -fx-cursor: n-resize;
+}
+.button:pressed{
+    -fx-cursor: n-resize;
+}

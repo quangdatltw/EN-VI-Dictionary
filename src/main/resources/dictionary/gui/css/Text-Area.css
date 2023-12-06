@@ -1,6 +1,7 @@
 /* TextArea */
 .text-area{
-    -fx-background-radius: 0;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
     -fx-border-width: 1;
     -fx-font-size: 14;
     -fx-border-color:  #222222;
@@ -8,10 +9,14 @@
     -fx-background-color: #1A1A1A;
 }
 .text-area:focused{
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
     -fx-border-color: linear-gradient(to right bottom, #7eb10b, #ae8a00, #c65d0d, #c52d3e, #a80d64);
     -fx-background-color: #1A1A1A;
 }
 .text-area:hover{
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
     -fx-border-color: linear-gradient(to right bottom, #a8eb12, #e6b700, #ff7c15, #ff3d54, #d71482);
 }
 .text-area .content{
@@ -20,17 +25,23 @@
     -fx-background-color: #1A1A1A;
 }
 .text-area .scroll-bar{
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-border-color: transparent;
     -fx-pref-width: 1.7em;
     -fx-background-color: transparent;
     -fx-background-insets: 0 -0.5 0.5 0;
 }
 .text-area .scroll-bar .thumb{
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-background-insets: 0 0 0 0;
     -fx-background-color: #262424;
     -fx-border-color: linear-gradient(to right top, #d3b818, #ec911b, #f8653b, #f2385e, #d71482);;
 }
 .text-area .scroll-bar .thumb:hover{
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-background-insets: 0 0 0 0;
     -fx-background-color: linear-gradient(to right top, #d3b818, #ec911b, #f8653b, #f2385e, #d71482);
 }

@@ -7,11 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +34,11 @@ public class AppController {
     private TabPane TabPane;
     @FXML
     private Button maximizeB;
+    @FXML
+    private BorderPane borderPane;
+
+    private double x = 0;
+    private double y = 0;
 
     /**
      * Initialize, load Tabs fxml.
@@ -45,14 +54,22 @@ public class AppController {
         }
     }
 
+    private void loadTab(Tab tab, String fxml) throws IOException {
+        AnchorPane tabAnchor = FXMLLoader.load(Objects.requireNonNull(App.class.getResource(fxml)));
+        tab.setContent(tabAnchor);
+        if (!fxml.equals("fxml/Tab_Find.fxml")) {
+            tab.getContent().setTranslateX(TabPane.getWidth());
+        }
+        Animation.tabAnimation(TabPane);
+    }
     @FXML
     private void close() {
-        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        Stage stage = (Stage) (TabPane.getScene().getWindow());
         stage.close();
     }
     @FXML
     private void minimize() {
-        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        Stage stage = (Stage) (TabPane.getScene().getWindow());
         stage.setIconified(true);
     }
 
@@ -68,13 +85,17 @@ public class AppController {
         }
     }
 
-    private void loadTab(Tab tab, String fxml) throws IOException {
-        AnchorPane tabAnchor = FXMLLoader.load(Objects.requireNonNull(App.class.getResource(fxml)));
-        tab.setContent(tabAnchor);
-        if (!fxml.equals("fxml/Tab_Find.fxml")) {
-            tab.getContent().setTranslateX(TabPane.getWidth());
-        }
-        Animation.tabAnimation(TabPane);
+    @FXML
+    private void setTopPane_dragged(MouseEvent event) {
+        Stage stage = (Stage) ( borderPane.getScene().getWindow());
+        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - x);
+    }
+
+    @FXML
+    private void topPane_pressed(MouseEvent event) {
+        x = event.getX();
+        y = event.getY();
     }
 
     // General method for Tabs //////////////////////////////////////////////////////////

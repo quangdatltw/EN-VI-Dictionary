@@ -19,7 +19,10 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Library_Type.fxml")));
         Scene scene = new Scene(root);
+        Image icon = new Image("App_icon.png");
         primaryStage.initStyle(StageStyle.UNDECORATED);
+
+        primaryStage.getIcons().add(icon);
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
@@ -45,6 +48,7 @@ public class App extends Application {
         secondaryStage.setMinWidth(400);
         secondaryStage.setMinHeight(350);
         secondaryStage.centerOnScreen();
+
         secondaryStage.setOnCloseRequest(event -> WordHistory.exportToFile());
         stg = secondaryStage;
         return secondaryStage;

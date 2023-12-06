@@ -21,8 +21,6 @@
 
 .tab:selected
 {
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
     -fx-border-width: 0 0 0 5;
     -fx-border-color: linear-gradient(to right top, #d3b818, #ec911b, #f8653b, #f2385e, #d71482);
     -fx-background-color: #242426;
@@ -30,13 +28,10 @@
 
 .tab-pane *.tab-header-background
 {
-    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-color: linear-gradient(to bottom, #2c2a39, #2a2934, #282730, #26262b, #242426);
 }
-.tab-pane:top *.tab-header-area
-{
-    -fx-background-insets: 0, 0 0 10;
-    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
-}
+
 .tab:selected .focus-indicator
 {
     -fx-focus-color: transparent;
