@@ -13,11 +13,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class App extends Application {
+    private static Parent root;
 
     private static Stage stg;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Library_Type.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/Library_Type.fxml")));
         Scene scene = new Scene(root);
         Image icon = new Image("App_icon.png");
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -38,7 +39,7 @@ public class App extends Application {
      */
     public static Stage getSecondStage() throws IOException {
         stg.close();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/App.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/App.fxml")));
         Stage secondaryStage = new Stage();
         secondaryStage.setTitle("EN-VI Dictionary");
         Scene app = new Scene(root);
@@ -53,7 +54,6 @@ public class App extends Application {
         stg = secondaryStage;
         return secondaryStage;
     }
-
 
     /**
      * The entry point of application.

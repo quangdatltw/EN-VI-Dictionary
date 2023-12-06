@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
@@ -15,7 +14,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -39,6 +37,7 @@ public class AppController {
 
     private double x = 0;
     private double y = 0;
+
 
     /**
      * Initialize, load Tabs fxml.
@@ -64,18 +63,18 @@ public class AppController {
     }
     @FXML
     private void close() {
-        Stage stage = (Stage) (TabPane.getScene().getWindow());
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
         stage.close();
     }
     @FXML
     private void minimize() {
-        Stage stage = (Stage) (TabPane.getScene().getWindow());
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
         stage.setIconified(true);
     }
 
     @FXML
     private void maximize() {
-        Stage stage = (Stage) ( TabPane.getScene().getWindow());
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
         if (stage.isMaximized()) {
             stage.setMaximized(false);
             setButtonImg("/icon/maximize1.png", maximizeB);
@@ -87,15 +86,93 @@ public class AppController {
 
     @FXML
     private void setTopPane_dragged(MouseEvent event) {
-        Stage stage = (Stage) ( borderPane.getScene().getWindow());
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
         stage.setY(event.getScreenY() - y);
         stage.setX(event.getScreenX() - x);
     }
 
     @FXML
-    private void topPane_pressed(MouseEvent event) {
+    private void mouse_pressed(MouseEvent event) {
         x = event.getX();
         y = event.getY();
+    }
+
+    @FXML
+    private void topBor(MouseEvent event) {
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
+        double currentHeight = stage.getHeight();
+        double currentY = stage.getY();
+        double mouseY = event.getScreenY();
+        double deltaY = currentY - mouseY;
+
+        if (deltaY > 0) {
+            double newHeight = currentHeight + deltaY;
+            stage.setHeight(newHeight);
+            stage.setY(mouseY);
+        } else if (deltaY < 0) {
+            double newHeight = currentHeight - Math.abs(deltaY);
+            stage.setHeight(newHeight);
+            stage.setY(mouseY);
+        }
+    }
+    @FXML
+    private void bottomBor(MouseEvent event) {
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
+        double currentHeight = stage.getHeight();
+        double mouseY = event.getScreenY();
+
+        double deltaY = mouseY - (stage.getY() + currentHeight);
+
+        if (deltaY > 0) {
+
+            double newHeight = currentHeight + deltaY;
+            stage.setHeight(newHeight);
+        } else if (deltaY < 0) {
+
+            double newHeight = currentHeight - Math.abs(deltaY);
+            stage.setHeight(newHeight);
+        }
+    }
+
+    @FXML
+    private void rightBor(MouseEvent event) {
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
+        double currentWidth = stage.getWidth();
+        double mouseX = event.getScreenX();
+
+        double deltaX = mouseX - (stage.getX() + currentWidth);
+
+        if (deltaX > 0) {
+
+            double newWidth = currentWidth + deltaX;
+            stage.setWidth(newWidth);
+        } else if (deltaX < 0) {
+
+            double newWidth = currentWidth - Math.abs(deltaX);
+            stage.setWidth(newWidth);
+        }
+    }
+
+    @FXML
+    private void leftBor(MouseEvent event) {
+        Stage stage = (Stage) (borderPane.getScene().getWindow());
+        double currentWidth = stage.getWidth();
+        double currentX = stage.getX();
+        double mouseX = event.getScreenX();
+
+        double deltaX = currentX - mouseX;
+
+        if (deltaX > 0) {
+
+            double newWidth = currentWidth + deltaX;
+            stage.setWidth(newWidth);
+            stage.setX(mouseX);
+        } else if (deltaX < 0) {
+
+            double newWidth = currentWidth - Math.abs(deltaX);
+            stage.setWidth(newWidth);
+            stage.setX(mouseX);
+        }
     }
 
     // General method for Tabs //////////////////////////////////////////////////////////

@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="722.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARUController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARUController">
     <children>
-        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="14.0" prefHeight="48.0" prefWidth="283.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0">
+        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="14.0" prefHeight="48.0" prefWidth="346.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-      <TextArea fx:id="prototypeText" editable="false" layoutX="302.0" layoutY="64.0" prefHeight="417.0" prefWidth="406.0" promptText="Preview Text...." stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="302.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="64.0">
+      <TextArea fx:id="prototypeText" editable="false" layoutX="368.0" layoutY="64.0" prefHeight="464.0" prefWidth="622.0" promptText="Preview Text...." stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="64.0">
          <font>
             <Font size="14.0" />
          </font></TextArea>
-      <ComboBox fx:id="wordType" layoutX="14.0" layoutY="64.0" onHidden="#setWordType" prefHeight="40.0" prefWidth="162.0" promptText="Choose Word Type">
+      <ComboBox fx:id="wordType" layoutX="14.0" layoutY="64.0" onHidden="#setWordType" prefHeight="40.0" prefWidth="228.0" promptText="Choose Word Type">
          <stylesheets>
             <URL value="@../css/Combo-Box.css" />
             <URL value="@../css/Tab-ARU.css" />
@@ -55,14 +55,14 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="example" layoutX="188.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add example">
+      <Button fx:id="example" layoutX="252.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add example">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <TextArea fx:id="meaningText" layoutX="11.0" layoutY="152.0" prefHeight="137.0" prefWidth="283.0" stylesheets="@../css/Text-Area.css" wrapText="true" />
-      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="334.0" prefHeight="146.0" prefWidth="283.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="334.0" />
-      <Button fx:id="redoB" layoutX="246.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#redo" stylesheets="@../css/Button.css">
+      <TextArea fx:id="meaningText" layoutX="11.0" layoutY="152.0" prefHeight="137.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" />
+      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="334.0" prefHeight="193.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="334.0" />
+      <Button fx:id="redoB" layoutX="309.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#redo" stylesheets="@../css/Button.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -71,7 +71,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="undoB" layoutX="188.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#undo" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/Button.css">
+      <Button fx:id="undoB" layoutX="251.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#undo" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/Button.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

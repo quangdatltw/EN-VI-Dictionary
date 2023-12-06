@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="722.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabGGTController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabGGTController">
     <children>
         <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
-                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="47.0" prefWidth="52.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                             <image>
@@ -27,7 +27,7 @@
                         <URL value="@../css/Tab-GG.css" />
                     </stylesheets>
                 </Button>
-                <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="40.0" prefWidth="50.0">
+                <Button fx:id="speakFromL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceFromL" prefHeight="47.0" prefWidth="52.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                             <image>
@@ -40,7 +40,7 @@
                         <URL value="@../css/Tab-GG.css" />
                     </stylesheets>
                 </Button>
-                <Button fx:id="pause" mnemonicParsing="false" onMouseClicked="#pause_continueMedia" prefHeight="40.0" prefWidth="52.0">
+                <Button fx:id="pause" mnemonicParsing="false" onMouseClicked="#pause_continueMedia" prefHeight="47.0" prefWidth="52.0">
                     <stylesheets>
                         <URL value="@../css/Button.css" />
                         <URL value="@../css/Tab-GG.css" />
@@ -53,7 +53,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="40.0" prefWidth="50.0">
+                <Button fx:id="speakToL" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#speakSentenceToL" prefHeight="47.0" prefWidth="52.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                             <image>
@@ -66,7 +66,7 @@
                         <URL value="@../css/Tab-GG.css" />
                     </stylesheets>
                 </Button>
-                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="40.0" prefWidth="50.0">
+                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceToL" prefHeight="47.0" prefWidth="52.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
                             <image>
@@ -86,7 +86,7 @@
                 <TextArea fx:id="sentenceFromL" focusTraversable="false" prefHeight="225.0" prefWidth="608.0" promptText="English..." stylesheets="@../css/Text-Area.css" wrapText="true" VBox.vgrow="ALWAYS" />
                 <HBox alignment="CENTER" prefHeight="47.0" prefWidth="558.0">
                     <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#swapL" prefHeight="33.0" prefWidth="39.0">
+                        <Button mnemonicParsing="false" onMouseClicked="#swapL" prefHeight="37.0" prefWidth="45.0">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
