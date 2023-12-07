@@ -67,6 +67,7 @@ public class TabARUController {
         exampleText.setDisable(true);
         example.setDisable(true);
         wordMeanings.setDisable(true);
+        wordExamples.setDisable(true);
     }
 
     private void concatDef(String add) {
@@ -120,6 +121,8 @@ public class TabARUController {
     @FXML
     private ComboBox<String> wordMeanings;
     @FXML
+    private ComboBox<String> wordExamples;
+    @FXML
     private TextArea prototypeText;
     @FXML
     private TextArea meaningText;
@@ -172,9 +175,10 @@ public class TabARUController {
         meaning.setDisable(false);
         meaningText.setDisable(false);
         wordMeanings.setDisable(false);
+
     }
 
-    private String cutWordType() {
+    private String cutWordMeanings() {
         String str = wordDef.substring(wordDef.indexOf(wordType.getValue()));
 
         if (str.contains("\n*")) {
@@ -191,7 +195,7 @@ public class TabARUController {
     }
     @FXML
     public void getWordMeaningList() {
-        String str = cutWordType() + "\n";
+        String str = cutWordMeanings() + "\n";
 
         List<String> meaningList = new ArrayList<>();
         while (str.contains("-")) {
@@ -207,28 +211,64 @@ public class TabARUController {
     @FXML
     public void setWordMeaning() {
         if (wordMeanings.getValue() != null) {
+            meaningText.setText(wordMeanings.getValue());
             example.setDisable(false);
             exampleText.setDisable(false);
+            wordExamples.setDisable(false);
         }
     }
 
     @FXML
     public void addMeaning() {
-        String set = cutWordType();
-        if (meaningText.getText().isEmpty()) {
-            return;
+        if (wordMeanings.getValue() == null) {
+           wordDef = TabARURequestDelegator.addSentence(wordDef, wordType.getValue(), meaningText.getText().replace("\n", ""), "\n    - ");
+        } else {
+            wordDef = wordDef.replace(wordMeanings.getValue(), meaningText.getText().replace("\n", ""));
+            wordMeanings.setValue(null);
+            exampleText.setDisable(true);
+            example.setDisable(true);
         }
-        wordDef = wordDef.replace(set, set + "\n    - " + meaningText.getText().replace("\n", ""));
+
+        meaningText.clear();
+
         updatePrototypeText();
+    }
+    @FXML
+    private void getWordExampleList() {
+        String str = cutWordMeanings() + "\n";
+        str = str.substring(str.indexOf(wordMeanings.getValue()) + 1);
+        if (str.contains("-")) {
+            str = str.substring(0, str.indexOf("\n    - ") + 2);
+        }
+        List<String> exampleList = new ArrayList<>();
+        while (str.contains("VD")) {
+            str = str.substring(str.indexOf("\n        VD") + 1);
+            int endPos = str.indexOf("\n");
+            String sub = str.substring(str.indexOf("VD"), endPos);
+            str = str.substring(endPos);
+            exampleList.add(sub);
+        }
+
+        wordExamples.setItems(FXCollections.observableArrayList(exampleList));
+    }
+    @FXML
+    private void setWordExample() {
+        if (wordExamples.getValue() != null) {
+            exampleText.setText(wordExamples.getValue());
+        }
     }
 
     @FXML
     public void addExample() {
-        String mean = wordMeanings.getValue();
-        if (exampleText.getText().isEmpty()) {
-            return;
+        if (wordExamples.getValue() == null) {
+            wordDef = TabARURequestDelegator.addSentence(wordDef, wordMeanings.getValue(), exampleText.getText().replace("\n", ""), "\n        VD: ");
+        } else {
+            wordDef = wordDef.replace(wordExamples.getValue(), exampleText.getText().replace("\n", ""));
+            wordExamples.setValue(null);
         }
-        wordDef = wordDef.replace(mean, mean + "\n        VD: " + exampleText.getText());
+
+        exampleText.clear();
+
         updatePrototypeText();
     }
 
@@ -239,8 +279,9 @@ public class TabARUController {
             undoB.setDisable(true);
         }
         redoB.setDisable(false);
-
+        double scrollPosition = prototypeText.getScrollTop();
         prototypeText.setText(currentWordDef.data);
+        prototypeText.setScrollTop(scrollPosition);
         wordDef = currentWordDef.data;
     }
 
@@ -251,8 +292,9 @@ public class TabARUController {
             redoB.setDisable(true);
         }
         undoB.setDisable(false);
-
+        double scrollPosition = prototypeText.getScrollTop();
         prototypeText.setText(currentWordDef.data);
+        prototypeText.setScrollTop(scrollPosition);
         wordDef = currentWordDef.data;
     }
 

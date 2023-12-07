@@ -1,5 +1,7 @@
 package dictionary.cmd;
 
+import dictionary.GeneralRequestResolve;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -77,13 +79,8 @@ public class CmdRequestResolve {
                     wordDef = getInputIdiom(wordDef);
                 } else {
                     if (wordDef.contains(wordType)) {
-                        String wordDef1 = wordDef.substring(0, wordDef.indexOf(wordType));
-                        String wordDef2 = wordDef.substring(wordDef.indexOf(wordType));
-                        String wordDef3 = wordDef2.substring(0, wordDef2.indexOf("\n"));
-                        wordDef2 = wordDef2.substring(wordDef2.indexOf("\n") + 1);
-
                         System.out.print("Write meaning and example (Press ENTER if you have nothing to write in)\n" + "- ");
-                        wordDef = wordDef1 + wordDef3 + getInputMeaning() + "\n" + wordDef2;
+                        wordDef = GeneralRequestResolve.addMeaning(wordDef, wordType, getInputMeaning());
 
                     } else {
                         System.out.println(wordType);

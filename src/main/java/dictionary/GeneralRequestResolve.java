@@ -15,7 +15,7 @@ import java.util.List;
  * The type General request resolve.
  */
 public class GeneralRequestResolve {
-    private static LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
+    private static final LocalDictionaryRequestHandle librarian = new LocalDictionaryRequestHandle();
 
     /**
      * Get list of words starting with prefix.
@@ -96,4 +96,15 @@ public class GeneralRequestResolve {
         return true;
     }
 
+    public static String addSentence(String wordDef, String addParent, String add, String signature) {
+        String wordDef1 = wordDef.substring(0, wordDef.indexOf(addParent));
+        String wordDef2 = wordDef.substring(wordDef.indexOf(addParent));
+        if (!wordDef2.contains("\n")) {
+            return wordDef + signature + add;
+        }
+        String wordDef3 = wordDef2.substring(0, wordDef2.indexOf("\n"));
+        wordDef2 = wordDef2.substring(wordDef2.indexOf("\n"));
+
+        return wordDef1 + wordDef3 + signature + add + wordDef2;
+    }
 }

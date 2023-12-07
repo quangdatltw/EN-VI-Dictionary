@@ -12,7 +12,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARUController">
     <children>
-        <TextField fx:id="searchWord" focusTraversable="false" layoutX="11.0" layoutY="14.0" prefHeight="48.0" prefWidth="346.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0">
+        <TextField fx:id="searchWord" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="346.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
             <font>
                 <Font size="14.0" />
             </font>
@@ -21,7 +21,7 @@
          <font>
             <Font size="14.0" />
          </font></TextArea>
-      <ComboBox fx:id="wordType" layoutX="14.0" layoutY="64.0" onHidden="#setWordType" prefHeight="40.0" prefWidth="228.0" promptText="Choose Word Type">
+      <ComboBox fx:id="wordType" layoutX="11.0" layoutY="64.0" onHidden="#setWordType" prefHeight="40.0" prefWidth="228.0" promptText="Choose Word Type" AnchorPane.leftAnchor="14.0">
          <stylesheets>
             <URL value="@../css/Combo-Box.css" />
             <URL value="@../css/Tab-ARU.css" />
@@ -50,18 +50,18 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="meaning" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#addMeaning" prefHeight="33.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add meaning">
+      <Button fx:id="meaning" layoutX="201.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#addMeaning" prefHeight="33.0" prefWidth="157.0" stylesheets="@../css/Button.css" text="Add/Change meaning">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="example" layoutX="252.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="106.0" stylesheets="@../css/Button.css" text="Add example">
+      <Button fx:id="example" layoutX="201.0" layoutY="323.0" mnemonicParsing="false" onMouseClicked="#addExample" prefHeight="32.0" prefWidth="157.0" stylesheets="@../css/Button.css" text="Add/Change example">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <TextArea fx:id="meaningText" layoutX="11.0" layoutY="152.0" prefHeight="137.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" />
-      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="334.0" prefHeight="193.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="334.0" />
+      <TextArea fx:id="meaningText" layoutX="11.0" layoutY="152.0" prefHeight="166.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.leftAnchor="14.0" />
+      <TextArea fx:id="exampleText" layoutX="11.0" layoutY="361.0" prefHeight="166.0" prefWidth="346.0" stylesheets="@../css/Text-Area.css" wrapText="true" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="361.0" />
       <Button fx:id="redoB" layoutX="309.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#redo" stylesheets="@../css/Button.css">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -80,7 +80,13 @@
             </ImageView>
          </graphic>
       </Button>
-      <ComboBox fx:id="wordMeanings" layoutX="14.0" layoutY="295.0" onHidden="#setWordMeaning" onShowing="#getWordMeaningList" prefHeight="33.0" prefWidth="162.0" promptText="Choose Meaning">
+      <ComboBox fx:id="wordMeanings" layoutX="11.0" layoutY="112.0" onHidden="#setWordMeaning" onShowing="#getWordMeaningList" prefHeight="33.0" prefWidth="180.0" promptText="Choose Meaning" AnchorPane.leftAnchor="14.0">
+         <stylesheets>
+            <URL value="@../css/Combo-Box.css" />
+            <URL value="@../css/Tab-ARU.css" />
+         </stylesheets>
+      </ComboBox>
+      <ComboBox fx:id="wordExamples" layoutX="11.0" layoutY="323.0" onHidden="#setWordExample" onShowing="#getWordExampleList" prefHeight="33.0" prefWidth="180.0" promptText="Choose Example" AnchorPane.leftAnchor="14.0">
          <stylesheets>
             <URL value="@../css/Combo-Box.css" />
             <URL value="@../css/Tab-ARU.css" />

@@ -1,5 +1,7 @@
 package dictionary.gui.request;
 
+import dictionary.GeneralRequestResolve;
+
 /**
  * The type Tab aru request delegator.
  */
@@ -15,6 +17,13 @@ public class TabARURequestDelegator extends RequestDelegator {
         return librarian.checkWordExistence(word);
     }
 
+    public static String addMeaning(String wordDef, String wordType, String meaning) {
+        return GeneralRequestResolve.addMeaning(wordDef, wordType, meaning);
+    }
+
+    public static String addSentence(String wordDef, String addParent, String add, String signature) {
+        return GeneralRequestResolve.addSentence(wordDef, addParent, add, signature);
+    }
     /**
      * Add word.
      *
