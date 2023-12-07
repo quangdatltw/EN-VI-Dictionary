@@ -15,4 +15,6 @@ module dictionary.gui {
     opens dictionary.gui.control to javafx.fxml;
     exports dictionary.gui.request;
     opens dictionary.gui.request to javafx.fxml;
+    exports dictionary.gui.control.TabARU;
+    opens dictionary.gui.control.TabARU to javafx.fxml;
 }

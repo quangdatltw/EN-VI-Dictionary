@@ -13,9 +13,6 @@ import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
 
-/**
- * The type Tab find controller.
- */
 public class TabFindController extends AppController {
     private static MediaPlayer playingMedia;
     @FXML

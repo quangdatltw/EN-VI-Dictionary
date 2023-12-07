@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARUController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabARU.TabARUController">
     <children>
         <TextField fx:id="searchWord" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="346.0" promptText="Word to Add/Remove/Update..." stylesheets="@../css/Text-Field.css" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
             <font>
