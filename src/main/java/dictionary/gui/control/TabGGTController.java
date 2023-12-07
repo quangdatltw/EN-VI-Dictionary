@@ -131,16 +131,7 @@ public class TabGGTController extends AppController {
     }
     @FXML
     private void pause_continueMedia() {
-        if (playingMedia == null) {
-            return;
-        }
-        if (playingMedia.getStatus() == MediaPlayer.Status.PLAYING) {
-            playingMedia.pause();
-            setButtonImg("/icon/play.png", pause);
-        } else if (playingMedia.getStatus() == MediaPlayer.Status.PAUSED) {
-            setButtonImg("/icon/pause.png", pause);
-            playingMedia.play();
-        }
+        switchMediaStage(playingMedia, pause);
     }
 
 
@@ -158,5 +149,21 @@ public class TabGGTController extends AppController {
     @FXML
     public void copySentenceToL() {
         copyText(sentenceToL.getText());
+    }
+
+    /**
+     * Delete sentence froml.
+     */
+    @FXML
+    public void deleteSentenceFromL() {
+        sentenceFromL.clear();
+    }
+
+    /**
+     * Delete sentence tol.
+     */
+    @FXML
+    public void deleteSentenceToL() {
+        sentenceToL.clear();
     }
 }

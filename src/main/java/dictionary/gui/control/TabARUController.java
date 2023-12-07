@@ -316,4 +316,11 @@ public class TabARUController {
         reset();
     }
 
+    @FXML
+    public void exportDB() {
+        if (TabARURequestDelegator.exportDB()) {
+            prototypeText.setText(" File exported to .../EN-VI-Dictionary/src/main/resources/external_dictionary/Dictionary_EX.txt");
+        }
+    }
+
 }

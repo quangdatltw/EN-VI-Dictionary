@@ -38,7 +38,7 @@
             </AnchorPane>
             <Pane prefHeight="454.0" prefWidth="720.0">
                <children>
-                  <ImageView fx:id="image" fitHeight="141.0" fitWidth="271.0" layoutX="223.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="141.0" fitWidth="271.0" layoutX="220.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../icon/EV1.png" />
                      </image>

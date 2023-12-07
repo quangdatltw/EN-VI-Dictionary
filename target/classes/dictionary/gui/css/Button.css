@@ -16,6 +16,7 @@
 .button:pressed{
     -fx-background-radius: 6;
     -fx-border-radius: 6;
+    -fx-background-color: #1A1A1A;
     -fx-border-color: #222222;
     -fx-cursor: HAND;
 }

@@ -92,5 +92,14 @@
             <URL value="@../css/Tab-ARU.css" />
          </stylesheets>
       </ComboBox>
+      <Button layoutX="368.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#exportDB" prefHeight="40.0" prefWidth="108.0" stylesheets="@../css/Button.css" text=" Export DB">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icon/export.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

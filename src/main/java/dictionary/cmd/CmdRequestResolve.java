@@ -80,7 +80,7 @@ public class CmdRequestResolve {
                 } else {
                     if (wordDef.contains(wordType)) {
                         System.out.print("Write meaning and example (Press ENTER if you have nothing to write in)\n" + "- ");
-                        wordDef = GeneralRequestResolve.addMeaning(wordDef, wordType, getInputMeaning());
+                        wordDef = GeneralRequestResolve.addSentence(wordDef, wordType, getInputMeaning(),"\n");
 
                     } else {
                         System.out.println(wordType);

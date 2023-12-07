@@ -1,5 +1,6 @@
 package dictionary.gui.request;
 
+import dictionary.GeneralRequestResolve;
 import dictionary.TaskRunner;
 import dictionary.api.TextToSpeechAPI;
 import dictionary.api.TranslateAPI;
@@ -55,4 +56,6 @@ public class TabGGTranslateRequestDelegator {
     public static List<MediaPlayer> getMediaPlayerList() {
         return TextToSpeechAPI.getMediaPlayerList();
     }
+
+
 }

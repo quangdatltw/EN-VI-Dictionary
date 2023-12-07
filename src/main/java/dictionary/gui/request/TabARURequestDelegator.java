@@ -17,13 +17,19 @@ public class TabARURequestDelegator extends RequestDelegator {
         return librarian.checkWordExistence(word);
     }
 
-    public static String addMeaning(String wordDef, String wordType, String meaning) {
-        return GeneralRequestResolve.addMeaning(wordDef, wordType, meaning);
-    }
-
+    /**
+     * Add sentence string.
+     *
+     * @param wordDef   the word def
+     * @param addParent the add parent
+     * @param add       the add
+     * @param signature the signature
+     * @return the string
+     */
     public static String addSentence(String wordDef, String addParent, String add, String signature) {
         return GeneralRequestResolve.addSentence(wordDef, addParent, add, signature);
     }
+
     /**
      * Add word.
      *
@@ -51,5 +57,14 @@ public class TabARURequestDelegator extends RequestDelegator {
      */
     public static void remove(String word) {
         librarian.removeWord(word);
+    }
+
+    /**
+     * Export db boolean.
+     *
+     * @return the boolean
+     */
+    public static boolean exportDB() {
+        return GeneralRequestResolve.exportDFile();
     }
 }

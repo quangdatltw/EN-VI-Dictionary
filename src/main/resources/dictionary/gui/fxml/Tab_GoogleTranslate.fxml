@@ -14,6 +14,19 @@
     <children>
         <VBox alignment="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="473.0" prefWidth="145.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
+            <Button focusTraversable="false" layoutX="57.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#deleteSentenceFromL" prefHeight="47.0" prefWidth="53.0">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../icon/Delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <stylesheets>
+                  <URL value="@../css/Button.css" />
+                  <URL value="@../css/Tab-GG.css" />
+               </stylesheets>
+            </Button>
                 <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#copySentenceFromL" prefHeight="47.0" prefWidth="52.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true">
@@ -79,6 +92,19 @@
                         <URL value="@../css/Tab-GG.css" />
                     </stylesheets>
                 </Button>
+            <Button focusTraversable="false" layoutX="57.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#deleteSentenceToL" prefHeight="47.0" prefWidth="52.0">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../icon/Delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <stylesheets>
+                  <URL value="@../css/Button.css" />
+                  <URL value="@../css/Tab-GG.css" />
+               </stylesheets>
+            </Button>
             </children>
         </VBox>
         <VBox layoutX="150.0" layoutY="10.0" prefHeight="473.0" prefWidth="558.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">

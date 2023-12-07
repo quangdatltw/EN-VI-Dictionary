@@ -14,6 +14,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,11 +30,14 @@ public class AppController {
     @FXML
     private Tab Tab_Game;
     @FXML
+    private Tab Tab_RelaxingCorner;
+    @FXML
     private TabPane TabPane;
     @FXML
     private Button maximizeB;
     @FXML
     private BorderPane borderPane;
+
 
     private double x = 0;
     private double y = 0;
@@ -48,6 +52,7 @@ public class AppController {
             loadTab(Tab_GoogleTranslate, "fxml/Tab_GoogleTranslate.fxml");
             loadTab(Tab_AddRemoveUpdate, "fxml/Tab_AddRemoveUpdate.fxml");
             loadTab(Tab_Game, "fxml/Tab_Game.fxml");
+            loadTab(Tab_RelaxingCorner, "fxml/Tab_RelaxingCorner.fxml");
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -189,9 +194,34 @@ public class AppController {
         clipboard.setContent(content);
     }
 
+    /**
+     * Sets button img.
+     *
+     * @param url    the url
+     * @param button the button
+     */
     protected void setButtonImg(String url, Button button) {
         Image Icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(url)));
         button.setGraphic(new ImageView(Icon));
+    }
+
+    /**
+     * Switch media stage.
+     *
+     * @param mediaPlayer the media player
+     * @param switchB     the switch b
+     */
+    protected void switchMediaStage(MediaPlayer mediaPlayer, Button switchB) {
+        if (mediaPlayer == null) {
+            return;
+        }
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+            setButtonImg("/icon/play.png", switchB );
+        } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+            setButtonImg("/icon/pause.png", switchB );
+            mediaPlayer.play();
+        }
     }
 
 }
