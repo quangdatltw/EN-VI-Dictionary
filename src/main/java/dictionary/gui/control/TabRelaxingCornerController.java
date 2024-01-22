@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,21 +13,10 @@ import java.util.List;
 
 public class TabRelaxingCornerController extends AppController {
 
-    private MediaPlayer playingVideo = null;
     private MediaPlayer playingMusic = null;
     private static List<String> songList;
 
     public void initialize() {
-        Media rainLoop = new Media(new File("Rain-Loop.mp4").toURI().toString());
-        playingVideo = new MediaPlayer(rainLoop);
-        playingVideo.setMute(true);
-        Loop.setMediaPlayer(playingVideo);
-        playingVideo.setOnEndOfMedia(() -> {
-            playingVideo.seek(playingVideo.getStartTime());
-            playingVideo.play();
-        });
-        playingVideo.play();
-
         songList = new ArrayList<>();
         songList.add("1. Theme of Violet Evergarden.mp3");
         songList.add("2. A Doll's Beginning.mp3");
@@ -56,15 +44,10 @@ public class TabRelaxingCornerController extends AppController {
 
 
     @FXML
-    private Button pauseVideo, pauseMusic;
-    @FXML
-    private MediaView Loop;
+    private Button pauseMusic;
+
     @FXML
     private ListView<String> list;
-    @FXML
-    private void pause_continueVideo() {
-        switchMediaStage(playingVideo, pauseVideo);
-    }
     @FXML
     private void pause_continueMusic() {
         switchMediaStage(playingMusic, pauseMusic);
