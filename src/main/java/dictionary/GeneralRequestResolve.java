@@ -7,6 +7,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,17 +87,24 @@ public class GeneralRequestResolve {
      * @return the boolean
      */
     public static boolean exportDFile() {
-        try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/Dictionary_EX.txt")) {
-            String def;
-            for (String word : LocalDictionary.getWordlist()) {
-                def = librarian.getDefinition(word).replace("\n", "\\n");
-                writer.write(word + "\t" + def + "\n");
+        URL jarUrl = GeneralRequestResolve.class.getProtectionDomain().getCodeSource().getLocation();
+        try {
+            Path jarPath = Paths.get(jarUrl.toURI());
+            Path parentDir = jarPath.getParent() ;
+            parentDir = parentDir.resolve("res");
+
+            try (FileWriter writer = new FileWriter(parentDir.resolve("Dictionary_EX.txt").toFile())) {
+                String def;
+                for (String word : LocalDictionary.getWordlist()) {
+                    def = librarian.getDefinition(word).replace("\n", "\\n");
+                    writer.write(word + "\t" + def + "\n");
+                }
             }
-        } catch (IOException e) {
+            return true;
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     public static String addSentence(String wordDef, String addParent, String add, String signature) {

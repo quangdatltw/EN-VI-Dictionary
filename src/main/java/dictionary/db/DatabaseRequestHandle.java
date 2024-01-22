@@ -1,5 +1,9 @@
 package dictionary.db;
 
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 
 public class DatabaseRequestHandle implements Dictionary {
@@ -12,7 +16,21 @@ public class DatabaseRequestHandle implements Dictionary {
     }
 
     private static void connect() {
-        String url = "jdbc:sqlite:src/main/resources/dictionary/db/dictionary2.0.db";
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        URL jarUrl = DatabaseRequestHandle.class.getProtectionDomain().getCodeSource().getLocation();
+        Path jarPath;
+        try {
+            jarPath = Paths.get(jarUrl.toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        Path parentDir = jarPath.getParent();
+        parentDir = parentDir.resolve("res");
+        String url = "jdbc:sqlite:" + parentDir + "//dictionary2.0.db";
         try {
             connection = DriverManager.getConnection(url);
             System.out.println("SQLite database connected!");

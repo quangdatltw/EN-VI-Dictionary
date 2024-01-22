@@ -3,10 +3,12 @@ package dictionary.db;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,15 +31,27 @@ public class WordHistory {
      * Load word search history from file.
      */
     public static void loadFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/external_dictionary/history.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-               history.add(line);
+        String filePath = "history.txt";
+        URL jarUrl = WordHistory.class.getProtectionDomain().getCodeSource().getLocation();
+        Path jarPath;
+        try {
+            jarPath = Paths.get(jarUrl.toURI());
+            Path parentDir = jarPath.getParent();
+            parentDir = parentDir.resolve("res");
+
+            try (InputStream inputStream = Files.newInputStream(parentDir.resolve(filePath));
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    history.add(line);
+                }
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Add word to word search history.
@@ -55,17 +69,25 @@ public class WordHistory {
             history.remove(0);
             history.add(word);
         }
+        exportToFile();
     }
 
     /**
      * Export word search history to file.
      */
     public static void exportToFile() {
-        try (FileWriter writer = new FileWriter("src/main/resources/external_dictionary/history.txt")) {
-            for (String word : history) {
-                writer.write(word + "\n");
+        URL jarUrl = WordHistory.class.getProtectionDomain().getCodeSource().getLocation();
+        try {
+            Path jarPath = Paths.get(jarUrl.toURI());
+            Path parentDir = jarPath.getParent();
+            parentDir = parentDir.resolve("res");
+
+            try (FileWriter writer = new FileWriter(parentDir.resolve("history.txt").toFile())) {
+                for (String word : history) {
+                    writer.write(word + "\n");
+                }
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }

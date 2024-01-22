@@ -1,5 +1,6 @@
 package dictionary.gui.control.TabARU;
 
+import dictionary.GeneralRequestResolve;
 import dictionary.gui.request.TabARURequestDelegator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -8,6 +9,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -319,7 +324,15 @@ public class TabARUController {
     @FXML
     public void exportDB() {
         if (TabARURequestDelegator.exportDB()) {
-            prototypeText.setText(" File exported to .../EN-VI-Dictionary/src/main/resources/external_dictionary/Dictionary_EX.txt");
+            URL jarUrl = GeneralRequestResolve.class.getProtectionDomain().getCodeSource().getLocation();
+            Path jarPath;
+            try {
+                jarPath = Paths.get(jarUrl.toURI());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            Path parentDir = jarPath.getParent();
+            prototypeText.setText(" File exported to ..." + parentDir + "\\res\\Dictionary_EX.txt");
         }
     }
 

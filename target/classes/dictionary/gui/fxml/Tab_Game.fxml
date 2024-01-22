@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="493.0" prefWidth="1004.0" stylesheets="@../css/dark_bg.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.gui.control.TabGameController">
    <children>
       <Button layoutX="147.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="54.0" prefWidth="107.0" style="-fx-border-color: linear-gradient(to right, #0059ff, #3d4efd, #5a40fa, #722df5, #8600ee);;" text="Let's play">
@@ -23,7 +22,7 @@
       </Button>
       <TextArea editable="false" focusTraversable="false" layoutX="14.0" layoutY="68.0" prefHeight="158.0" prefWidth="242.0" stylesheets="@../css/Text-Area.css" text="The rules is simple:&#10;1. Guess what the word is, using the Pics we provided.&#10;2. Continuously losing 3 times will end the game.&#10;3. Good luck and have fun" wrapText="true">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </TextArea>
       <Label focusTraversable="false" layoutX="17.0" layoutY="14.0" prefHeight="54.0" prefWidth="259.0" text="Guess the Word!" textFill="#22d045" underline="true">

@@ -6,28 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
-import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TabRelaxingCornerController extends AppController {
 
-    private MediaPlayer playingVideo = null;
     private MediaPlayer playingMusic = null;
     private static List<String> songList;
 
     public void initialize() {
-        Media rainLoop = new Media(new File("Rain-Loop.mp4").toURI().toString());
-        playingVideo = new MediaPlayer(rainLoop);
-        playingVideo.setMute(true);
-        Loop.setMediaPlayer(playingVideo);
-        playingVideo.setOnEndOfMedia(() -> {
-            playingVideo.seek(playingVideo.getStartTime());
-            playingVideo.play();
-        });
-        playingVideo.play();
 
         songList = new ArrayList<>();
         songList.add("1. Theme of Violet Evergarden.mp3");
@@ -56,15 +45,9 @@ public class TabRelaxingCornerController extends AppController {
 
 
     @FXML
-    private Button pauseVideo, pauseMusic;
-    @FXML
-    private MediaView Loop;
+    private Button pauseMusic;
     @FXML
     private ListView<String> list;
-    @FXML
-    private void pause_continueVideo() {
-        switchMediaStage(playingVideo, pauseVideo);
-    }
     @FXML
     private void pause_continueMusic() {
         switchMediaStage(playingMusic, pauseMusic);
@@ -79,7 +62,10 @@ public class TabRelaxingCornerController extends AppController {
             return;
         }
         String song = list.getSelectionModel().getSelectedItem();
-        Media songMedia = new Media(new File("src/main/resources/music/Part1/" + song).toURI().toString());
+        URL resourceUrl = getClass().getResource("music/Part1/" + song);
+        assert resourceUrl != null;
+        System.out.println(resourceUrl.toString());
+        Media songMedia = new Media(resourceUrl.toString());
         playingMusic = new MediaPlayer(songMedia);
         playingMusic.setOnEndOfMedia(() -> {
 
@@ -90,7 +76,9 @@ public class TabRelaxingCornerController extends AppController {
             if (nextIndex < songList.size()) {
 
                 String nextItem = songList.get(nextIndex);
-                Media songMediaNext = new Media(new File("src/main/resources/music/Part1/" + nextItem).toURI().toString());
+                URL nextResourceUrl =  getClass().getResource("music/Part1/" + nextItem);
+                assert nextResourceUrl != null;
+                Media songMediaNext = new Media(nextResourceUrl.toString());
                 playingMusic = new MediaPlayer(songMediaNext);
                 playingMusic.play();
             } else {
