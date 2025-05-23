@@ -12,7 +12,7 @@ A bilingual English-Vietnamese dictionary with:
 - **Custom Dictionary Management** (Add/Edit/Remove words)  
 - **Interactive Word Guessing Game**  
 
-![png](image/1.png)![png]
+![Dictionary Interface](image/1.png)   
 *Fig 1. Library selection (Built-in dictionary or external file)*  
 
 ---
@@ -20,29 +20,25 @@ A bilingual English-Vietnamese dictionary with:
 ## 🖥️ Screenshots  
 
 ### 🔍 Word Search  
-![Search Function](image/2.png)  
+![Search Function](image/3.png)    
 *Real-time search with "held" example and error handling*  
 
 ### 🌐 Translation  
-![Translation Feature](Screenshot_2025-05-23_070647.png)  
+![Translation Feature](image/4.png)   
 *English-Vietnamese translation using Google Translate API*  
 
 ### ✏️ Dictionary Management  
-![Word Management](Screenshot_2025-05-23_070658.png)  
+![Word Management](image/5.png)   
 *Add/update/remove words with examples and meanings*  
 
 ### 🎮 Word Guessing Game  
-![Word Game](Screenshot_2025-05-23_070736.png)  
+![Word Game](image/6.png)   
 *Interactive game with lives system and scoring*  
 
 ---
 
 ## ⚙️ Technical Stack  
 - **Programming Language**: Java  
-- **OOP Principles**:  
-  - Encapsulation (Dictionary class)  
-  - Inheritance (Game modes)  
-  - Polymorphism (Translation services)  
 - **External APIs**: Google Translate  
 
 ---
@@ -57,51 +53,3 @@ A bilingual English-Vietnamese dictionary with:
    ```bash
    java Main
    ```
-
----
-
-## 📂 Project Structure  
-```
-/src
-  ├── DictionaryCore       # Word data handling
-  ├── GameEngine          # Word guessing logic  
-  ├── TranslationService  # Google Translate API
-  /resources
-     ├── dictionary.db    # Default word database
-```
-
----
-
-## 👥 Contributors  
-| Name | Student ID | Contribution |  
-|------|------------|--------------|  
-| Your Name | YourID | Core features |  
-
----
-
-## 📜 License  
-MIT License - See [LICENSE](LICENSE)  
-
----
-
-**🔍 Explore more in the [Wiki](wiki-link)!**  
-*For external dictionary files, use `.txt` format with `word|meaning|example` per line.*  
-
-![App Banner](Screenshot_2025-05-23_070541.png)  
-*Main menu with all features*  
-
---- 
-🎯 **Upcoming**: Voice pronunciation & user accounts!  
-
-*Last updated: May 2025*  
-
----
-
-### Why this README works:  
-✅ **Visual-first** with annotated screenshots  
-✅ **Feature highlights** in emoji bullet points  
-✅ **Clear navigation** with section anchors  
-✅ **Academic compliance** (course details upfront)  
-✅ **Future roadmap** to show project evolution  
-
-Need any adjustments? 😊
